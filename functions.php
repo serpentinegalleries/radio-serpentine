@@ -13,6 +13,11 @@ function theme_enqueue_styles() {
     	array( $parent_style )
     );
 
+    wp_enqueue_script( 'jquery' );
+    wp_enqueue_script( 'backbone' );
 }
-add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
+
+add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles', 'theme_enqueue_scripts' );
+
+
 ?>
