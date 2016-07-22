@@ -15,22 +15,22 @@ var IndexView = Backbone.View.extend({
     template: _.template($('#indexTemplate').html()),
     initialize: function(){
         //this.$el.html(this.template());
-        this.listenTo(this.collection, 'add', this.render);
+        this.listenTo(this.collection, 'reset add change remove', this.render);
         this.collection.fetch();
     },
     render: function () {
-    	console.log(this.collection);
 
         this.collection.each(function(model){
             var post = model.toJSON();
 			this.$el.append(this.template(post));
         }, this); 
-        
+        //this.$el.html(this.template());
+
         return this;
     },
 });
 
-
-var indexView = new IndexView({ collection: new PostData() });
+var postData = new PostData();
+var indexView = new IndexView({ collection: postData }); // collection: new PostData() });
 
 });

@@ -95,6 +95,40 @@ a {
 	}
 }
 
-.sidebar-primary {
-    display: none;
+/*************
+ELEMENTS
+*************/
+
+@round-image-w:     200px;
+@round-image-h:     200px;
+
+.menu-feature {
+    width: @round-image-w;
+    display: inline !important;
+}
+
+.menu-feature-text {
+    margin-top: -(@round-image-h * .15);
+    height: @round-image-h * .5;
+    width: @round-image-w;
+    vertical-align: middle;
+    z-index: 200;
+}
+
+.menu-mask {
+    height: @round-image-h;
+    width: @round-image-w;
+    position:relative;    
+    border-radius:100%;
+    overflow:hidden;
+    z-index: 1;
+}
+.menu-mask-image {
+    left:-50%;
+    right:-50%;
+    top:0;
+    margin:auto;
+    height:100%;
+    width:auto;
+    z-index: 1;
 }

@@ -7,10 +7,8 @@
  * @package Omega
  */
 ?>
-		<?php do_action( 'omega_after_main' ); ?>
 	</div><!-- .site-inner -->
 </div><!-- .site-container -->
-<?php do_action( 'omega_after' ); ?>
 <?php wp_footer(); ?>
 <script src="wp-content/themes/radio-serpentine/scripts/app.js"></script>
 </body>
