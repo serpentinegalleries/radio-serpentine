@@ -10,7 +10,7 @@ get_header( 'home' ); ?>
 
   <div id="index-template">
 
-    <div id="menu-nav">
+    <div class="container" id="menu-nav">
       <ul class="list-inline">
         <li>
           <h4>
@@ -43,9 +43,12 @@ get_header( 'home' ); ?>
       </ul>
     </div>
 
-    <ul id="menu-images" class="list-inline">
-
-    </ul>
+    <div id="menu-list" class="container">
+      <div class="row">
+        <div id="menu-images">
+        </div>
+      </div>
+    </div>
 
   </div>
 
@@ -53,9 +56,9 @@ get_header( 'home' ); ?>
 
 <script type='template' id='indexTemplate'>
 
-  <li>    
-
   	<a href="<%- url %>">
+
+    <div class="col-lg-1 col-md-2 col-sm-12 col-xs-12">
 
       <div class="menu-feature">
 
@@ -75,6 +78,8 @@ get_header( 'home' ); ?>
     		</div>
 
     	</div>
+
+    </div>
 
     </a>
  
