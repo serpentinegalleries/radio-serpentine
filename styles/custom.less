@@ -78,8 +78,14 @@ p, span, time, ul, li, blockquote {
 		font-family: 'gt_walsheim_thin_oblique';
 	}
 	a {
-	    font-family: 'gt_walsheim_thin';		
+	    font-family: 'gt_walsheim_bold';		
 	}
+    .menu-item {
+        /* Styling for primary menu */
+        a {
+            font-family: 'gt_walsheim_thin';
+        }
+    }
 }
 
 html, body, div, header, .site-header {
@@ -93,6 +99,10 @@ a {
 	&:hover {
 		color: @inactive;
 	}
+}
+
+.active {
+    color: @text !important;
 }
 
 /*************
@@ -116,6 +126,14 @@ ELEMENTS
 @margin-feature:    @round-image-w / 8;
 @margin-title:      5px;
 @margin-text:       -35px;
+
+a.menu-nav-item {
+    text-transform: uppercase;
+    color: @inactive;
+    &:hover {
+        color: @text;
+    }
+}
 
 .menu-feature {
     width: @round-image-w;
