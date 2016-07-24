@@ -116,7 +116,6 @@ CONTAINERS
 body {
     overflow-x: hidden;
 }
-
 .site-inner {
     padding: 0;
     margin: 0;
@@ -125,10 +124,12 @@ body {
 #index-template {
     width: 20000px;
     max-width: 10000px;
-    margin-top: @margin-menu-view;
     overflow-x: hidden;
     li {
         vertical-align: top;
+    }
+    #menu-nav {
+        margin-bottom: @margin-menu-view;
     }
 }
 
@@ -176,9 +177,41 @@ a.menu-nav-item {
             height: 100%;
             width:  auto;
             z-index: 0;
-            img {
-                opacity: .7;
-            }
+            
+        }
+        .menu-mask-image img {
+            opacity: .5;
+        }
+    }
+}
+
+.header-feature {
+    min-height: 450px;
+    padding: @gutter;
+    .header-mask {
+        height: @round-image-h * 2;
+        width: @round-image-w * 2;
+        border-radius:100%;
+        display: block;
+        margin: auto;
+        overflow: hidden;
+        z-index: 1;
+        .header-mask-image {
+            left:-50%;
+            right:-50%;
+            top:    0;
+            margin: auto;
+            height: 100%;
+            width:  auto;
+            z-index: 0;
+        }
+    }
+    .header-feature-text {
+        width: @round-image-w * 2.5;
+        z-index: 2;
+        margin-top: -150px;
+        h1, h2, h3, h4, h5, h6 {
+            margin-bottom: @margin-title - 10;
         }
     }
 }

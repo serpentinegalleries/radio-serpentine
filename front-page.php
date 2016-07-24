@@ -8,43 +8,42 @@
 get_header( 'home' ); ?>
 
 
-  <div id="menu-nav">
-    <ul class="list-inline">
-      <li>
-        <h4>
-          <a href="#recent" class="menu-nav-item active">
-            Recent
-          </a>
-        </h4>
-      </li>
-      <li>
-        <h4>
-          <a href="#participants" class="menu-nav-item">
-            Participants
-          </a>
-        </h4>
-      </li>
-      <li>
-        <h4>
-          <a href="#series" class="menu-nav-item">
-            Series
-          </a>
-        </h4>
-      </li>
-      <li>
-        <h4>
-          <a href="#themes" class="menu-nav-item">
-            Themes
-          </a>
-        </h4>
-      </li>
-    </ul>
+  <div id="index-template" class="list-inline">
+
+    <div id="menu-nav">
+      <ul class="list-inline">
+        <li>
+          <h4>
+            <a class="menu-nav-item active" data-category="recent">
+              Recent
+            </a>
+          </h4>
+        </li>
+        <li>
+          <h4>
+            <a class="menu-nav-item" data-category="participants">
+              Participants
+            </a>
+          </h4>
+        </li>
+        <li>
+          <h4>
+            <a class="menu-nav-item" data-category="series">
+              Series
+            </a>
+          </h4>
+        </li>
+        <li>
+          <h4>
+            <a class="menu-nav-item" data-category="themes">
+              Themes
+            </a>
+          </h4>
+        </li>
+      </ul>
+    </div>
 
   </div>
-
-
-  <ul id="index-template" class="list-inline">
-  </ul>
 
 <?php get_footer(); ?>
 
@@ -59,6 +58,7 @@ get_header( 'home' ); ?>
     		<div class="menu-mask">
 
     			<img class="menu-mask-image" src="<%= thumbnail_images == 'undefined' ? 'http://placehold.it/350x150' : thumbnail_images.medium.url %>" alt="<%- title %>">
+          
     		</div>
 
     		<div class="menu-feature-text">
