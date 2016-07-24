@@ -22,12 +22,11 @@ var IndexView = Backbone.View.extend({
         "click .menu-nav-item" : "filter"
     },
     append: function( model ) {
-        this.$el.append(this.template(model.toJSON()));
+        $('#menu-images').append(this.template(model.toJSON()));
     },
     render: function () {
         this.collection.each(function(model){
             var post = model.toJSON();
-			this.$el.append(this.template(post));
         }, this); 
         
         return this;

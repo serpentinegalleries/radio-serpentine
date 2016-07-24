@@ -8,7 +8,7 @@
 get_header( 'home' ); ?>
 
 
-  <div id="index-template" class="list-inline">
+  <div id="index-template">
 
     <div id="menu-nav">
       <ul class="list-inline">
@@ -42,6 +42,10 @@ get_header( 'home' ); ?>
         </li>
       </ul>
     </div>
+
+    <ul id="menu-images" class="list-inline">
+
+    </ul>
 
   </div>
 
