@@ -111,19 +111,34 @@ CONTAINERS
 
 @gutter:        30px;
 @padding-side:  15px;
+@margin-menu-view:  150px;
+
+body {
+    overflow-x: hidden;
+}
 
 .site-inner {
     padding: 0;
     margin: 0;
+}
+/* Overflow track menu */
+#index-template {
+    width: 20000px;
+    max-width: 10000px;
+    margin-top: @margin-menu-view;
+    overflow-x: hidden;
+    li {
+        vertical-align: top;
+    }
 }
 
 /*************
 ELEMENTS
 *************/
 
-@round-image-w:     200px;
-@round-image-h:     200px;
-@margin-feature:    @round-image-w / 8;
+@round-image-w:     175px;
+@round-image-h:     175px;
+@margin-feature:    @round-image-w / 6;
 @margin-title:      5px;
 @margin-text:       -35px;
 
@@ -136,35 +151,34 @@ a.menu-nav-item {
 }
 
 .menu-feature {
+    height: 300px;
     width: @round-image-w;
-    display: inline;
     margin-right: @margin-feature;
-}
-.menu-feature-text {
-    width: @round-image-w;
-    vertical-align: middle;
-    margin-top: @margin-text;
-    z-index: 2;
-    h1, h2, h3, h4, h5, h6 {
-        margin-bottom: @margin-title;
+    .menu-feature-text {
+        width: @round-image-w;
+        margin-top: @margin-text;
+        z-index: 2;
+        h1, h2, h3, h4, h5, h6 {
+            margin-bottom: @margin-title;
+        }
     }
-}
-.menu-mask {
-    height: @round-image-h;
-    width: @round-image-w;
-    border-radius:100%;
-    overflow: hidden;
-    z-index: 1;
-}
-.menu-mask-image {
-    left:-50%;
-    right:-50%;
-    top:    0;
-    margin: auto;
-    height: 100%;
-    width:  auto;
-    z-index: 0;
-    img {
-        opacity: .8;
+    .menu-mask {
+        height: @round-image-h;
+        width: @round-image-w;
+        border-radius:100%;
+        overflow: hidden;
+        z-index: 1;
+        .menu-mask-image {
+            left:-50%;
+            right:-50%;
+            top:    0;
+            margin: auto;
+            height: 100%;
+            width:  auto;
+            z-index: 0;
+            img {
+                opacity: .7;
+            }
+        }
     }
 }

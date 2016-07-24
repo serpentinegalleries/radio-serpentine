@@ -43,31 +43,36 @@ get_header( 'home' ); ?>
   </div>
 
 
-  <div id="index-template">
-  </div>
+  <ul id="index-template" class="list-inline">
+  </ul>
 
 <?php get_footer(); ?>
 
 <script type='template' id='indexTemplate'>
 
-	<a href="<%- url %>">
-    <div class="menu-feature">
+  <li>    
 
-  		<div class="menu-mask">
+  	<a href="<%- url %>">
 
-  			<img class="menu-mask-image" src="<%= thumbnail_images == 'undefined' ? 'http://placehold.it/350x150' : thumbnail_images.medium.url %>" alt="<%- title %>">
-  		</div>
+      <div class="menu-feature">
 
-  		<div class="menu-feature-text">
-  			<h4>
-          <%= title %>
-        </h4>
-        <h6>
-  				<%= custom_fields.participant %>
-  			</h6>
-  		</div>
+    		<div class="menu-mask">
 
-  	</div>
-  </a>
+    			<img class="menu-mask-image" src="<%= thumbnail_images == 'undefined' ? 'http://placehold.it/350x150' : thumbnail_images.medium.url %>" alt="<%- title %>">
+    		</div>
 
+    		<div class="menu-feature-text">
+    			<h5>
+            <%= title %>
+          </h5>
+          <h6>
+    				<%= custom_fields.participant %>
+    			</h6>
+    		</div>
+
+    	</div>
+
+    </a>
+ 
+  </li>
 </script>
