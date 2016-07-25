@@ -5,6 +5,7 @@ var PostModel = Backbone.Model.extend({});
 var PostData = Backbone.Collection.extend({
     initialize: function(models, options) {
         this.query = options.query;
+        this.fetch();
     },
     url:function() {
         return '/api/' + this.query;
@@ -15,6 +16,10 @@ var PostData = Backbone.Collection.extend({
     toJSON : function() {
       return this.map(function(model){ return model.toJSON(); });
     },
+    filterBy: function(filter) {
+        this.trigger('filterCollection');
+        return new PostData([], {query: filter});
+    },
     model: PostModel,
  });
 
@@ -23,6 +28,7 @@ var IndexView = Backbone.View.extend({
     template: _.template($('#indexTemplate').html()),
     initialize: function(){
         this.listenTo(this.collection, 'add', this.append);
+        this.listenTo(this.collection, 'filterCollection', this.render);
     },
     events: {
         "click .menu-nav-item" : "filter"
@@ -30,32 +36,19 @@ var IndexView = Backbone.View.extend({
     append: function( model ) {
         $('#menu-images').append(this.template(model.toJSON()));
     },
-    render: function () {
-        this.collection.each(function(model){
-            var post = model.toJSON();
-        }, this); 
-        
-        return this;
+    render: function( model ) {
+        console.log(model);
     },
     filter: function() {
         var filter = $(event.target).data('category');
+        filter = 'get_category_posts/?category_slug=' + filter;
+        this.collection.filterBy(filter);
     }
 });
 
 var postData = new PostData([], { query: 'get_recent_posts' });
 postData.fetch();
 var indexView = new IndexView({ collection: postData });
-
-
-
-
-
-
-
-
-
-
-
 
 
 
