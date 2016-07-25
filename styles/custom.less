@@ -147,6 +147,7 @@ ELEMENTS
 a.menu-nav-item {
     text-transform: uppercase;
     color: @inactive;
+    cursor: pointer;
     &:hover {
         color: @text;
     }
@@ -168,6 +169,8 @@ a.menu-nav-item {
         height: @round-image-h;
         width: @round-image-w;
         border-radius:100%;
+        display: block;
+        margin: auto;
         overflow: hidden;
         z-index: 1;
         .menu-mask-image {

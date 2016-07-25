@@ -1,22 +1,28 @@
 jQuery(function($){ 
 
+var PostModel = Backbone.Model.extend({});
+
 var PostData = Backbone.Collection.extend({
-    url:"/api/get_recent_posts",
+    initialize: function(models, options) {
+        this.query = options.query;
+    },
+    url:function() {
+        return '/api/' + this.query;
+    },
     parse: function(response){
         return response.posts;
     },
     toJSON : function() {
       return this.map(function(model){ return model.toJSON(); });
-    }
+    },
+    model: PostModel,
  });
 
 var IndexView = Backbone.View.extend({
     el: '#index-template',
     template: _.template($('#indexTemplate').html()),
     initialize: function(){
-        // this.listenTo(this.collection, 'reset add change remove', this.render);
         this.listenTo(this.collection, 'add', this.append);
-        this.collection.fetch();
     },
     events: {
         "click .menu-nav-item" : "filter"
@@ -32,13 +38,31 @@ var IndexView = Backbone.View.extend({
         return this;
     },
     filter: function() {
-        var name = $(event.target).data('category');
-        console.log(name);
+        var filter = $(event.target).data('category');
     }
 });
 
-var postData = new PostData();
+var postData = new PostData([], { query: 'get_recent_posts' });
+postData.fetch();
 var indexView = new IndexView({ collection: postData });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* For the featured track on the header */
 
@@ -60,7 +84,6 @@ var HeaderView = Backbone.View.extend({
         this.collection.fetch();
     },
     append: function( model ) {
-        console.log(model.toJSON());
         //this.collection = this.collection.parseOne();
         this.$el.append(this.template(model.toJSON()));
     },
