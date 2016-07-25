@@ -9,6 +9,6 @@
 	</div><!-- .site-inner -->
 </div><!-- .site-container -->
 <?php wp_footer(); ?>
-<script src="wp-content/themes/radio-serpentine/scripts/app.js"></script>
+<script src="<?php echo get_site_url(); ?>/wp-content/themes/radio-serpentine/scripts/app.js"></script>
 </body>
 </html>

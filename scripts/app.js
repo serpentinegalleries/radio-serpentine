@@ -34,7 +34,7 @@ var IndexView = Backbone.View.extend({
         "click .menu-nav-item" : "filter"
     },
     append: function( model ) {
-        $('#menu-images').append(this.template(model.toJSON()));
+        $('#menu-images').append(this.template(model.toJSON())); // See help on Trello for separating elements
     },
     render: function( model ) {
         console.log(model);
@@ -49,12 +49,6 @@ var IndexView = Backbone.View.extend({
 var postData = new PostData([], { query: 'get_recent_posts' });
 postData.fetch();
 var indexView = new IndexView({ collection: postData });
-
-
-
-
-
-
 
 
 /* For the featured track on the header */
