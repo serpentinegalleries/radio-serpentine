@@ -10,7 +10,6 @@
 <div class="<?php echo omega_apply_atomic( 'site_container_class', 'site-container' );?>">
 	<?php 
 	do_action( 'omega_before_header' );
-	do_action( 'omega_header' );
 	do_action( 'omega_after_header' ); 
 	?>
 	<div class="site-inner">

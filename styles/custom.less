@@ -143,6 +143,12 @@ ELEMENTS
 @margin-feature:    @round-image-w / 6;
 @margin-title:      5px;
 @margin-text:       -35px;
+@margin-text-grid:  -20px;
+
+.container {
+    width: 100%;
+    margin: 50px auto;
+}
 
 a.menu-nav-item {
     text-transform: uppercase;
@@ -185,6 +191,46 @@ a.menu-nav-item {
         }
         img.menu-mask-image {
             opacity: 1;
+        }
+    }
+}
+
+#grid-template {
+    .menu-feature {
+        height: 300px;
+        width: @round-image-w;
+        .menu-feature-text {
+            width: @round-image-w;
+            margin-top: 5px;
+            z-index: 2;
+            h1, h2, h3, h4, h5, h6 {
+                margin-bottom: @margin-title;
+            }
+            h6 {
+                font-size: 14px;
+            }
+        }
+        .menu-mask {
+            height: @round-image-h;
+            width: @round-image-w;
+            border-radius:100%;
+            display: block;
+            margin: auto;
+            overflow: hidden;
+            z-index: 1;
+            .menu-mask-image {
+                left:-50%;
+                right:-50%;
+                top:    0;
+                margin: auto;
+                height: 100%;
+                width:  auto;
+                z-index: 0;
+                
+            }
+            img.menu-mask-image {
+                opacity: 1;
+            }
         }
     }
 }
