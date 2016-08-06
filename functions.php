@@ -1,3 +1,5 @@
+<?php add_filter('single_template', create_function('$t', 'foreach( (array) get_the_category() as $cat ) { if ( file_exists(get_stylesheet_directory_uri() . "/single-{$cat->term_id}.php") ) return get_stylesheet_directory_uri() . "/single-{$cat->term_id}.php"; } return $t;' )); ?>
+
 <?php
 
 function theme_enqueue_styles() {
@@ -26,9 +28,7 @@ function theme_enqueue_styles() {
     	get_stylesheet_directory_uri().'/styles/custom.less',
     	array( $parent_style )
     );
-
 }
-
 
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles', 'theme_enqueue_scripts' );
 
@@ -39,6 +39,4 @@ add_action( 'wp_default_scripts', function( $scripts ) {
         $scripts->registered['jquery']->deps = array_diff( $jquery_dependencies, array( 'jquery-migrate' ) );
     }
 } );
-
-
 ?>
