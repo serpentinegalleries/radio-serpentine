@@ -23,7 +23,7 @@ var PostData = Backbone.Collection.extend({
     model: PostModel,
  });
 
-/*var IndexView = Backbone.View.extend({
+var IndexView = Backbone.View.extend({
     el: '#index-template',
     template: _.template($('#indexTemplate').html()),
     initialize: function(){
@@ -44,31 +44,16 @@ var PostData = Backbone.Collection.extend({
         filter = 'get_category_posts/?category_slug=' + filter;
         this.collection.filterBy(filter);
     }
-});*/
+});
 
 var postData = new PostData([], { query: 'get_recent_posts' });
 postData.fetch();
-//var indexView = new IndexView({ collection: postData });
+var indexView = new IndexView({ collection: postData });
 
-var GridView = Backbone.View.extend({
-    el: '#grid-template',
-    template: _.template($('#gridTemplate').html()),
-    initialize: function(){
-        this.listenTo(this.collection, 'add', this.append);
-    },
-    append: function( model ) {
-        $('#grid-images').append(this.template(model.toJSON())); // See help on Trello for separating elements
-    },
-    render: function( model ) {
-        console.log(model);
-    },
-});
-
-var gridView = new GridView({ collection: postData });
 
 /* For the featured track on the header */
 
-/*var FeaturedData = Backbone.Collection.extend({
+var FeaturedData = Backbone.Collection.extend({
     url:"/tag/featured/?json=1",
     parse: function(response){
         return response.posts[0];
@@ -102,7 +87,7 @@ var HeaderView = Backbone.View.extend({
     }
 });
 
-var headerView = new HeaderView({ collection: new FeaturedData() });*/
+var headerView = new HeaderView({ collection: new FeaturedData() });
 
 });
 
