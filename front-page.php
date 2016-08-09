@@ -7,53 +7,54 @@
 
 get_header( 'home' ); ?>
 
+<div id="index-template">
 
-  <div id="index-template">
+  <div class="container" id="menu-nav">
+    <ul class="list-inline">
+      <li>
+        <h4>
+          <a class="menu-nav-item active" data-category="recent">
+            Recent
+          </a>
+        </h4>
+      </li>
+      <li>
+        <h4>
+          <a class="menu-nav-item" data-category="participants">
+            Participants
+          </a>
+        </h4>
+      </li>
+      <li>
+        <h4>
+          <a class="menu-nav-item" data-category="series">
+            Series
+          </a>
+        </h4>
+      </li>
+      <li>
+        <h4>
+          <a class="menu-nav-item" data-category="themes">
+            Themes
+          </a>
+        </h4>
+      </li>
+    </ul>
+  </div>
 
-    <div class="container" id="menu-nav">
-      <ul class="list-inline">
-        <li>
-          <h4>
-            <a class="menu-nav-item active" data-category="recent">
-              Recent
-            </a>
-          </h4>
-        </li>
-        <li>
-          <h4>
-            <a class="menu-nav-item" data-category="participants">
-              Participants
-            </a>
-          </h4>
-        </li>
-        <li>
-          <h4>
-            <a class="menu-nav-item" data-category="series">
-              Series
-            </a>
-          </h4>
-        </li>
-        <li>
-          <h4>
-            <a class="menu-nav-item" data-category="themes">
-              Themes
-            </a>
-          </h4>
-        </li>
-      </ul>
-    </div>
-
-    <div id="menu-list" class="container">
-      <div class="row">
-        <div id="menu-images">
-        </div>
+  <!-- Track items -->
+  <div id="menu-list" class="container">
+    <div class="row">
+      <div id="menu-images">
       </div>
     </div>
-
   </div>
+
+</div>
 
 <?php get_footer(); ?>
 
+<!-- Template for track items -->
 <script type='template' id='indexTemplate'>
 
   	<a href="<%- url %>">

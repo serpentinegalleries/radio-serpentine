@@ -48,7 +48,6 @@ get_header(); ?>
 
     </a>
  
-  </li>
 </script>
 
 

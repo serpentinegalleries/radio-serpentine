@@ -11,7 +11,7 @@ function theme_enqueue_styles() {
     wp_enqueue_script( 'jquery' );
     wp_enqueue_style( 'bootstrap-css', get_stylesheet_directory_uri().'/vendor/bootstrap/css/bootstrap.css' );
     wp_enqueue_script( 'bootstrap-js', get_stylesheet_directory_uri().'/vendor/bootstrap/js/bootstrap.js' );
-    wp_enqueue_script( 'soundcloud', 'https://connect.soundcloud.com/sdk/sdk-3.1.2.js' );
+    wp_enqueue_script( 'soundcloud', get_stylesheet_directory_uri().'/vendor/soundcloud/sdk-3.1.2.js' );
     wp_enqueue_script( 'backbone' );
 
     if ( is_front_page() ) { 

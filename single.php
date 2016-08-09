@@ -7,16 +7,21 @@
 
 get_header(); ?>
 
-<main class="<?php echo omega_apply_atomic( 'main_class', 'content' );?>" <?php omega_attr( 'content' ); ?>>
-	<?php
-	do_action( 'omega_before_content' );
-	do_action( 'omega_content' );
-	do_action( 'omega_after_content' );
-	?>
+<main>
 
-	<div id="play">Play</div>
-	<div id="pause">Pause</div>
+	<div class="container">
 
+		<?php
+		do_action( 'omega_before_content' );
+		do_action( 'omega_content' );
+		do_action( 'omega_after_content' );
+		?>
+
+		<!-- Stand-in player -->
+		<div id="play">Play</div>
+		<div id="pause">Pause</div>
+
+	</div>
 
 </main><!-- .content -->
 

@@ -6,8 +6,8 @@
  *
  */
 ?>
-	</div><!-- .site-inner -->
-</div><!-- .site-container -->
+
+
 <?php wp_footer(); ?>
 
 <script type="text/javascript">
