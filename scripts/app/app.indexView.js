@@ -54,7 +54,7 @@ var indexView = new IndexView({ collection: postData });
 /* For the featured track on the header */
 
 var FeaturedData = Backbone.Collection.extend({
-    url:"/tag/featured/?json=1",
+    url:"/api/get_tag_posts/?tag_slug=featured",
     parse: function(response){
         return response.posts[0];
     },
