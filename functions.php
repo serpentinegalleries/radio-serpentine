@@ -1,6 +1,8 @@
-<?php add_filter('single_template', create_function('$t', 'foreach( (array) get_the_category() as $cat ) { if ( file_exists(get_stylesheet_directory_uri() . "/single-{$cat->term_id}.php") ) return get_stylesheet_directory_uri() . "/single-{$cat->term_id}.php"; } return $t;' )); ?>
-
 <?php
+
+
+add_filter('single_template', create_function('$t', 'foreach( (array) get_the_category() as $cat ) { if ( file_exists(get_stylesheet_directory_uri() . "/single-{$cat->term_id}.php") ) return get_stylesheet_directory_uri() . "/single-{$cat->term_id}.php"; } return $t;' ));
+
 
 function theme_enqueue_styles() {
 
