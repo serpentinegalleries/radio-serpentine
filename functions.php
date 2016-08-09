@@ -40,4 +40,4 @@ add_action( 'wp_default_scripts', function( $scripts ) {
         $scripts->registered['jquery']->deps = array_diff( $jquery_dependencies, array( 'jquery-migrate' ) );
     }
 } );
-?>
+
