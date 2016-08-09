@@ -135,8 +135,8 @@ body {
 ELEMENTS
 *************/
 
-@round-image-w:     175px;
-@round-image-h:     175px;
+@round-image-w:     225px;
+@round-image-h:     225px;
 @margin-feature:    @round-image-w / 6;
 @margin-title:      5px;
 @margin-text:       -35px;
@@ -150,6 +150,58 @@ a.menu-nav-item {
     &:hover {
         color: @text;
     }
+}
+
+.circle {
+  display: inline-block;
+  position: relative;
+  width: 90%;
+  overflow: hidden;
+  border-radius: 50%;
+  img {
+    height: 100%;
+      left:-50%;
+      right:-50%;
+  }
+}
+
+
+#grid-template {
+    .menu-feature {
+        height: 300px;
+        width: @round-image-w;
+        /*.menu-mask {
+            height: @round-image-h;
+            width: @round-image-w;
+            border-radius:100%;
+            display: block;
+            margin: auto;
+            z-index: 1;
+            .menu-mask-image {
+                width: auto;
+                height: auto;
+                min-height: @round-image-h;
+                top: 0;
+                margin: auto;
+                z-index: 0;
+                
+            }*/
+            .menu-mask-image {
+                opacity: 1;
+                border-radius: 50%;
+            }
+        }
+        .menu-feature-text {
+            width: @round-image-w;
+            margin-top: 5px;
+            z-index: 2;
+            h1, h2, h3, h4, h5, h6 {
+                margin-bottom: @margin-title;
+            }
+            h6 {
+                font-size: 14px;
+            }
+        }
 }
 
 .menu-feature {
@@ -188,45 +240,6 @@ a.menu-nav-item {
     }
 }
 
-#grid-template {
-    .menu-feature {
-        height: 300px;
-        width: @round-image-w;
-        .menu-feature-text {
-            width: @round-image-w;
-            margin-top: 5px;
-            z-index: 2;
-            h1, h2, h3, h4, h5, h6 {
-                margin-bottom: @margin-title;
-            }
-            h6 {
-                font-size: 14px;
-            }
-        }
-        .menu-mask {
-            height: @round-image-h;
-            width: @round-image-w;
-            border-radius:100%;
-            display: block;
-            margin: auto;
-            overflow: hidden;
-            z-index: 1;
-            .menu-mask-image {
-                left:-50%;
-                right:-50%;
-                top:    0;
-                margin: auto;
-                height: 100%;
-                width:  auto;
-                z-index: 0;
-                
-            }
-            img.menu-mask-image {
-                opacity: 1;
-            }
-        }
-    }
-}
 
 .header-feature {
     min-height: 450px;

@@ -23,24 +23,17 @@ get_header(); ?>
 
   	<a href="<%- url %>">
 
-    <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
 
-      <div class="menu-feature">
-
-    		<div class="menu-mask">
-
-    			<img class="menu-mask-image" src="<%= thumbnail_images == 'undefined' ? 'http://placehold.it/350x150' : thumbnail_images.medium.url %>" alt="<%- title %>">
-          
-    		</div>
-
-    		<div class="menu-feature-text">
+        <div class="circle">
+    			<img src="<%= thumbnail_images == 'undefined' ? 'http://placehold.it/350x150' : thumbnail_images.medium.url %>" alt="<%- title %>">
+        </div>
     			<h5>
             		<%= custom_fields.participant %>
           		</h5>
           		<h6>
     				<%= title %>
     			</h6>
-    		</div>
 
     	</div>
 
