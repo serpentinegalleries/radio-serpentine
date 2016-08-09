@@ -18,7 +18,17 @@ function theme_enqueue_styles() {
         wp_enqueue_script( 'app-index-view', get_stylesheet_directory_uri().'/scripts/app/app.indexView.js' );
     };
 
+    /* Enqueques grid view for category overview pages */
+
+    if ( is_page( 'Series' ) ) { 
+        wp_enqueue_script( 'app-grid-view', get_stylesheet_directory_uri().'/scripts/app/app.gridView.js' );
+    };
+
     if ( is_page( 'Participants' ) ) { 
+        wp_enqueue_script( 'app-grid-view', get_stylesheet_directory_uri().'/scripts/app/app.gridView.js' );
+    };
+
+    if ( is_page( 'Recent Tracks' ) ) { 
         wp_enqueue_script( 'app-grid-view', get_stylesheet_directory_uri().'/scripts/app/app.gridView.js' );
     };
 

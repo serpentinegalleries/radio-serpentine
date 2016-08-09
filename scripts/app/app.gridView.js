@@ -1,5 +1,7 @@
 jQuery(function($){ 
 
+
+
 var PostModel = Backbone.Model.extend({});
 
 var PostData = Backbone.Collection.extend({
@@ -23,8 +25,8 @@ var PostData = Backbone.Collection.extend({
     model: PostModel,
  });
 
-
-var postData = new PostData([], { query: 'get_recent_posts' });
+var category = (window.location.pathname).replace(/\//g, "");
+var postData = new PostData([], { query: 'get_category_posts/?category_slug=' + category });
 postData.fetch();
 
 var GridView = Backbone.View.extend({
