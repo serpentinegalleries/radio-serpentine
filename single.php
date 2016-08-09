@@ -14,7 +14,12 @@ get_header(); ?>
 	do_action( 'omega_after_content' );
 	?>
 
+	<div id="play">Play</div>
+	<div id="pause">Pause</div>
+
+
 </main><!-- .content -->
+
 <?php get_footer(); ?>
 
 <?php
@@ -26,5 +31,6 @@ if(has_term('tracks', 'category', $post)) {
 }
 
 ?>
+
 
 

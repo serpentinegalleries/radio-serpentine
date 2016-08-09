@@ -1,12 +1,26 @@
-<div id="player">This is the player element.</div>
+<script type="text/javascript">
 
+jQuery(function($){ 
 
-<script>
+	var SCstream;
 
-var player = document.getElementById('player');
+	$("#play").on("click", function(){
+		if(SCstream == undefined) {
+			SC.stream('/resolve.json?url=https://soundcloud.com/serpentine-uk/invocations-for-hilma-af-klint-zadie-xa-ride-the-chaktu-first-contact/').then(function(sound){
+				SCstream = sound;
+				SCstream.play();
+			});
+		} else {
+			SCstream.play();
+		}
+	});
 
-SC.stream('/resolve.json?url=https://soundcloud.com/serpentine-uk/invocations-for-hilma-af-klint-zadie-xa-ride-the-chaktu-first-contact/tracks&client_id=43c06cb0c044139be1d46e4f91eb411d').then(function(player){
-  player.play();
+	$("#pause").on("click", function(){
+		if(SCstream) {
+			SCstream.pause();
+		}
+	});
+
 });
 
 </script>
