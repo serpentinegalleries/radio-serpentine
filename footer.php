@@ -17,7 +17,7 @@ SC.initialize({
 
 jQuery(function($){ 
 
-	var cw = $('.circle img').width();
+	/*var cw = $('.circle img').width();
 	$('.circle img').css({
 	    'height': cw + 'px'
 	});
@@ -31,7 +31,7 @@ jQuery(function($){
 		$('.circle').each(function(){
 		        $(this).height($(this).width());
 		});
-	});
+	});*/
 
 
 });

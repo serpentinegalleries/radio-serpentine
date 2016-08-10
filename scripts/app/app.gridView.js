@@ -1,7 +1,5 @@
 jQuery(function($){ 
 
-
-
 var PostModel = Backbone.Model.extend({});
 
 var PostData = Backbone.Collection.extend({
