@@ -13,14 +13,16 @@
 get_header(); ?>
 
 
-<div class="container">
-	<div class="col-lg-8 col-lg-offset-1">
+<div class="container header-page">
+	<div class="col-lg-8 col-lg-offset-1 col-md-9 col-sm-8 col-xs-7">
 		<h2>
 			<?php wp_title(''); ?>
 		</h2>
 	</div>
-	<div class="col-lg-2">
-		Search X
+	<div class="col-lg-2 col-md-3 col-sm-4 col-xs-5">
+		<p>
+			Search X
+		</p>
 	</div>
 </div>
 
