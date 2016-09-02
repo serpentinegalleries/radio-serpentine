@@ -21,32 +21,27 @@ get_header(); ?>
 
 <script type='template' id='gridTemplate'>
 
-  	<a href="<%- url %>">
+  <a href="<%- url %>">
 
     <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
 
-      <div class="menu-feature">
+      <div class="circle-mask">
+        <img src="<%= thumbnail_images == 'undefined' ? 'http://placehold.it/350x150' : thumbnail_images.medium.url %>" alt="<%- title %>">
+      </div>
 
-    		<div class="menu-mask">
+      <div class="grid-item-description">
+        <h6>
+          <%= custom_fields.title %>
+        </h6>
+        <h4>
+          <%= title %>
+        </h4>
+      </div>
 
-    			<img class="menu-mask-image" src="<%= thumbnail_images == 'undefined' ? 'http://placehold.it/350x150' : thumbnail_images.medium.url %>" alt="<%- title %>">
-          
-    		</div>
-
-    		<div class="menu-feature-text">
-    			<h5>
-            		<%= custom_fields.participant %>
-          		</h5>
-          		<h6>
-    				<%= title %>
-    			</h6>
-    		</div>
-
-    	</div>
 
     </div>
 
-    </a>
+  </a>
  
 </script>
 
