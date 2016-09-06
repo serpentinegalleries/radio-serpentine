@@ -164,7 +164,8 @@ a.menu-nav-item {
 .circle-mask {
   display: block;
   position: relative;
-  max-width: 100%;
+  width: 250px;
+  height: 250px;
   margin: 0 auto;
   overflow: hidden;
   border-radius: 50%;
@@ -175,7 +176,12 @@ a.menu-nav-item {
   }
 }
 
-@media only screen and (min-width : 768px) {
+.circle-mask.series {
+	width: 300px;
+	height: 300px;
+}
+
+/*@media only screen and (min-width : 768px) {
 	.circle-mask {
 		width: 203px;
 		height: 203px;
@@ -192,7 +198,7 @@ a.menu-nav-item {
 		width: 247px;
 		height: 247px;
 	}
-}
+}*/
 
 .circle-border {
 	background: transparent;
@@ -227,14 +233,20 @@ a.menu-nav-item {
 
 .grid-item-description {
 	background: transparent;
-	position: absolute;
-	bottom: 0;
+	width: 250px;
+	bottom: -5px;
 	h1, h2, h3, h4, h5, h6, p {
 		margin: 3px auto;
 	}
 	p {
 		line-height: 20px;
 	}
+}
+
+.grid-item-description.series {
+	width: 300px;
+	display: block;
+	margin: 0 auto;
 }
 
 .menu-feature {

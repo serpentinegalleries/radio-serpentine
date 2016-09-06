@@ -23,13 +23,13 @@ get_header(); ?>
 
   <a href="<%- url %>">
 
-    <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 
-      <div class="circle-mask">
+      <div class="circle-mask series">
         <img src="<%= thumbnail_images == 'undefined' ? 'http://placehold.it/350x150' : thumbnail_images.medium.url %>" alt="<%- title %>">
       </div>
 
-      <div class="grid-item-description">
+      <div class="grid-item-description series">
         <h6>
           <%= custom_fields.title %>
         </h6>
