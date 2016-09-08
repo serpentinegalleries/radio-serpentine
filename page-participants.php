@@ -45,7 +45,11 @@ get_header(); ?>
 		</div>
 
 		<div class="circle-mask">
-			<img src="<%= thumbnail_images == 'undefined' ? 'http://placehold.it/350x150' : thumbnail_images.medium.url %>" alt="<%- title %>">
+			<% if(typeof thumbnail_images !== 'undefined') { %>
+			    <img src="<%= thumbnail_images.medium.url %>" alt="<%- title %>">
+			<% } else { %>
+				<img src="http://placehold.it/250x250" alt="<%- title %>">
+			<% } %>
 		</div>
 		<div class="grid-item-description">
 			<h4>
