@@ -13,40 +13,85 @@
 get_header(); ?>
 
 
-<div id="grid-template" class="container">
-	<div id="grid-images">
-	</div>
+<div id="tracks" class="container">
+  <div class="row">
+    <div class="col-lg-3">
+      <h5>
+        Title
+      </h5>
+    </div>
+    <div class="col-lg-3">
+      <h5>
+        Participant
+      </h5>
+    </div>    
+    <div class="col-lg-2">
+      <h5>
+        Series
+      </h5>
+    </div>
+    <div class="col-lg-2">
+      <h5>
+        Theme
+      </h5>
+    </div>
+    <div class="col-lg-1">
+      <h5>
+        Length
+      </h5>
+    </div>
+    <div class="col-lg-1">
+      <h5>
+        Date
+      </h5>
+    </div>
+  </div>
+
+  <hr>
+
+  <div id="grid-template">
+    <div id="grid-images">
+    </div>
+  </div>
+
 </div>
 
-
 <script type='template' id='gridTemplate'>
-
-  	<a href="<%- url %>">
-
-    <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
-
-      <div class="menu-feature">
-
-    		<div class="menu-mask">
-
-    			<img class="menu-mask-image" src="<%= thumbnail_images == 'undefined' ? 'http://placehold.it/350x150' : thumbnail_images.medium.url %>" alt="<%- title %>">
-          
-    		</div>
-
-    		<div class="menu-feature-text">
-    			<h5>
-            		<%= custom_fields.participant %>
-          		</h5>
-          		<h6>
-    				<%= title %>
-    			</h6>
-    		</div>
-
-    	</div>
-
+  <div class="row">
+    <div class="col-lg-3">
+      <p>
+        <%= title %>
+      </p>
     </div>
+    <div class="col-lg-3">
+      <p>
+        <%= custom_fields.participant %>
+      </p>
+    </div>    
+    <div class="col-lg-2">
+      <p>
+        <%= custom_fields.series %>
+      </p>
+    </div>
+    <div class="col-lg-2">
+      <p>
+        <%= custom_fields.theme %>
+      </p>
+    </div>
+    <div class="col-lg-1">
+      <p>
+        Length
+      </p>
+    </div>
+    <div class="col-lg-1">
+      <p>
+        <%= date %>
+      </p>
+    </div>
+  </div>
 
-    </a>
+  <hr>
+
  
 </script>
 

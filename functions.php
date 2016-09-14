@@ -28,7 +28,7 @@ function theme_enqueue_styles() {
         wp_enqueue_script( 'app-grid-view', get_stylesheet_directory_uri().'/scripts/app/app.gridView.js' );
     };
 
-    if ( is_page( 'Recent Tracks' ) ) { 
+    if ( is_page( 'Tracks' ) ) { 
         wp_enqueue_script( 'app-grid-view', get_stylesheet_directory_uri().'/scripts/app/app.gridView.js' );
     };
 
