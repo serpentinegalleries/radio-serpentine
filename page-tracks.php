@@ -57,41 +57,42 @@ get_header(); ?>
 </div>
 
 <script type='template' id='gridTemplate'>
-  <div class="row">
-    <div class="col-lg-3">
-      <p>
-        <%= title %>
-      </p>
+  <a href="<%= url %>">
+    <div class="row">
+      <div class="col-lg-3">
+        <p>
+          <%= title %>
+        </p>
+      </div>
+      <div class="col-lg-3">
+        <p>
+          <%= custom_fields.participant %>
+        </p>
+      </div>    
+      <div class="col-lg-2">
+        <p>
+          <%= custom_fields.series %>
+        </p>
+      </div>
+      <div class="col-lg-2">
+        <p>
+          <%= custom_fields.theme %>
+        </p>
+      </div>
+      <div class="col-lg-1">
+        <p>
+          Length
+        </p>
+      </div>
+      <div class="col-lg-1">
+        <p>
+          <%= date %>
+        </p>
+      </div>
     </div>
-    <div class="col-lg-3">
-      <p>
-        <%= custom_fields.participant %>
-      </p>
-    </div>    
-    <div class="col-lg-2">
-      <p>
-        <%= custom_fields.series %>
-      </p>
-    </div>
-    <div class="col-lg-2">
-      <p>
-        <%= custom_fields.theme %>
-      </p>
-    </div>
-    <div class="col-lg-1">
-      <p>
-        Length
-      </p>
-    </div>
-    <div class="col-lg-1">
-      <p>
-        <%= date %>
-      </p>
-    </div>
-  </div>
-
+  </a>
+  
   <hr>
-
 </script>
 
 
