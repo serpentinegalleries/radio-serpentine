@@ -92,8 +92,18 @@ get_header(); ?>
 
   <hr>
 
- 
 </script>
 
 
 <?php get_footer(); ?>
+
+<script>
+var toMmDdYy = function(input) {
+    var ptrn = /(\d{4})\-(\d{2})\-(\d{2})/;
+    if(!input || !input.match(ptrn)) {
+        return null;
+    }
+    return input.replace(ptrn, '$2/$3/$1');
+};
+
+</script>
