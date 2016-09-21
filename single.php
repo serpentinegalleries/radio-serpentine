@@ -12,18 +12,23 @@ get_header(); ?>
 	<div class="container">
 
 		<?php
-		do_action( 'omega_before_content' );
-		do_action( 'omega_content' );
-		do_action( 'omega_after_content' );
+			do_action( 'omega_before_content' );
+			do_action( 'omega_content' );
+			do_action( 'omega_after_content' );			
 		?>
 
-		<!-- Stand-in player -->
-		<div id="play">Play</div>
-		<div id="pause">Pause</div>
+		<!-- Button trigger modal -->
+		<button type="button" id="playerModal" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#player">
+		  Launch demo modal
+		</button>
+
+		<button id="up">Up</button>
 
 	</div>
 
 </main><!-- .content -->
+
+
 
 <?php get_footer(); ?>
 
@@ -34,8 +39,6 @@ if(has_term('tracks', 'category', $post)) {
   // use template file single-template-cat-1.php
   get_template_part('single-tracks');
 }
-
 ?>
-
 
 

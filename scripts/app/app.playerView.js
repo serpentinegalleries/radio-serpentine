@@ -2,7 +2,7 @@ jQuery(function($){
 
 var PlayerModel = Backbone.Model.extend({});
 
-var PlayerModel = Backbone.Collection.extend({
+var PlayerData = Backbone.Collection.extend({
     initialize: function(models, options) {
         this.query = options.query;
         this.fetch();
@@ -11,42 +11,32 @@ var PlayerModel = Backbone.Collection.extend({
         return '/api/' + this.query;
     },
     parse: function(response){
-        return response.posts;
+        return response.post;
     },
     toJSON : function() {
       return this.map(function(model){ return model.toJSON(); });
     },
-    filterBy: function(filter) {
-        this.trigger('filterCollection');
-        return new PostData([], {query: filter});
-    },
-    model: PostModel,
+    model: PlayerModel,
  });
 
-var IndexView = Backbone.View.extend({
-    el: '#index-template',
-    template: _.template($('#indexTemplate').html()),
+var postSlug = (window.location.pathname).split("/")[2]; //replace(/\//g, "");
+var playerData = new PlayerData([], { query: 'get_post/?post_slug=' + postSlug });
+playerData.fetch();
+
+var PlayerView = Backbone.View.extend({
+    el: '#player-template',
+    template: _.template($('#playerTemplate').html()),
     initialize: function(){
         this.listenTo(this.collection, 'add', this.append);
-        this.listenTo(this.collection, 'filterCollection', this.render);
-    },
-    events: {
-        "click .menu-nav-item" : "filter"
     },
     append: function( model ) {
-        $('#menu-images').append(this.template(model.toJSON())); // See help on Trello for separating elements
+        this.$el.append(this.template(model.toJSON()));
     },
     render: function( model ) {
-        console.log(model);
     },
-    filter: function() {
-        var filter = $(event.target).data('category');
-        filter = 'get_category_posts/?category_slug=' + filter;
-        this.collection.filterBy(filter);
-    }
 });
 
-var postData = new PostData([], { query: 'get_recent_posts' });
-postData.fetch();
-var indexView = new IndexView({ collection: postData });
+var playerView = new PlayerView({ collection: playerData });
+
+});
 
