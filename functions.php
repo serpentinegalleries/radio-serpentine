@@ -12,7 +12,10 @@ function theme_enqueue_styles() {
     wp_enqueue_script( 'backbone' );
 
     if ( is_front_page() ) { 
-        wp_enqueue_script( 'app-index-view', get_stylesheet_directory_uri().'/scripts/app/app.indexView.js' );
+        wp_enqueue_script( 'angular', 'http://code.angularjs.org/1.2.13/angular.js' );
+        wp_enqueue_script( 'angular-ui-router', '//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js' );
+        wp_enqueue_script( 'player', get_stylesheet_directory_uri().'/scripts/player.js' );
+        wp_enqueue_script( 'app', get_stylesheet_directory_uri().'/scripts/app/app.js' );
     };
 
     /* Enqueques grid view for category overview pages */

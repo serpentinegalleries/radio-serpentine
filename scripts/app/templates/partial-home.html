@@ -1,0 +1,21 @@
+<!-- partial-home.html -->
+
+<!-- Button trigger modal -->
+<button type="button" id="playerModal" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#player">
+  Launch demo modal
+</button>
+
+<button onclick="changeZIndex()" type="button" id="up">Up</button>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+      <div ui-view="feature">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div ui-view="menu">
+</div>

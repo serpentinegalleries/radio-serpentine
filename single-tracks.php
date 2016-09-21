@@ -50,6 +50,10 @@
 	    	$("#player").css("z-index", 10);
 		});
 
+		function changeZIndex(){
+			$("#player").css("z-index", 10);
+		};
+
 		$("#down").click(function(){
 		    $("#player-template").css("z-index",-10);
 		    $("#player").css("z-index",-10).addClass("blur");
