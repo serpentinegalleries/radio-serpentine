@@ -7,6 +7,21 @@
 
 get_header( 'home' ); ?>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div id="index-template">
 
   <div class="container" id="menu-nav">

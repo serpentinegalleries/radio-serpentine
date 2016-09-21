@@ -10,7 +10,6 @@ function theme_enqueue_styles() {
     wp_enqueue_script( 'bootstrap-js', get_stylesheet_directory_uri().'/vendor/bootstrap/js/bootstrap.js' );
     wp_enqueue_script( 'soundcloud', get_stylesheet_directory_uri().'/vendor/soundcloud/sdk-3.1.2.js' );
     wp_enqueue_script( 'backbone' );
-    wp_enqueue_script( 'app-player-view', get_stylesheet_directory_uri().'/scripts/app/app.playerView.js' );
 
     if ( is_front_page() ) { 
         wp_enqueue_script( 'app-index-view', get_stylesheet_directory_uri().'/scripts/app/app.indexView.js' );
