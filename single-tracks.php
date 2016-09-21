@@ -52,7 +52,7 @@
 
 		$("#down").click(function(){
 		    $("#player-template").css("z-index",-10);
-		    $("#player").css("z-index",-10);
+		    $("#player").css("z-index",-10).addClass("blur");
 		    $(".modal-backdrop").css("z-index",-10);
 		    $('body').removeClass('modal-open');
 		});
