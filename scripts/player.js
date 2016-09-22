@@ -8,8 +8,9 @@ jQuery(function($){
     function changeTrack(audioUrl) {
       if(audioUrl.includes("soundcloud")) {
         SC.get('/resolve.json?url=' + audioUrl).then(function(sound){
-          $("#audioPlayer").attr("src", sound.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d');
+          $("#audioPlayer").src(sound.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d');
         });
+        console.log($("#audioPlayer"));
       }
       else {
         $("#audioPlayer").attr("src", audioUrl);

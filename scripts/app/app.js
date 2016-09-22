@@ -68,7 +68,6 @@ radioApp.controller('ModalDemoCtrl', function ($uibModal, $log) {
       templateUrl: 'myModalContent.html',
       controller: 'ModalInstanceCtrl',
       controllerAs: '$ctrl',
-      windowClass : 'show',
       size: size,
       resolve: {
         items: function () {
@@ -154,3 +153,36 @@ radioApp.component('modalComponent', {
     };
   }
 });
+
+// Defines a simple audio service available to all states
+
+radioApp.factory('audio',function ($document, $log) {
+  var audioElement = $document[0].createElement('audio');
+  return {
+    audioElement: audioElement,
+    play: function(filename) {
+        audioElement.src = filename;
+        audioElement.play();
+    },
+    pause: function() {
+        audioElement.pause();
+        $log.info(audioElement.currentTime);
+    }
+  }
+});
+
+radioApp.controller('AudioCtrl', function ($scope, $log, audio) {
+    $scope.songSelect = function(songPath) {
+      if(songPath.includes("soundcloud")) {
+        SC.get('/resolve.json?url=' + songPath).then(function(sound){
+          audio.play(sound.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d');
+        });
+      }
+      else {
+        audio.play(songPath)
+      };
+    }
+    $scope.audioPause = function(songPath) {
+      audio.pause();  
+    };
+  });
