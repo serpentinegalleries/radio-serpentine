@@ -10,11 +10,11 @@ function theme_enqueue_styles() {
     wp_enqueue_script( 'soundcloud', get_stylesheet_directory_uri().'/vendor/soundcloud/sdk-3.1.2.js' );
 
     if ( is_front_page() ) { 
-        wp_enqueue_script( 'angular-js', get_stylesheet_directory_uri(). + '/vendor/angular/angular-1.5.8/angular.min.js' );
-        wp_enqueue_script( 'angular-ui-router', get_stylesheet_directory_uri(). + '/vendor/angular/angular-ui-router.min.js' );
+        wp_enqueue_script( 'angular', get_stylesheet_directory_uri().'/vendor/angular/angular-1.5.8/angular.min.js' );
+        wp_enqueue_script( 'angular-ui-router', get_stylesheet_directory_uri().'/vendor/angular/angular-ui-router.min.js' );
         wp_enqueue_script( 'ui-bootstrap-tpls-2', get_stylesheet_directory_uri().'/vendor/angular/ui-bootstrap-tpls-2.1.3.min.js' );
-        wp_enqueue_script( 'app', get_stylesheet_directory_uri().'/scripts/app/app.js' );
         wp_enqueue_script( 'player', get_stylesheet_directory_uri().'/scripts/player.js' );
+        wp_enqueue_script( 'app', get_stylesheet_directory_uri().'/scripts/app/app.js' );
     };
 
     wp_enqueue_style( $parent_style, get_template_directory_uri() . '/style.css' );
