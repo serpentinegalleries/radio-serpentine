@@ -6,30 +6,15 @@ function theme_enqueue_styles() {
     $parent_style = 'parent-style';
 
     wp_enqueue_script( 'jquery' );
-    wp_enqueue_style( 'bootstrap-css', get_stylesheet_directory_uri().'/vendor/bootstrap/css/bootstrap.css' );
-    wp_enqueue_script( 'bootstrap-js', get_stylesheet_directory_uri().'/vendor/bootstrap/js/bootstrap.js' );
+    wp_enqueue_style( 'bootstrap-css', get_stylesheet_directory_uri().'/vendor/bootstrap-3.3.7-dist/css/bootstrap.min.css' );
     wp_enqueue_script( 'soundcloud', get_stylesheet_directory_uri().'/vendor/soundcloud/sdk-3.1.2.js' );
-    wp_enqueue_script( 'backbone' );
 
     if ( is_front_page() ) { 
-        wp_enqueue_script( 'angular', 'http://code.angularjs.org/1.2.13/angular.js' );
-        wp_enqueue_script( 'angular-ui-router', '//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js' );
-        wp_enqueue_script( 'player', get_stylesheet_directory_uri().'/scripts/player.js' );
+        wp_enqueue_script( 'angular-js', get_stylesheet_directory_uri(). + '/vendor/angular/angular-1.5.8/angular.min.js' );
+        wp_enqueue_script( 'angular-ui-router', get_stylesheet_directory_uri(). + '/vendor/angular/angular-ui-router.min.js' );
+        wp_enqueue_script( 'ui-bootstrap-tpls-2', get_stylesheet_directory_uri().'/vendor/angular/ui-bootstrap-tpls-2.1.3.min.js' );
         wp_enqueue_script( 'app', get_stylesheet_directory_uri().'/scripts/app/app.js' );
-    };
-
-    /* Enqueques grid view for category overview pages */
-
-    if ( is_page( 'Series' ) ) { 
-        wp_enqueue_script( 'app-grid-view', get_stylesheet_directory_uri().'/scripts/app/app.gridView.js' );
-    };
-
-    if ( is_page( 'Participants' ) ) { 
-        wp_enqueue_script( 'app-grid-view', get_stylesheet_directory_uri().'/scripts/app/app.gridView.js' );
-    };
-
-    if ( is_page( 'Tracks' ) ) { 
-        wp_enqueue_script( 'app-grid-view', get_stylesheet_directory_uri().'/scripts/app/app.gridView.js' );
+        wp_enqueue_script( 'player', get_stylesheet_directory_uri().'/scripts/player.js' );
     };
 
     wp_enqueue_style( $parent_style, get_template_directory_uri() . '/style.css' );
