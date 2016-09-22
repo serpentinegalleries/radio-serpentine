@@ -5,7 +5,7 @@ var TEMPLATES_URI = '/wp-content/themes/radio-serpentine/scripts/app/templates/'
 radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     
     $urlRouterProvider.otherwise('/');
-    
+
     $stateProvider
         
         .state('home', {
