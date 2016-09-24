@@ -24,7 +24,7 @@
 	</nav><!-- /Navigation -->
 
 
-	<div ng-controller="ModalDemoCtrl as $ctrl">
+	<div ng-controller="PlayerModalCtrl as $ctrl">
 	    <script type="text/ng-template" id="myModalContent.html">
 	        <div class="modal-body" id="modal-body">
 	        	<i ng-click="$ctrl.min()" id="playerMin" class="fa fa-compress round-border" aria-hidden="true"></i>

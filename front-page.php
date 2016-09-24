@@ -16,19 +16,6 @@ get_header( 'home' ); ?>
 
 </div> 
 
-<!-- PLAYER MODAL 
-<div class="modal" id="player" role="dialog" aria-labelledby="playerModalLabel">
-    <div class="modal-content">
-      <div class="modal-body">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    
-        <button type="button" id="down">Down</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-</div>-->
-
-
 <?php get_footer(); ?>
 
 

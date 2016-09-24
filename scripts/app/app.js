@@ -54,7 +54,8 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) 
 
 });
 
-radioApp.controller('ModalDemoCtrl', function ($uibModal, $log) {
+/* Player and related modals */
+radioApp.controller('PlayerModalCtrl', function ($uibModal, $log) {
   var $ctrl = this;
   $ctrl.items = ['item1', 'item2', 'item3'];
 
