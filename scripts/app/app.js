@@ -58,9 +58,9 @@ radioApp.controller('ModalDemoCtrl', function ($uibModal, $log) {
   var $ctrl = this;
   $ctrl.items = ['item1', 'item2', 'item3'];
 
-  $ctrl.animationsEnabled = true;
+  $ctrl.animationsEnabled = false;
 
-  $ctrl.open = function (size) {
+  $ctrl.open = function () {
     var modalInstance = $uibModal.open({
       animation: $ctrl.animationsEnabled,
       ariaLabelledBy: 'modal-title',
@@ -68,7 +68,7 @@ radioApp.controller('ModalDemoCtrl', function ($uibModal, $log) {
       templateUrl: 'myModalContent.html',
       controller: 'ModalInstanceCtrl',
       controllerAs: '$ctrl',
-      size: size,
+      windowClass: 'playerModal',
       resolve: {
         items: function () {
           return $ctrl.items;
@@ -83,6 +83,7 @@ radioApp.controller('ModalDemoCtrl', function ($uibModal, $log) {
     });
   };
 
+  /* Opens different modal */
   $ctrl.openComponentModal = function () {
     var modalInstance = $uibModal.open({
       animation: $ctrl.animationsEnabled,
@@ -161,28 +162,34 @@ radioApp.factory('audio',function ($document, $log) {
   return {
     audioElement: audioElement,
     play: function(filename) {
-        audioElement.src = filename;
+        if(audioElement.src != filename) {
+          audioElement.src = filename;
+        };
         audioElement.play();
     },
     pause: function() {
         audioElement.pause();
-        $log.info(audioElement.currentTime);
     }
   }
 });
 
 radioApp.controller('AudioCtrl', function ($scope, $log, audio) {
-    $scope.songSelect = function(songPath) {
-      if(songPath.includes("soundcloud")) {
-        SC.get('/resolve.json?url=' + songPath).then(function(sound){
-          audio.play(sound.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d');
-        });
-      }
-      else {
-        audio.play(songPath)
-      };
+  $scope.songSelect = function(songPath) {
+    if(songPath.includes("soundcloud")) {
+      SC.get('/resolve.json?url=' + songPath).then(function(sound){
+        audio.play(sound.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d');
+      });
     }
-    $scope.audioPause = function(songPath) {
-      audio.pause();  
+    else {
+      audio.play(songPath)
     };
-  });
+  }
+  $scope.audioPause = function(songPath) {
+    audio.pause();  
+  };
+  $scope.sendToBack = function(clickEvent) {
+    angular.element(document.querySelector('.playerModal')).addClass("blur");
+  }
+});
+
+
