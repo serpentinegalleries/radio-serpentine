@@ -138,7 +138,7 @@ body, div, header, .site-header  {
 }
 
 .container {
-	margin: 75px auto;
+	margin: 0 auto;
 }
 
 /* Overflow track menu */
@@ -230,15 +230,6 @@ a.menu-nav-item {
 	}
 }
 
-.header-page {
-	h1,h2,h3,h4,h5,h6 {
-		text-transform: uppercase;
-	}
-	p {
-		text-align: right;
-	}
-}
-
 .grid-item {
 	min-height: 325px;
 }
@@ -297,19 +288,18 @@ a.menu-nav-item {
 	}
 }
 
-
-.header-feature {
-	min-height: 450px;
-	padding: @gutter;
-	.header-mask {
-		height: @round-image-h * 2;
-		width: @round-image-w * 2;
+/* Featured track on home page */
+.feature {
+	height: 415px;
+	.feature-mask {
+		height: 400px;
+		width: 400px;
 		border-radius:100%;
 		display: block;
 		margin: auto;
 		overflow: hidden;
 		z-index: 1;
-		.header-mask-image {
+		.feature-mask-image {
 			left:-50%;
 			right:-50%;
 			top:    0;
@@ -319,15 +309,26 @@ a.menu-nav-item {
 			z-index: 0;
 		}
 	}
-	.header-feature-text {
-		width: @round-image-w * 2.5;
+	.feature-text {
+		position: absolute;
+		width: 525px;
 		z-index: 2;
-		margin-top: -150px;
-		h1, h2, h3, h4, h5, h6 {
-			margin-bottom: @margin-title - 10;
+		bottom: 0;
+		h1 {
+			margin-bottom: 0;
+		}
+		h5 {
+			margin-bottom: 3px;
 		}
 	}
 }
+
+/* Hack to separate Angular views */
+.view-margin {
+	margin-top: 75px;
+	margin-bottom: 75px;
+}
+
 
 /**********************
 Modals

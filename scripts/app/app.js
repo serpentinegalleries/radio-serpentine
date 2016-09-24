@@ -54,6 +54,15 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) 
 
 });
 
+/* Header controller */
+radioApp.controller('FeatureCtrl', function ($scope, $http, $log) {
+  $http.get('/api/get_tag_posts/?tag_slug=featured').
+        then(function(response) {
+            $scope.feature = response.data.posts[0];
+        });
+});
+
+
 /* Player and related modals */
 radioApp.controller('PlayerModalCtrl', function ($uibModal, $log) {
   var $ctrl = this;

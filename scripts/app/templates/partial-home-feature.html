@@ -1,22 +1,19 @@
-hey
+<div ng-controller="FeatureCtrl">
+  <div ng-click="songSelect('{{ feature.custom_fields.audio[0] }}')">
 
-<!--<a href="<%- url %>">
-
-  <div class="header-feature">
-    <div class="header-mask">
-<img class="header-mask-image" src="<%= thumbnail_images == 'undefined' ? 'http://placehold.it/350x150' : thumbnail_images.large.url %>" alt="<%- title %>">
-
-    </div>
-
-    <div class="header-feature-text">
+    <div class="feature">
+      <div class="feature-mask">
+        <img class="feature-mask-image" ng-src="{{ feature.thumbnail_images.large.url }}" alt="{{ feature.title }}">
+      </div>
+      <div class="feature-text">
         <h5>
-        <%= custom_fields.participant %>
-      </h5>
-      <h1>
-          <%= title %>
+          {{ feature.custom_fields.participant[0] }}
+        </h5>
+        <h1>
+          {{ feature.title }}
         </h1>
+      </div>
     </div>
 
   </div>
-
-</a>-->
+</div>
