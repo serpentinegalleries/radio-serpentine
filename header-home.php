@@ -27,16 +27,13 @@
 	<div ng-controller="ModalDemoCtrl as $ctrl">
 	    <script type="text/ng-template" id="myModalContent.html">
 	        <div class="modal-body" id="modal-body">
-	          <div ng-controller="AudioCtrl">
-	              <button ng-click="songSelect('https://soundcloud.com/serpentine-uk/marcos-luytens-chromalalia')">Play</button>
-	              <button ng-click="audioPause()">Pause</button>
-	              <button ng-click="sendToBack()">Minimise</button>
+	        	<i ng-click="$ctrl.min()" id="playerMin" class="fa fa-compress round-border" aria-hidden="true"></i>
+	   	          <div ng-controller="AudioCtrl">
+	              	<button ng-click="songSelect('https://soundcloud.com/serpentine-uk/marcos-luytens-chromalalia')">Play</button>
+	              	<button ng-click="audioPause()">Pause</button>
+	        	<i id="playerBack" class="fa fa-long-arrow-left round-border" aria-hidden="true"></i>
+	        	<i id="playerNext" class="fa fa-long-arrow-right round-border" aria-hidden="true"></i>
 	          </div>
-
-	          <p>
-
-	            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
-	            <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
 	        </div>
 	    </script>
 

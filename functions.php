@@ -8,6 +8,7 @@ function theme_enqueue_styles() {
     wp_enqueue_script( 'jquery' );
     wp_enqueue_style( 'bootstrap-css', get_stylesheet_directory_uri().'/vendor/bootstrap-3.3.7-dist/css/bootstrap.min.css' );
     wp_enqueue_script( 'soundcloud', get_stylesheet_directory_uri().'/vendor/soundcloud/sdk-3.1.2.js' );
+    wp_enqueue_style( 'fontawesome-css', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css' );
 
     if ( is_front_page() ) { 
         wp_enqueue_script( 'angular', get_stylesheet_directory_uri().'/vendor/angular/angular-1.5.8/angular.min.js' );

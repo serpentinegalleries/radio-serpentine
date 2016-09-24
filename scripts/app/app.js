@@ -105,6 +105,7 @@ radioApp.controller('ModalDemoCtrl', function ($uibModal, $log) {
   $ctrl.toggleAnimation = function () {
     $ctrl.animationsEnabled = !$ctrl.animationsEnabled;
   };
+
 });
 
 // Please note that $uibModalInstance represents a modal window (instance) dependency.
@@ -124,6 +125,11 @@ radioApp.controller('ModalInstanceCtrl', function ($uibModalInstance, items) {
   $ctrl.cancel = function () {
     $uibModalInstance.dismiss('cancel');
   };
+
+  $ctrl.min = function() {
+    angular.element(document.querySelector('.playerModal')).addClass("blur");
+  }
+
 });
 
 // Please note that the close and dismiss bindings are from $uibModalInstance.
@@ -187,9 +193,6 @@ radioApp.controller('AudioCtrl', function ($scope, $log, audio) {
   $scope.audioPause = function(songPath) {
     audio.pause();  
   };
-  $scope.sendToBack = function(clickEvent) {
-    angular.element(document.querySelector('.playerModal')).addClass("blur");
-  }
 });
 
 

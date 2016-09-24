@@ -97,6 +97,11 @@ p, span, time, ul, li, blockquote {
 	}
 }
 
+i {
+	color: @text;
+	padding: 10px;
+}
+
 html {
 	background: @base;
 	color: @text;
@@ -364,6 +369,27 @@ Modals
 	cursor: pointer;
 }
 
+#playerMin {
+	position: fixed;
+	top: 25px;
+	right: 25px;
+	cursor: pointer;
+}
+
+#playerNext {
+	position: fixed;
+	top: 50vh;
+	right: 25px;
+	cursor: pointer;
+}
+
+#playerBack {
+	position: fixed;
+	top: 50vh;
+	left: 25px;
+	cursor: pointer;
+}
+
 .blur {
 	z-index: -10 !important;
 	-webkit-filter: blur(5px);
@@ -371,6 +397,15 @@ Modals
 	-ms-filter: blur(5px);
 	-o-filter: blur(5px);
 	filter: blur(5px);
+	i {
+		display: none;
+	}
+}
+
+.round-border {
+	border: 2px solid @text;
+	border-radius: 50%;
+	background: @base;
 }
 
 /****************
