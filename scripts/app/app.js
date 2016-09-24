@@ -138,6 +138,7 @@ radioApp.controller('ModalInstanceCtrl', function ($uibModalInstance, items) {
 
   $ctrl.min = function() {
     angular.element(document.querySelector('.playerModal')).addClass("blur");
+    angular.element(document.querySelector('body')).removeClass("modal-open");
   }
 
 });
