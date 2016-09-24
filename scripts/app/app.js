@@ -56,7 +56,7 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) 
 
 
 /* Player and related modals */
-radioApp.controller('PlayerModalCtrl', function ($uibModal, $log) {
+radioApp.controller('PlayerModalCtrl', function ($uibModal, $log, audio) {
   var $ctrl = this;
   $ctrl.items = ['item1', 'item2', 'item3'];
 
@@ -78,10 +78,13 @@ radioApp.controller('PlayerModalCtrl', function ($uibModal, $log) {
       }
     });
 
+    if(!audio.paused){
+      $log.info('playing');
+    }
+
     modalInstance.result.then(function (selectedItem) {
       $ctrl.selected = selectedItem;
     }, function () {
-      $log.info('Modal dismissed at: ' + new Date());
     });
   };
 
@@ -170,27 +173,22 @@ radioApp.factory('audio',function ($document, $log) {
   var audioElement = $document[0].createElement('audio');
   return {
     audioElement: audioElement,
-    play: function(filename) {
-        if(audioElement.src != filename) {
-          audioElement.src = filename;
-        };
+    play: function() {
         audioElement.play();
     },
     pause: function() {
         audioElement.pause();
     },
     setSrc: function(path) {
-      audioElement.pause();
       if(path.includes("soundcloud")) {
         SC.get('/resolve.json?url=' + path).then(function(sound){
           audioElement.src = sound.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d';
         });
-        audioElement.load();
       }
       else {
         audioElement.src = path;
-        audioElement.play();
       };
+      audioElement.load();
     }
   }
 });
@@ -202,9 +200,10 @@ radioApp.controller('AudioCtrl', function ($scope, $log, audio) {
   $scope.audioPause = function(songPath) {
     audio.pause();  
   };
+  $scope.audioPlay = function(songPath) {
+    audio.play();  
+  };
 });
-
-
 
 
 /* Header controller */
@@ -214,9 +213,7 @@ radioApp.controller('FeatureCtrl', function ($scope, $http, $log, audio) {
             $scope.feature = response.data.posts[0];
             audio.setSrc($scope.feature.custom_fields.audio[0]);
         });
-  $scope.songSelect = function(path) {
-    if(path !== undefined) {
-      audio.play();
-    }
+  $scope.playFeature = function() {
+    audio.play();
   }
 });
