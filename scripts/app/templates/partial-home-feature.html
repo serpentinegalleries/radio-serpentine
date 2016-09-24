@@ -1,12 +1,12 @@
 <div ng-controller="FeatureCtrl">
-  <div ng-click="songSelect('{{ feature.custom_fields.audio[0] }}')">
+  <div ng-click="songSelect( feature.custom_fields.audio[0] )">
     <div class="feature">
       <div class="feature-mask">
         <img class="feature-mask-image" ng-src="{{ feature.thumbnail_images.large.url }}" alt="{{ feature.title }}">
       </div>
       <div class="feature-text">
         <h5>
-          {{ feature.custom_fields.participant[0] }}
+          {{ feature.custom_fields.participant[0] }} {{ feature.custom_fields.audio[0] }}
         </h5>
         <h1>
           {{ feature.title }}

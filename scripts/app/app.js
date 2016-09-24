@@ -54,14 +54,6 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) 
 
 });
 
-/* Header controller */
-radioApp.controller('FeatureCtrl', function ($scope, $http, $log) {
-  $http.get('/api/get_tag_posts/?tag_slug=featured').
-        then(function(response) {
-            $scope.feature = response.data.posts[0];
-        });
-});
-
 
 /* Player and related modals */
 radioApp.controller('PlayerModalCtrl', function ($uibModal, $log) {
@@ -186,20 +178,27 @@ radioApp.factory('audio',function ($document, $log) {
     },
     pause: function() {
         audioElement.pause();
+    },
+    setSrc: function(path) {
+      if(path.includes("soundcloud")) {
+        SC.get('/resolve.json?url=' + path).then(function(sound){
+          audioElement.src = sound.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d';
+          $log.info(audioElement.src);
+        });
+        audioElement.load();
+        audioElement.play();
+      }
+      else {
+        audioElement.src = path;
+        audioElement.play();
+      };
     }
   }
 });
 
 radioApp.controller('AudioCtrl', function ($scope, $log, audio) {
-  $scope.songSelect = function(songPath) {
-    if(songPath.includes("soundcloud")) {
-      SC.get('/resolve.json?url=' + songPath).then(function(sound){
-        audio.play(sound.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d');
-      });
-    }
-    else {
-      audio.play(songPath)
-    };
+  $scope.songSelect = function(path) {
+    audio.setSrc(path);
   }
   $scope.audioPause = function(songPath) {
     audio.pause();  
@@ -207,3 +206,16 @@ radioApp.controller('AudioCtrl', function ($scope, $log, audio) {
 });
 
 
+
+
+/* Header controller */
+radioApp.controller('FeatureCtrl', function ($scope, $http, $log, audio) {
+  $http.get('/api/get_tag_posts/?tag_slug=featured').
+        then(function(response) {
+            $scope.feature = response.data.posts[0];
+        });
+
+  $scope.songSelect = function(path) {
+    audio.setSrc(path);
+  }
+});
