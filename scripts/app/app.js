@@ -180,13 +180,12 @@ radioApp.factory('audio',function ($document, $log) {
         audioElement.pause();
     },
     setSrc: function(path) {
+      audioElement.pause();
       if(path.includes("soundcloud")) {
         SC.get('/resolve.json?url=' + path).then(function(sound){
           audioElement.src = sound.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d';
-          $log.info(audioElement.src);
         });
         audioElement.load();
-        audioElement.play();
       }
       else {
         audioElement.src = path;
@@ -213,9 +212,11 @@ radioApp.controller('FeatureCtrl', function ($scope, $http, $log, audio) {
   $http.get('/api/get_tag_posts/?tag_slug=featured').
         then(function(response) {
             $scope.feature = response.data.posts[0];
+            audio.setSrc($scope.feature.custom_fields.audio[0]);
         });
-
   $scope.songSelect = function(path) {
-    audio.setSrc(path);
+    if(path !== undefined) {
+      audio.play();
+    }
   }
 });
