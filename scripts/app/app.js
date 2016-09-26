@@ -53,6 +53,26 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) 
         // $locationProvider.html5Mode(true);
 
 });
+radioApp.factory('player',function ($uibModal, $log, audio) {
+
+  return {
+    open: function() {
+        var modalInstance = $uibModal.open({
+          ariaLabelledBy: 'modal-title',
+          ariaDescribedBy: 'modal-body',
+          templateUrl: 'myModalContent.html',
+          controller: 'ModalInstanceCtrl',
+          windowClass: 'playerModal',
+          resolve: {
+            items: function () {
+            }
+          }
+        });
+    },
+  }
+});
+
+
 
 
 /* Player and related modals */
@@ -77,10 +97,6 @@ radioApp.controller('PlayerModalCtrl', function ($uibModal, $log, audio) {
         }
       }
     });
-
-    if(!audio.paused){
-      $log.info('playing');
-    }
 
     modalInstance.result.then(function (selectedItem) {
       $ctrl.selected = selectedItem;
@@ -116,22 +132,17 @@ radioApp.controller('PlayerModalCtrl', function ($uibModal, $log, audio) {
 // Please note that $uibModalInstance represents a modal window (instance) dependency.
 // It is not the same as the $uibModal service used above.
 
-radioApp.controller('ModalInstanceCtrl', function ($uibModalInstance, items) {
-  var $ctrl = this;
-  $ctrl.items = items;
-  $ctrl.selected = {
-    item: $ctrl.items[0]
+radioApp.controller('ModalInstanceCtrl', function ($uibModalInstance, $scope) {
+
+  $scope.ok = function () {
+    $uibModalInstance.close();
   };
 
-  $ctrl.ok = function () {
-    $uibModalInstance.close($ctrl.selected.item);
-  };
-
-  $ctrl.cancel = function () {
+  $scope.cancel = function () {
     $uibModalInstance.dismiss('cancel');
   };
 
-  $ctrl.min = function() {
+  $scope.min = function() {
     angular.element(document.querySelector('.playerModal')).addClass("blur");
     angular.element(document.querySelector('body')).removeClass("modal-open");
   }
@@ -207,7 +218,7 @@ radioApp.controller('AudioCtrl', function ($scope, $log, audio) {
 
 
 /* Header controller */
-radioApp.controller('FeatureCtrl', function ($scope, $http, $log, audio) {
+radioApp.controller('FeatureCtrl', function ($scope, $http, $log, audio, player) {
   $http.get('/api/get_tag_posts/?tag_slug=featured').
         then(function(response) {
             $scope.feature = response.data.posts[0];
@@ -215,5 +226,8 @@ radioApp.controller('FeatureCtrl', function ($scope, $http, $log, audio) {
         });
   $scope.playFeature = function() {
     audio.play();
+  }
+  $scope.openPlayer = function() {
+    player.open();
   }
 });
