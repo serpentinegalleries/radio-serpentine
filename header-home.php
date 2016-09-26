@@ -27,13 +27,15 @@
 	<div ng-controller="PlayerModalCtrl as $ctrl">
 	    <script type="text/ng-template" id="myModalContent.html">
 	        <div class="modal-body" id="modal-body">
+	        	
 	        	<i ng-click="$ctrl.min()" id="playerMin" class="fa fa-compress round-border" aria-hidden="true"></i>
+	        	<i id="playerBack" class="fa fa-long-arrow-left round-border" aria-hidden="true"></i>
+	        	<i id="playerNext" class="fa fa-long-arrow-right round-border" aria-hidden="true"></i>
+
 	   	          <div ng-controller="AudioCtrl">
 	              	<button ng-click="songSelect('https://soundcloud.com/serpentine-uk/marcos-luytens-chromalalia')">Change Track</button>
 	              	<button ng-click="audioPause()">Pause</button>
 	              	<button ng-click="audioPlay()">Play</button>
-	        	<i id="playerBack" class="fa fa-long-arrow-left round-border" aria-hidden="true"></i>
-	        	<i id="playerNext" class="fa fa-long-arrow-right round-border" aria-hidden="true"></i>
 	          </div>
 	        </div>
 	    </script>
