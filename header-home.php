@@ -27,8 +27,8 @@
 	<div ng-controller="PlayerModalCtrl as $ctrl">
 	    <script type="text/ng-template" id="myModalContent.html">
 	        <div class="modal-body" id="modal-body">
-	        	
-	        	<i ng-click="$ctrl.min()" id="playerMin" class="fa fa-compress round-border" aria-hidden="true"></i>
+
+	        	<i ng-click="minim()" id="playerMin" class="fa fa-compress round-border" aria-hidden="true"></i>
 	        	<i id="playerBack" class="fa fa-long-arrow-left round-border" aria-hidden="true"></i>
 	        	<i id="playerNext" class="fa fa-long-arrow-right round-border" aria-hidden="true"></i>
 

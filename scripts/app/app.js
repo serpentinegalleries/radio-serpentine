@@ -68,12 +68,14 @@ radioApp.factory('player',function ($uibModal, $log, audio) {
             }
           }
         });
+        audio.play();
     },
+    min: function() {
+      angular.element(document.querySelector('.playerModal')).addClass("blur");
+      angular.element(document.querySelector('body')).removeClass("modal-open");
+    }
   }
 });
-
-
-
 
 /* Player and related modals */
 radioApp.controller('PlayerModalCtrl', function ($uibModal, $log, audio) {
@@ -104,35 +106,12 @@ radioApp.controller('PlayerModalCtrl', function ($uibModal, $log, audio) {
     });
   };
 
-  /* Opens different modal */
-  $ctrl.openComponentModal = function () {
-    var modalInstance = $uibModal.open({
-      animation: $ctrl.animationsEnabled,
-      component: 'modalComponent',
-      resolve: {
-        items: function () {
-          return $ctrl.items;
-        }
-      }
-    });
-
-    modalInstance.result.then(function (selectedItem) {
-      $ctrl.selected = selectedItem;
-    }, function () {
-      $log.info('modal-component dismissed at: ' + new Date());
-    });
-  };
-
-  $ctrl.toggleAnimation = function () {
-    $ctrl.animationsEnabled = !$ctrl.animationsEnabled;
-  };
-
 });
 
 // Please note that $uibModalInstance represents a modal window (instance) dependency.
 // It is not the same as the $uibModal service used above.
 
-radioApp.controller('ModalInstanceCtrl', function ($uibModalInstance, $scope) {
+radioApp.controller('ModalInstanceCtrl', function ($uibModalInstance, $scope, player) {
 
   $scope.ok = function () {
     $uibModalInstance.close();
@@ -142,43 +121,11 @@ radioApp.controller('ModalInstanceCtrl', function ($uibModalInstance, $scope) {
     $uibModalInstance.dismiss('cancel');
   };
 
-  $scope.min = function() {
-    angular.element(document.querySelector('.playerModal')).addClass("blur");
-    angular.element(document.querySelector('body')).removeClass("modal-open");
+  $scope.minim = function() {
+    player.min();
   }
 
 });
-
-// Please note that the close and dismiss bindings are from $uibModalInstance.
-
-radioApp.component('modalComponent', {
-  templateUrl: 'myModalContent.html',
-  bindings: {
-    resolve: '<',
-    close: '&',
-    dismiss: '&'
-  },
-  controller: function () {
-    var $ctrl = this;
-
-    $ctrl.$onInit = function () {
-      $ctrl.items = $ctrl.resolve.items;
-      $ctrl.selected = {
-        item: $ctrl.items[0]
-      };
-    };
-
-    $ctrl.ok = function () {
-      $ctrl.close({$value: $ctrl.selected.item});
-    };
-
-    $ctrl.cancel = function () {
-      $ctrl.dismiss({$value: 'cancel'});
-    };
-  }
-});
-
-// Defines a simple audio service available to all states
 
 radioApp.factory('audio',function ($document, $log) {
   var audioElement = $document[0].createElement('audio');
@@ -204,6 +151,7 @@ radioApp.factory('audio',function ($document, $log) {
   }
 });
 
+
 radioApp.controller('AudioCtrl', function ($scope, $log, audio) {
   $scope.songSelect = function(path) {
     audio.setSrc(path);
@@ -224,10 +172,18 @@ radioApp.controller('FeatureCtrl', function ($scope, $http, $log, audio, player)
             $scope.feature = response.data.posts[0];
             audio.setSrc($scope.feature.custom_fields.audio[0]);
         });
-  $scope.playFeature = function() {
-    audio.play();
-  }
-  $scope.openPlayer = function() {
+  $scope.play = function() {
     player.open();
   }
+});
+
+radioApp.service('playerService', function () {
+    return {
+        getTrack: function (slug) {
+            $http.get('/api/get_post/?post_slug=' + slug).
+              then(function(response) {
+                  $scope.track = response.data.post;
+              });
+        },
+    };
 });

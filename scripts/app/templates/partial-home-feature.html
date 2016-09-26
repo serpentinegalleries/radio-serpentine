@@ -1,11 +1,9 @@
 <div ng-controller="FeatureCtrl">
-  <button ng-click="openPlayer()">open player</button>
-
   <div>
     <div class="feature">
       <div class="feature-mask">
         <img class="feature-mask-image" ng-src="{{ feature.thumbnail_images.large.url }}" alt="{{ feature.title }}">
-        <i ng-click="playFeature()" id="playerIcon" class="fa fa-play round-border" aria-hidden="true"></i>
+        <i ng-click="play()" id="playerIcon" class="fa fa-play round-border" aria-hidden="true"></i>
       </div>
       <div class="feature-text">
         <h5>
