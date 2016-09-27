@@ -77,35 +77,15 @@ radioApp.factory('player',function ($uibModal, $log, audio) {
   }
 });
 
-/* Player and related modals */
-radioApp.controller('PlayerModalCtrl', function ($uibModal, $log, audio) {
-  var $ctrl = this;
-  $ctrl.items = ['item1', 'item2', 'item3'];
-
-  $ctrl.animationsEnabled = false;
-
-  $ctrl.open = function () {
-    var modalInstance = $uibModal.open({
-      animation: $ctrl.animationsEnabled,
-      ariaLabelledBy: 'modal-title',
-      ariaDescribedBy: 'modal-body',
-      templateUrl: 'myModalContent.html',
-      controller: 'ModalInstanceCtrl',
-      controllerAs: '$ctrl',
-      windowClass: 'playerModal',
-      resolve: {
-        items: function () {
-          return $ctrl.items;
-        }
-      }
-    });
-
-    modalInstance.result.then(function (selectedItem) {
-      $ctrl.selected = selectedItem;
-    }, function () {
-    });
-  };
-
+radioApp.service('playerService', function () {
+    return {
+        getTrack: function (slug) {
+            $http.get('/api/get_post/?post_slug=' + slug).
+              then(function(response) {
+                  $scope.track = response.data.post;
+              });
+        },
+    };
 });
 
 // Please note that $uibModalInstance represents a modal window (instance) dependency.
@@ -151,7 +131,14 @@ radioApp.factory('audio',function ($document, $log) {
   }
 });
 
+/* Wave Icon Controller */
+radioApp.controller('WaveIconCtrl', function ($uibModal, $scope, $log, audio, player) {
+  $scope.play = function() {
+    player.open();
+  }
+});
 
+/* UI in player */
 radioApp.controller('AudioCtrl', function ($scope, $log, audio) {
   $scope.songSelect = function(path) {
     audio.setSrc(path);
@@ -164,7 +151,6 @@ radioApp.controller('AudioCtrl', function ($scope, $log, audio) {
   };
 });
 
-
 /* Header controller */
 radioApp.controller('FeatureCtrl', function ($scope, $http, $log, audio, player) {
   $http.get('/api/get_tag_posts/?tag_slug=featured').
@@ -175,15 +161,4 @@ radioApp.controller('FeatureCtrl', function ($scope, $http, $log, audio, player)
   $scope.play = function() {
     player.open();
   }
-});
-
-radioApp.service('playerService', function () {
-    return {
-        getTrack: function (slug) {
-            $http.get('/api/get_post/?post_slug=' + slug).
-              then(function(response) {
-                  $scope.track = response.data.post;
-              });
-        },
-    };
 });
