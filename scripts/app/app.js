@@ -54,14 +54,13 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) 
 
 });
 radioApp.factory('player',function ($uibModal, $log, audio) {
-
   return {
     open: function() {
         var modalInstance = $uibModal.open({
           ariaLabelledBy: 'modal-title',
           ariaDescribedBy: 'modal-body',
           templateUrl: TEMPLATES_URI + 'modal-player.html',
-          controller: 'ModalInstanceCtrl',
+          controller: 'PlayerInstanceCtrl',
           windowClass: 'playerModal',
           resolve: {
             items: function () {
@@ -91,7 +90,7 @@ radioApp.service('playerService', function () {
 // Please note that $uibModalInstance represents a modal window (instance) dependency.
 // It is not the same as the $uibModal service used above.
 
-radioApp.controller('ModalInstanceCtrl', function ($uibModalInstance, $scope, player) {
+radioApp.controller('PlayerInstanceCtrl', function ($uibModalInstance, $scope, player, audio) {
 
   $scope.ok = function () {
     $uibModalInstance.close();
@@ -104,6 +103,16 @@ radioApp.controller('ModalInstanceCtrl', function ($uibModalInstance, $scope, pl
   $scope.minim = function() {
     player.min();
   }
+
+  $scope.songSelect = function(path) {
+    audio.setSrc(path);
+  }
+  $scope.audioPause = function(songPath) {
+    audio.pause();  
+  };
+  $scope.audioPlay = function(songPath) {
+    audio.play();  
+  };
 
 });
 
@@ -136,19 +145,6 @@ radioApp.controller('WaveIconCtrl', function ($uibModal, $scope, $log, audio, pl
   $scope.play = function() {
     player.open();
   }
-});
-
-/* UI in player */
-radioApp.controller('AudioCtrl', function ($scope, $log, audio) {
-  $scope.songSelect = function(path) {
-    audio.setSrc(path);
-  }
-  $scope.audioPause = function(songPath) {
-    audio.pause();  
-  };
-  $scope.audioPlay = function(songPath) {
-    audio.play();  
-  };
 });
 
 /* Header controller */
