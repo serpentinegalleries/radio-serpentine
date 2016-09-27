@@ -60,7 +60,7 @@ radioApp.factory('player',function ($uibModal, $log, audio) {
         var modalInstance = $uibModal.open({
           ariaLabelledBy: 'modal-title',
           ariaDescribedBy: 'modal-body',
-          templateUrl: 'myModalContent.html',
+          templateUrl: TEMPLATES_URI + 'modal-player.html',
           controller: 'ModalInstanceCtrl',
           windowClass: 'playerModal',
           resolve: {

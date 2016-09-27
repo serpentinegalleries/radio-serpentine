@@ -23,22 +23,8 @@
 		</div>
 	</nav><!-- /Navigation -->
 
-	    <script type="text/ng-template" id="myModalContent.html">
-	        <div class="modal-body" id="modal-body">
 
-	        	<i ng-click="minim()" id="playerMin" class="fa fa-compress round-border" aria-hidden="true"></i>
-	        	<i id="playerBack" class="fa fa-long-arrow-left round-border" aria-hidden="true"></i>
-	        	<i id="playerNext" class="fa fa-long-arrow-right round-border" aria-hidden="true"></i>
-
-	   	        <div ng-controller="AudioCtrl">
-	              	<button ng-click="songSelect('https://soundcloud.com/serpentine-uk/marcos-luytens-chromalalia')">Change Track</button>
-	              	<button ng-click="audioPause()">Pause</button>
-	              	<button ng-click="audioPlay()">Play</button>
-	          	</div>
-	        </div>
-	    </script>
-
-		<div ng-controller="WaveIconCtrl">
+	<div ng-controller="WaveIconCtrl">
 
 	    <div id="playerToggle" class="wave-container" ng-click="play()">
 		  <svg xmlns="http://www.w3.org/2000/svg" 
