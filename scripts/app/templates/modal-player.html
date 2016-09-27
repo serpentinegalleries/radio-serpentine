@@ -7,4 +7,20 @@
   	<button ng-click="audioPause()">Pause</button>
   	<button ng-click="audioPlay()">Play</button>
 
+
+  	<div>
+	    <div class="feature">
+	      <div class="feature-mask">
+	        <img class="feature-mask-image" ng-src="{{ track.thumbnail_images.large.url }}" alt="{{ track.title }}">
+	      </div>
+	    </div>
+	</div>
+
+    <h5>
+      {{ track.custom_fields.participant[0] }}
+    </h5>
+    <h1>
+      {{ track.title }}
+    </h1>
+
 </div>
