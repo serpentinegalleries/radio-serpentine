@@ -1,1 +1,27 @@
-these are series
+<div id="grid-template" class="container">
+	<div id="grid-images">
+		<div ng-repeat="item in posts">
+	  <a href="{{ item.url }}">
+
+	    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+
+	      <div class="circle-mask series">
+	          <img src="{{ item.thumbnail_images.medium.url }}" alt="{{ item.title }}">
+	      </div>
+
+	      <div class="grid-item-description series">
+	        <h6>
+	          {{ item.custom_fields.title[0] }}
+	        </h6>
+	        <h4>
+	          {{ item.title }}
+	        </h4>
+	      </div>
+
+
+	    </div>
+
+	  </a>
+	</div>
+	</div> 
+</div>

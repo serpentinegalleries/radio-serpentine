@@ -24,14 +24,14 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) 
         .state('participants', {
             url: '/participants',
             views: {
-                '': { templateUrl: TEMPLATES_URI + 'partial-participants.html' },
-            }
+                '': { templateUrl: TEMPLATES_URI + 'partial-participants.html', controller: "ParticipantsCtrl", },
+            },
         })
 
         .state('series', {
             url: '/series',
             views: {
-                '': { templateUrl: TEMPLATES_URI + 'partial-series.html' },
+                '': { templateUrl: TEMPLATES_URI + 'partial-series.html', controller: "SeriesCtrl",  },
             }
         })
 
@@ -45,7 +45,7 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) 
         .state('tracks', {
             url: '/tracks',
             views: {
-                '': { templateUrl: TEMPLATES_URI + 'partial-tracks.html' },
+                '': { templateUrl: TEMPLATES_URI + 'partial-tracks.html', controller: "TracksCtrl", },
             }
         })
         
@@ -173,4 +173,25 @@ radioApp.controller('FeatureCtrl', function ($scope, $http, $log, audio, player)
       player.open();
     });
   }
+});
+
+radioApp.controller('ParticipantsCtrl', function ($scope, $http, $log) {
+  $http.get('/api/get_category_posts/?category_slug=participants&count=50').
+        then(function(response) {
+            $scope.posts = response.data.posts;
+        });
+});
+
+radioApp.controller('SeriesCtrl', function ($scope, $http, $log) {
+  $http.get('/api/get_category_posts/?category_slug=series').
+        then(function(response) {
+            $scope.posts = response.data.posts;
+        });
+});
+
+radioApp.controller('TracksCtrl', function ($scope, $http, $log) {
+  $http.get('/api/get_category_posts/?category_slug=tracks').
+        then(function(response) {
+            $scope.tracks = response.data.posts;
+        });
 });
