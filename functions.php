@@ -12,6 +12,9 @@ function theme_enqueue_styles() {
 
     if ( is_front_page() ) { 
         wp_enqueue_script( 'angular', get_stylesheet_directory_uri().'/vendor/angular/angular-1.5.8/angular.min.js' );
+
+        wp_enqueue_script( 'd3', get_stylesheet_directory_uri().'/vendor/d3.v4.min.js' );
+
         wp_enqueue_script( 'angular-ui-router', get_stylesheet_directory_uri().'/vendor/angular/angular-ui-router.min.js' );
         wp_enqueue_script( 'ui-bootstrap-tpls-2', get_stylesheet_directory_uri().'/vendor/angular/ui-bootstrap-tpls-2.1.3.min.js' );
         wp_enqueue_script( 'app', get_stylesheet_directory_uri().'/scripts/app/app.js' );

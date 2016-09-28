@@ -55,20 +55,31 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) 
 });
 radioApp.factory('player',function ($uibModal, $log, $http, audio) {
   var track = {};
+
+  var isOpen = false;
+
   var open = function() {
-        var modalInstance = $uibModal.open({
-          ariaLabelledBy: 'modal-title',
-          ariaDescribedBy: 'modal-body',
-          templateUrl: TEMPLATES_URI + 'modal-player.html',
-          controller: 'PlayerInstanceCtrl',
-          windowClass: 'playerModal',
-          resolve: {
-            items: function () {
+        if(isOpen) {
+          angular.element(document.querySelector('.playerModal')).removeClass("blur");
+          angular.element(document.querySelector('body')).addClass("modal-open");          
+        } else {
+          var modalInstance = $uibModal.open({
+            animation: false,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: TEMPLATES_URI + 'modal-player.html',
+            controller: 'PlayerInstanceCtrl',
+            windowClass: 'playerModal',
+            resolve: {
+              items: function () {
+              }
             }
-          }
-        });
-        audio.play();
-  } ;
+          });
+          audio.play();
+          isOpen = true;
+        };
+    };
+
   var setTrackData = function (slug) {
     track = $http.get('/api/get_post/?post_slug=' + slug).
         then(function(response) {
@@ -100,18 +111,21 @@ radioApp.factory('player',function ($uibModal, $log, $http, audio) {
 radioApp.controller('PlayerInstanceCtrl', function ($uibModalInstance, $log, $scope, player, audio) {
   $scope.track = player.get();
 
+  $scope.isPlaying = true;
+
   $scope.minim = function() {
     player.min();
   }
-
-  $scope.songSelect = function(path) {
+  $scope.next = function(path) {
     audio.setSrc(path);
   }
-  $scope.audioPause = function(songPath) {
-    audio.pause();  
+  $scope.pause = function() {
+    audio.pause();
+    $scope.isPlaying = false;
   };
-  $scope.audioPlay = function(songPath) {
+  $scope.play = function() {
     audio.play();  
+    $scope.isPlaying = true;
   };
 
 });

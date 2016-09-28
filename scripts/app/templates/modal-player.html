@@ -3,24 +3,24 @@
 	<i id="playerBack" class="fa fa-long-arrow-left round-border" aria-hidden="true"></i>
 	<i id="playerNext" class="fa fa-long-arrow-right round-border" aria-hidden="true"></i>
 
-  	<button ng-click="songSelect('https://soundcloud.com/serpentine-uk/marcos-luytens-chromalalia')">Change Track</button>
-  	<button ng-click="audioPause()">Pause</button>
-  	<button ng-click="audioPlay()">Play</button>
 
-
-  	<div>
 	    <div class="feature">
 	      <div class="feature-mask">
-	        <img class="feature-mask-image" ng-src="{{ track.thumbnail_images.large.url }}" alt="{{ track.title }}">
+	        <div class="feature-mask-image">
+              <img ng-src="{{ track.thumbnail_images.large.url }}" alt="{{ track.title }}">
+              <i ng-click="pause()" id="playerIcon" class="fa fa-pause round-border playerIcon-pause" ng-show="isPlaying" aria-hidden="true"></i>
+              <i ng-click="play()" id="playerIcon" class="fa fa-play round-border playerIcon-play" ng-hide="isPlaying" aria-hidden="true"></i>
+          </div>
 	      </div>
 	    </div>
-  	</div>
 
-    <h5>
-      {{ track.custom_fields.participant[0] }}
-    </h5>
-    <h1>
-      {{ track.title }}
-    </h1>
+    <div class="player-metadata">
+      <h4>
+        {{ track.custom_fields.participant[0] }}
+      </h4>
+      <h1>
+        {{ track.title }}
+      </h1>
+    </div>
 
 </div>
