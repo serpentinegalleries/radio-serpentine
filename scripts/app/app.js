@@ -53,7 +53,7 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) 
         // $locationProvider.html5Mode(true);
 
 });
-radioApp.factory('player',function ($uibModal, $log, $q, $http, audio) {
+radioApp.factory('player',function ($uibModal, $log, $http, audio) {
   var track = {};
   var open = function() {
         var modalInstance = $uibModal.open({
@@ -70,18 +70,14 @@ radioApp.factory('player',function ($uibModal, $log, $q, $http, audio) {
         audio.play();
   } ;
   var setTrackData = function (slug) {
-      var deferred = $q.defer();
-
-      $http.get('/api/get_post/?post_slug=' + slug).
+    track = $http.get('/api/get_post/?post_slug=' + slug).
         then(function(response) {
             track = response.data.post;
             return track;
         });
-      deferred.resolve(track);
-      return deferred.promise;
+    return track; 
   };
   var getTrackData = function () {
-      $log.info('get track');
       return track;
   };
   var min = function() {
@@ -90,40 +86,18 @@ radioApp.factory('player',function ($uibModal, $log, $q, $http, audio) {
   };
 
   return {
-    get: getTrackData,
     open: open,
     setTrackData: setTrackData,
+    get: getTrackData,
     min: min,
   }
 });
-
-/*radioApp.service('playerService', function ($log, $http) {
-    var track = '';
-
-    var setTrackData = function (slug) {
-      $http.get('/api/get_post/?post_slug=' + slug).
-        then(function(response) {
-            track = response.data.post;
-            return track;
-        });
-    };
-
-    var getTrackData = function () {
-      return track;
-    };
-
-    return {
-      setTrackData: setTrackData,
-      getTrackData: getTrackData
-    };
-});*/
 
 
 // Please note that $uibModalInstance represents a modal window (instance) dependency.
 // It is not the same as the $uibModal service used above.
 
 radioApp.controller('PlayerInstanceCtrl', function ($uibModalInstance, $log, $scope, player, audio) {
-
   $scope.track = player.get();
 
   $scope.minim = function() {
@@ -181,7 +155,7 @@ radioApp.controller('FeatureCtrl', function ($scope, $http, $log, audio, player)
             audio.setSrc($scope.feature.custom_fields.audio[0]);
         });
   $scope.play = function(slug) {
-    player.setTrackData(slug).then(function() {
+    player.setTrackData(slug).then(function(){
       player.open();
     });
   }

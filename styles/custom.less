@@ -360,6 +360,44 @@ Modals
 	border-radius: 0;
 }
 
+/* Player Modal */
+.playerModal {
+	.feature {
+		background: #fff;
+		height: 415px;
+		.feature-mask {
+			height: 400px;
+			width: 400px;
+			border-radius:100%;
+			display: block;
+			margin: auto;
+			overflow: hidden;
+			z-index: 1;
+			.feature-mask-image {
+				left:-50%;
+				right:-50%;
+				top:    0;
+				margin: auto;
+				height: 100%;
+				width:  auto;
+				z-index: 0;
+			}
+		}
+		.feature-text {
+			position: absolute;
+			width: 100%;
+			z-index: 2;
+			bottom: 0;
+			h1 {
+				margin-bottom: 0;
+			}
+			h5 {
+				margin-bottom: 3px;
+			}
+		}
+	}
+}
+
 #player {
 }
 
