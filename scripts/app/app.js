@@ -48,6 +48,12 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) 
                 '': { templateUrl: TEMPLATES_URI + 'partial-tracks.html', controller: "TracksCtrl", },
             }
         })
+
+        .state('tracks.detail', {
+          url: "/:trackId",
+          templateUrl: TEMPLATES_URI + 'partial-tracks-single.html',
+          controller: "SingleTrackCtrl",
+      })
         
         // use the HTML5 History API
         // $locationProvider.html5Mode(true);
@@ -193,5 +199,15 @@ radioApp.controller('TracksCtrl', function ($scope, $http, $log) {
   $http.get('/api/get_category_posts/?category_slug=tracks').
         then(function(response) {
             $scope.tracks = response.data.posts;
+        });
+});
+
+
+radioApp.controller('SingleTrackCtrl', function ($scope, $http, $log, $stateParams) {
+  var slug = $stateParams.trackId;
+  $log.info(slug);
+  $http.get('/api/get_post/?post_slug=' + slug).
+        then(function(response) {
+            $scope.track = response.data.post;
         });
 });

@@ -38,7 +38,7 @@
     <div id="grid-images">
 
 		<div ng-repeat="track in tracks">
-			<a href="{{ track.url }}">
+			<a ui-sref="tracks.detail({trackId: track.slug })">
 				<div class="row">
 				  <div class="col-lg-3 col-md-3 col-sm-12">
 				    <p>
