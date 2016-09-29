@@ -28,6 +28,12 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) 
             },
         })
 
+        .state('participant', {
+          url: "/participants/:participantId",
+          templateUrl: TEMPLATES_URI + 'partial-participants-single.html',
+          controller: "SingleParticipantCtrl",
+        })
+
         .state('series', {
             url: '/series',
             views: {
@@ -49,11 +55,11 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) 
             }
         })
 
-        .state('tracks.detail', {
-          url: "/:trackId",
+        .state('track', {
+          url: "/tracks/:trackId",
           templateUrl: TEMPLATES_URI + 'partial-tracks-single.html',
           controller: "SingleTrackCtrl",
-      })
+        })
         
         // use the HTML5 History API
         // $locationProvider.html5Mode(true);
@@ -76,10 +82,6 @@ radioApp.factory('player',function ($uibModal, $log, $http, audio) {
             templateUrl: TEMPLATES_URI + 'modal-player.html',
             controller: 'PlayerInstanceCtrl',
             windowClass: 'playerModal',
-            resolve: {
-              items: function () {
-              }
-            }
           });
           audio.play();
           isOpen = true;
@@ -115,10 +117,17 @@ radioApp.factory('player',function ($uibModal, $log, $http, audio) {
 // It is not the same as the $uibModal service used above.
 
 radioApp.controller('PlayerInstanceCtrl', function ($uibModalInstance, $log, $scope, player, audio) {
+
   $scope.track = player.get();
 
   $scope.isPlaying = true;
 
+  $scope.reinit = function() {
+    $scope.$apply(function () {
+      $scope.track = player.get();
+    });
+  }
+  
   $scope.minim = function() {
     player.min();
   }
@@ -174,7 +183,8 @@ radioApp.controller('FeatureCtrl', function ($scope, $http, $log, audio, player)
             $scope.feature = response.data.posts[0];
             audio.setSrc($scope.feature.custom_fields.audio[0]);
         });
-  $scope.play = function(slug) {
+  $scope.play = function(song_url, slug) {
+    audio.setSrc(song_url);
     player.setTrackData(slug).then(function(){
       player.open();
     });
@@ -203,11 +213,31 @@ radioApp.controller('TracksCtrl', function ($scope, $http, $log) {
 });
 
 
-radioApp.controller('SingleTrackCtrl', function ($scope, $http, $log, $stateParams) {
+radioApp.controller('SingleTrackCtrl', function ($scope, $http, $log, $stateParams, player, audio) {
   var slug = $stateParams.trackId;
-  $log.info(slug);
   $http.get('/api/get_post/?post_slug=' + slug).
         then(function(response) {
             $scope.track = response.data.post;
         });
+  $scope.play = function(song_url, slug) {
+    $log.info(song_url);
+    audio.setSrc(song_url);
+    player.setTrackData(slug).then(function(){
+      player.open();
+    });
+  }
+});
+
+radioApp.controller('SingleParticipantCtrl', function ($scope, $http, $log, $stateParams, player, audio) {
+  var slug = $stateParams.participantId;
+  $http.get('/api/get_post/?post_slug=' + slug).
+        then(function(response) {
+            $scope.participant = response.data.post;
+        });
+  $scope.play = function(song_url, slug) {
+    audio.setSrc(song_url);
+    player.setTrackData(slug).then(function(){
+      player.open();
+    });
+  }
 });

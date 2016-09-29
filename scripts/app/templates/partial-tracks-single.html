@@ -1,1 +1,16 @@
-hey
+<div class="feature">
+  <div class="feature-mask">
+    <div class="feature-mask-image">
+      <img ng-src="{{ track.thumbnail_images.large.url }}" alt="{{ track.title }}">
+      <i ng-click="play(track.custom_fields.audio[0], track.slug)" id="playerIcon" class="fa fa-play round-border" aria-hidden="true"></i>
+    </div>
+  </div>
+  <div class="feature-text">
+    <h5>
+      {{ track.custom_fields.participant[0] }}
+    </h5>
+    <h1>
+      {{ track.title }}
+    </h1>
+  </div>
+</div>

@@ -4,7 +4,7 @@
       <div class="feature-mask">
         <div class="feature-mask-image">
           <img ng-src="{{ feature.thumbnail_images.large.url }}" alt="{{ feature.title }}">
-          <i ng-click="play(feature.slug)" id="playerIcon" class="fa fa-play round-border" aria-hidden="true"></i>
+          <i ng-click="play(feature.custom_fields.audio[0], feature.slug)" id="playerIcon" class="fa fa-play round-border" aria-hidden="true"></i>
         </div>
       </div>
       <div class="feature-text">
