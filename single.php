@@ -12,9 +12,14 @@ get_header(); ?>
 	<div class="container">
 
 		<?php
-		do_action( 'omega_before_content' );
-		do_action( 'omega_content' );
-		do_action( 'omega_after_content' );
+		if(has_term('participants', 'category', $post)) {
+			get_template_part('single-participant');
+		}
+		else {
+			do_action( 'omega_before_content' );
+			do_action( 'omega_content' );
+			do_action( 'omega_after_content' );
+		}
 		?>
 
 		<!-- Stand-in player -->

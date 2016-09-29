@@ -265,6 +265,9 @@ a.menu-nav-item {
 
 .grid-item {
 	min-height: 325px;
+	.small-viewport({
+		min-height: 264px;
+  });
 }
 
 .grid-item-description {
@@ -350,4 +353,32 @@ a.menu-nav-item {
 			margin-bottom: @margin-title - 10;
 		}
 	}
+}
+
+/*
+* The participant single page
+*/
+.participant-header {
+	position: relative;
+	margin-bottom: 2em;
+}
+.participant-name {
+	position: absolute;
+	top: -22px;
+	.small-viewport({
+		top: -14px;
+  });
+}
+.participant-title {
+	margin-bottom: 0.2em;
+}
+.participant-intro {
+	margin-bottom: 3em;
+}
+.participant-copy {
+	max-width: 600px;
+	margin: 0 auto;
+	.medium-viewport({
+		max-width: 460px;
+	});
 }
