@@ -38,29 +38,30 @@ get_header(); ?>
 
 	<div class="col-lg-3 col-md-3 col-sm-4 col-xs-6 grid-item">
 
-		<div class="circle-border">
-			<p>
-				42
-			</p>
-		</div>
-
-		<div class="circle-mask">
-			<% if(typeof thumbnail_images !== 'undefined') { %>
-			    <img src="<%= thumbnail_images.medium.url %>" alt="<%- title %>">
-			<% } else { %>
-				<img src="http://placehold.it/250x250" alt="<%- title %>">
-			<% } %>
-		</div>
-		<div class="grid-item-description">
-			<h4>
-				<%= title %>
-			</h4>
-			<h6>
-				<%= custom_fields.title %>
-			</h6>
-			<p>
-				<%= custom_fields.country %>
-			</p>
+		<div class="circle-wrapper">
+			<div class="circle-border">
+				<p>
+					42
+				</p>
+			</div>
+			<div class="circle-mask">
+				<% if(typeof thumbnail_images !== 'undefined') { %>
+				    <img src="<%= thumbnail_images.medium.url %>" alt="<%- title %>">
+				<% } else { %>
+					<img src="http://placehold.it/250x250" alt="<%- title %>">
+				<% } %>
+			</div>
+			<div class="grid-item-description">
+				<h4>
+					<%= title %>
+				</h4>
+				<h6>
+					<%= custom_fields.title %>
+				</h6>
+				<p>
+					<%= custom_fields.country %>
+				</p>
+			</div>
 		</div>
 
 	</div>
