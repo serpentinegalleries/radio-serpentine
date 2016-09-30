@@ -146,7 +146,7 @@ radioApp.controller('PlayerInstanceCtrl', function ($uibModalInstance, $log, $sc
 });
 
 radioApp.factory('audio',function ($document, $log) {
-  var audioElement = $document[0].createElement('audio');
+  var audioElement = $document[0].createElement('audio'); // $document[0].getElementById('audio');
   return {
     audioElement: audioElement,
     play: function() {
