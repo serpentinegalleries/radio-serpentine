@@ -1,5 +1,5 @@
 // app.js
-var radioApp = angular.module('radioApp', ['ui.router','ui.bootstrap']);
+var radioApp = angular.module('radioApp', ['ui.router','ui.bootstrap', 'ngSanitize']);
 var TEMPLATES_URI = '/wp-content/themes/radio-serpentine/scripts/app/templates/';
 
 radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
@@ -228,12 +228,15 @@ radioApp.controller('SingleTrackCtrl', function ($scope, $http, $log, $statePara
   }
 });
 
-radioApp.controller('SingleParticipantCtrl', function ($scope, $http, $log, $stateParams, player, audio) {
+radioApp.controller('SingleParticipantCtrl', function ($scope, $sce, $http, $log, $stateParams, player, audio) {
   var slug = $stateParams.participantId;
   $http.get('/api/get_post/?post_slug=' + slug).
         then(function(response) {
             $scope.participant = response.data.post;
         });
+  $scope.renderHtml = function(code) {
+      return $sce.trustAsHtml(code);
+  };
   $scope.play = function(song_url, slug) {
     audio.setSrc(song_url);
     player.setTrackData(slug).then(function(){

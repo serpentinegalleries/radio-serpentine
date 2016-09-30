@@ -1,16 +1,13 @@
-<div class="feature">
-  <div class="feature-mask">
-    <div class="feature-mask-image">
-      <img ng-src="{{ participant.thumbnail_images.large.url }}" alt="{{ participant.title }}">
-      <i ng-click="play(participant.custom_fields.audio[0], participant.slug)" id="playerIcon" class="fa fa-play round-border" aria-hidden="true"></i>
-    </div>
+<div class="participant-header">
+  <h1 class="participant-name">{{ participant.title }}</h1>
+  <img ng-src="{{ participant.thumbnail_images.large.url }}" alt="{{ participant.title }}" class="participant-image">
+</div>
+<div class="participant-body">
+  <div class="participant-intro">
+    <h3 class="participant-title">{{ participant.custom_fields.title }}</h3>
+    <h5 class="participant-location">{{ participant.custom_fields.country }}</h5>
   </div>
-  <div class="feature-text">
-    <h5>
-      {{ participant.custom_fields.participant[0] }}
-    </h5>
-    <h1>
-      {{ participant.title }}
-    </h1>
+  <div class="participant-copy">
+    <div ng-bind-html="participant.content"></div>
   </div>
 </div>

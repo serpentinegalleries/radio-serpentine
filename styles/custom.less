@@ -1,3 +1,8 @@
+/**
+ * SOME IMPORTS
+ */
+@import "mixins.less";
+
 /***************
 VARIABLES
 ***************/
@@ -523,4 +528,33 @@ svg {
     stroke-dashoffset: -133;
     transform: translate3d(-90px, 0, 0);
   }
+}
+
+
+/*
+* The participant single page
+*/
+.participant-header {
+	position: relative;
+	margin-bottom: 2em;
+}
+.participant-name {
+	position: absolute;
+	top: -22px;
+	.small-viewport({
+		top: -14px;
+  });
+}
+.participant-title {
+	margin-bottom: 0.2em;
+}
+.participant-intro {
+	margin-bottom: 3em;
+}
+.participant-copy {
+	max-width: 600px;
+	margin: 0 auto;
+	.medium-viewport({
+		max-width: 460px;
+	});
 }
