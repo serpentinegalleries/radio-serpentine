@@ -4,25 +4,25 @@
 		<a ui-sref="participant({participantId: item.slug })">
 
 		<div class="col-lg-3 col-md-3 col-sm-4 col-xs-6 grid-item">
+			<div class="circle-wrapper">
+				<div class="circle-border">
+					<p>
+						42
+					</p>
+				</div>
 
-			<div class="circle-border">
-				<p>
-					42
-				</p>
+				<div class="circle-mask">
+						<img ng-src="{{ item.thumbnail_images.medium.url }}" alt="{{ item.title }}">
+				</div>
+				<div class="grid-item-description">
+					<h4>
+						{{ item.title }}
+					</h4>
+					<h6>
+						{{ item.custom_fields.title[0] }}
+					</h6>
+				</div>
 			</div>
-
-			<div class="circle-mask">
-					<img ng-src="{{ item.thumbnail_images.medium.url }}" alt="{{ item.title }}">
-			</div>
-			<div class="grid-item-description">
-				<h4>
-					{{ item.title }}
-				</h4>
-				<h6>
-					{{ item.custom_fields.title[0] }}
-				</h6>
-			</div>
-
 		</div>
 
 	    </a>
