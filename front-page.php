@@ -11,7 +11,7 @@ get_header( 'home' ); ?>
 <div class="container">
 
     <!-- CONTENT INJECTION -->
-    <div ui-view></div>
+    <div class="main" ui-view></div>
 
 
 </div> 
