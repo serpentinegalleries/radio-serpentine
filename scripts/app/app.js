@@ -89,7 +89,7 @@ radioApp.factory('player',function ($uibModal, $log, $http, audio) {
     };
 
   var setTrackData = function (slug) {
-    track = $http.get('/api/get_post/?post_slug=' + slug).
+    track = $http.get('/?json=get_post&post_slug=' + slug).
         then(function(response) {
             track = response.data.post;
             return track;
@@ -178,7 +178,7 @@ radioApp.controller('WaveIconCtrl', function ($uibModal, $scope, $log, audio, pl
 
 /* Header controller */
 radioApp.controller('FeatureCtrl', function ($scope, $http, $log, audio, player) {
-  $http.get('/api/get_tag_posts/?tag_slug=featured').
+  $http.get('/?json=get_tag_posts&?tag_slug=featured').
         then(function(response) {
             $scope.feature = response.data.posts[0];
             audio.setSrc($scope.feature.custom_fields.audio[0]);
@@ -192,21 +192,21 @@ radioApp.controller('FeatureCtrl', function ($scope, $http, $log, audio, player)
 });
 
 radioApp.controller('ParticipantsCtrl', function ($scope, $http, $log) {
-  $http.get('/api/get_category_posts/?category_slug=participants&count=50').
+  $http.get('/?json=get_category_posts&category_slug=participants&count=50').
         then(function(response) {
             $scope.posts = response.data.posts;
         });
 });
 
 radioApp.controller('SeriesCtrl', function ($scope, $http, $log) {
-  $http.get('/api/get_category_posts/?category_slug=series').
+  $http.get('/?json=get_category_posts&category_slug=series').
         then(function(response) {
             $scope.posts = response.data.posts;
         });
 });
 
 radioApp.controller('TracksCtrl', function ($scope, $http, $log) {
-  $http.get('/api/get_category_posts/?category_slug=tracks').
+  $http.get('/?json=get_category_posts&category_slug=tracks').
         then(function(response) {
             $scope.tracks = response.data.posts;
         });
@@ -215,7 +215,7 @@ radioApp.controller('TracksCtrl', function ($scope, $http, $log) {
 
 radioApp.controller('SingleTrackCtrl', function ($scope, $http, $log, $stateParams, player, audio) {
   var slug = $stateParams.trackId;
-  $http.get('/api/get_post/?post_slug=' + slug).
+  $http.get('/?json=get_post&post_slug=' + slug).
         then(function(response) {
             $scope.track = response.data.post;
         });
@@ -230,7 +230,7 @@ radioApp.controller('SingleTrackCtrl', function ($scope, $http, $log, $statePara
 
 radioApp.controller('SingleParticipantCtrl', function ($scope, $sce, $http, $log, $stateParams, player, audio) {
   var slug = $stateParams.participantId;
-  $http.get('/api/get_post/?post_slug=' + slug).
+  $http.get('/?json=get_post&post_slug=' + slug).
         then(function(response) {
             $scope.participant = response.data.post;
         });
