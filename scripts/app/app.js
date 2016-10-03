@@ -68,7 +68,7 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) 
 
         .state('track', {
           url: "/tracks/:trackId",
-          templateUrl: TEMPLATES_URI + 'partial-tracks-single.html',
+          templateUrl: TEMPLATES_URI + 'tracks-single.html',
           controller: "SingleTrackCtrl",
         })
         
@@ -219,7 +219,7 @@ radioApp.controller('SeriesCtrl', function ($scope, $http, $log) {
 });
 
 radioApp.controller('TracksCtrl', function ($scope, $http, $log) {
-  $http.get('/?json=get_category_posts&category_slug=tracks').
+  $http.get('/?json=get_category_posts&category_slug=tracks&date_format=m/d/Y').
         then(function(response) {
             $scope.tracks = response.data.posts;
         });

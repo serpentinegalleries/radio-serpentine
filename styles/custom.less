@@ -175,11 +175,6 @@ body, div, header, .site-header  {
 		margin-top: 0;
 		opacity: .2;
 	}
-	p {
-		white-space: nowrap;
-		overflow: hidden;		
-		text-overflow: ellipsis;
-	}
 	i {
 		padding: 0 10px;
 	}
@@ -803,6 +798,24 @@ Overview padding: ages
 		.small-viewport({
 			top: 105px;
 		});
+	}
+}
+
+#tracks {
+	h1,h2,h3,h4,h5,h6,p,span {
+		white-space: nowrap;
+		overflow: hidden;		
+		text-overflow: ellipsis;
+	}
+	.mobile {
+		.row {
+			h1,h2,h3,h4,h5,h6,p {
+				margin-bottom: 5px;
+			}
+		}
+		hr {
+			margin: 10px 0;
+		}
 	}
 }
 
