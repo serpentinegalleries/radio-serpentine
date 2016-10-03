@@ -41,6 +41,12 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) 
             }
         })
 
+        .state('series-single', {
+          url: "/series/:seriesId",
+          templateUrl: TEMPLATES_URI + 'partial-series-single.html',
+          controller: "SingleSeriesCtrl",
+        })
+
         .state('themes', {
             url: '/themes',
             views: {
@@ -248,6 +254,25 @@ radioApp.controller('SingleParticipantCtrl', function ($scope, $sce, $http, $log
     });
   }
 });
+
+radioApp.controller('SingleSeriesCtrl', function ($scope, $sce, $http, $log, $stateParams, player, audio) {
+  var slug = $stateParams.seriesId;
+  $http.get('/?json=get_post&post_slug=' + slug).
+        then(function(response) {
+            $scope.series = response.data.post;
+        });
+  $scope.renderHtml = function(code) {
+      return $sce.trustAsHtml(code);
+  };
+  $scope.play = function(song_url, slug) {
+    audio.setSrc(song_url);
+    player.setTrackData(slug).then(function(){
+      player.open();
+    });
+  }
+});
+
+
 
 radioApp.controller('DropdownCtrl', function ($scope, $log) {
   $scope.items = [

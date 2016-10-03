@@ -29,30 +29,27 @@
 
 
 
-<div id="grid-template" class="container">
-	<div id="grid-images">
-		<div ng-repeat="item in posts">
-	  <a href="{{ item.url }}">
+<div id="series" class="menu-margin">
+	<div ng-repeat="post in posts">
+	  <a ui-sref="series-single({seriesId: post.slug })">
 
-	    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+	    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
 
-	      <div class="circle-mask series">
-	          <img src="{{ item.thumbnail_images.medium.url }}" alt="{{ item.title }}">
-	      </div>
-
-	      <div class="grid-item-description series">
-	        <h6>
-	          {{ item.custom_fields.title[0] }}
-	        </h6>
-	        <h4>
-	          {{ item.title }}
-	        </h4>
-	      </div>
-
+			<div class="image-circle">
+				<img src="{{ post.thumbnail_images.medium.url }}" alt="{{ post.title }}">
+				<i ng-click="play(post.custom_fields.audio[0], post.slug)" id="playerIcon" class="fa fa-play round-border" aria-hidden="true"></i>
+			</div>
+			<div class="description">
+				<h6>
+				  {{ post.custom_fields.participant }}
+				</h6>
+				<h3>
+				  {{ post.title }}
+				</h3>
+			</div>
 
 	    </div>
 
 	  </a>
-	</div>
 	</div> 
 </div>
