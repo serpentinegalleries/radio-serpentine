@@ -296,3 +296,32 @@ radioApp.controller('DropdownCtrl', function ($scope, $log) {
 
   $scope.appendToEl = angular.element(document.querySelector('#dropdown-long-content'));
 });
+
+/*********************
+About modal
+*********************/
+
+/*radioApp.factory('about',function ($uibModal, $log) {
+  var open = function() {
+          var aboutModalInstance = $uibModal.open({
+            animation: false,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: TEMPLATES_URI + 'modal-about.html',
+            controller: 'AboutInstanceCtrl',
+            windowClass: 'aboutModal',
+          });
+        };
+  return {
+    open: open,
+  }
+});
+
+radioApp.controller('AboutInstanceCtrl', function ($uibModalInstance, $log, $scope, about) {
+  var open = function () {
+    about.open();
+  };
+  var close = function () {
+    $uibModalInstance.close();
+  };
+});*/

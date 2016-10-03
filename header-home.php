@@ -14,10 +14,10 @@
 		<div class="wrap">
 			<ul id="menu-main-nav" class="menu omega-nav-menu menu-primary">
 				<li class="menu-item">
-					<a ui-sref="home" href="/">radio.Serpentine</a>
+					<a ui-sref="home">radio.Serpentine</a>
 				</li>
 				<li class="menu-item">
-					<a ui-sref="about" href="/about/">About</a>
+					<a ui-sref="about">About</a>
 				</li>
 			</ul>
 		</div>
