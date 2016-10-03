@@ -11,59 +11,64 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) 
         .state('home', {
             url: '/',
             views: {
-                '': { templateUrl: TEMPLATES_URI + 'partial-home.html' },
+                '': { templateUrl: TEMPLATES_URI + 'home.html' },
 
-                'feature@home': { templateUrl: TEMPLATES_URI +  'partial-home-feature.html' },
+                'feature@home': { templateUrl: TEMPLATES_URI +  'feature.html' },
 
                 'menu@home': { 
-                    templateUrl: TEMPLATES_URI + 'partial-home-menu.html',
+                    templateUrl: TEMPLATES_URI + 'menu.html',
                 },
             },
+        })
+        
+        .state('about', {
+            url: '/about',
+            templateUrl: TEMPLATES_URI + 'about.html',
         })
         
         .state('participants', {
             url: '/participants',
             views: {
-                '': { templateUrl: TEMPLATES_URI + 'partial-participants.html', controller: "ParticipantsCtrl", },
+                '': { templateUrl: TEMPLATES_URI + 'participants.html', controller: "ParticipantsCtrl", },
             },
         })
 
         .state('participant', {
           url: "/participants/:participantId",
-          templateUrl: TEMPLATES_URI + 'partial-participants-single.html',
+          templateUrl: TEMPLATES_URI + 'participants-single.html',
           controller: "SingleParticipantCtrl",
         })
 
         .state('series', {
             url: '/series',
             views: {
-                '': { templateUrl: TEMPLATES_URI + 'partial-series.html', controller: "SeriesCtrl",  },
+                '': { templateUrl: TEMPLATES_URI + 'series.html', controller: "SeriesCtrl",  },
             }
         })
 
         .state('series-single', {
           url: "/series/:seriesId",
-          templateUrl: TEMPLATES_URI + 'partial-series-single.html',
+          templateUrl: TEMPLATES_URI + 'series-single.html',
           controller: "SingleSeriesCtrl",
         })
 
         .state('themes', {
             url: '/themes',
             views: {
-                '': { templateUrl: TEMPLATES_URI + 'partial-themes.html' },
+                '': { templateUrl: TEMPLATES_URI + 'themes.html' },
             }
         })
 
         .state('tracks', {
             url: '/tracks',
             views: {
-                '': { templateUrl: TEMPLATES_URI + 'partial-tracks.html', controller: "TracksCtrl", },
+                '': { templateUrl: TEMPLATES_URI + 'tracks.html', controller: "TracksCtrl", },
             }
         })
 
         .state('track', {
           url: "/tracks/:trackId",
-          templateUrl: TEMPLATES_URI + 'partial-tracks-single.html',
+          templateUrl: TEMPLATES_URI + 'tracks-single.html',
           controller: "SingleTrackCtrl",
         })
         

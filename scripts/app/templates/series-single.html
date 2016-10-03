@@ -1,38 +1,38 @@
 <div id="feature">
   <div class="image-circle">
-    <img ng-src="http://placehold.it/400x400" alt="{{ track.title }}">
+    <img ng-src="{{ series.thumbnail_images.large.url }}" alt="{{ series.title }}">
   </div>
   <div class="title">
-      <i ng-click="play(track.custom_fields.audio[0], track.slug)" id="playerIcon-track" class="fa fa-play round-border" aria-hidden="true"></i>
+      <i ng-click="play(series.custom_fields.audio[0], series.slug)" id="playerIcon-track" class="fa fa-play round-border" aria-hidden="true"></i>
       <h3>
-        <span ng-repeat="participant in track.custom_fields.participant">
+        <span ng-repeat="participant in series.custom_fields.participant">
           {{ participant }}{{$last ? '' : ', '}}
         </span>
       </h3>
       <h1>
-        {{ track.title }}
+        {{ series.title }}
       </h1>
       <h5>
-        {{ track.custom_fields.series[0] }}
+        {{ series.custom_fields.series[0] }}
       </h5>
   </div>
 </div>
 
   <div class="copy">
-    <div ng-bind-html="track.content"></div>
+    <div ng-bind-html="series.content"></div>
   </div>
 
   <hr>
   <div id="tracks" class="row">
     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12"> 
       <p>
-        <i ng-click="play(track.custom_fields.audio[0], track.slug)" class="fa fa-play"></i>
-        {{ track.title }}
+        <i ng-click="play(series.custom_fields.audio[0], series.slug)" class="fa fa-play"></i>
+        {{ series.title }}
       </p>
     </div>
     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
       <p>
-        <span ng-repeat="participant in track.custom_fields.participant">
+        <span ng-repeat="participant in series.custom_fields.participant">
           {{ participant }}{{$last ? '' : ', '}}
         </span>
       </p>
