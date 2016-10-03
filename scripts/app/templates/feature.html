@@ -2,8 +2,7 @@
   <div>
     <div class="feature">
       <div class="feature-mask">
-        <div class="feature-mask-image">
-          <img ng-src="{{ feature.thumbnail_images.large.url }}" alt="{{ feature.title }}">
+        <div class="circle-image-background" style="background-image: url('{{ item.thumbnail_images.medium.url }}')">
           <i ng-click="play(feature.custom_fields.audio[0], feature.slug)" id="playerIcon" class="fa fa-play round-border" aria-hidden="true"></i>
         </div>
       </div>

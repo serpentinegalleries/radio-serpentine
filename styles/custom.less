@@ -541,6 +541,7 @@ Wave Icon
   margin: 0 auto;
   width: 40px;
   border-radius: 50%;
+  z-index: 9000;
 }
 
 svg { 
@@ -680,19 +681,9 @@ img {
 	}
 }
 
-
-#series {
-	.image-circle {
-		width: 100%;
-	    max-width: 300px;
-	    max-height: 300px;
-	    position: relative;
-	    overflow: hidden;
-	    border-radius: 50%;
-	    display: block;
-	    margin: 0 auto;
-	}
-}
+/****************************
+Components for overview pages
+****************************/
 
 .circle-image-background {
 	background-size: cover;
@@ -703,12 +694,91 @@ img {
 	-moz-border-radius: 50%;
 }
 
+.item-box {
+	display: block;
+	margin: 0 auto;
+	min-height: 325px;
+	.small-viewport({
+		min-height: 264px;
+	});
+	h1, h2, h3, h4, h5, h6 {
+		margin: 5px auto;
+	}
+}
+
+/****************************
+Overview pages
+****************************/
+
 #participants {
+	.item-box {
+		width: 205px;
+	}
 	.circle-image-background {
 		width: 205px;
 		height: 205px;
 		max-width: 100%;
 		max-height: 100%;
+	}
+	.circle-info {
+		background: transparent;
+		position: absolute;
+		width: 50px;
+		height: 50px;
+		right: 30px;
+		border: 2px solid #fff;
+		border-radius: 50%;
+		opacity: 0.7;
+		.small-viewport({
+			right: 20px;
+		});
+		p {
+			text-align: center;
+			vertical-align: middle;
+			line-height: 45px;
+			opacity: 1;
+		}
+	}
+}
+
+#series {
+	.item-box {
+		width: 300px;
+		min-height: 385px;
+		.small-viewport({
+			width: 250px;
+			min-height: 325px;
+		});
+	}
+	.circle-image-background {
+		width: 300px;
+	    height: 300px;
+	    max-height: 100%;
+	    max-width: 100%;
+		.small-viewport({
+			width: 250px;
+			height: 250px;
+		});
+	}
+	.player-icon {
+		background: #4696ff;
+		font-size: 10px;
+		height: 34px;
+		width:  33px;
+		position: relative;
+		display: block;
+		margin: 0 auto;
+		top: 135px;
+		border: none;
+		padding: 12px;
+		padding-left: 14px;
+		z-index: 0;
+		&:hover {
+			opacity: 0.5;
+		}
+		.small-viewport({
+			top: 105px;
+		});
 	}
 }
 

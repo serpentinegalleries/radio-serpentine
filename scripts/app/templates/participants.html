@@ -32,16 +32,16 @@
 	<div ng-repeat="item in posts">
 		<a ui-sref="participant({participantId: item.slug })">
 
-			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 grid-item">
-				<div class="circle-border">
-					<p>
-						42
-					</p>
-				</div>
+			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+				<div class="item-box">
+					<div class="circle-info">
+						<p>
+							42
+						</p>
+					</div>
 
-				<div class="circle-image-background" style="background-image: url('{{ item.thumbnail_images.medium.url }}')">
-				</div>
-				<div class="grid-item-description">
+					<div class="circle-image-background" style="background-image: url('{{ item.thumbnail_images.medium.url }}')">
+					</div>
 					<h4>
 						{{ item.title }}
 					</h4>
