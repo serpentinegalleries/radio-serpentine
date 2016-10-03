@@ -68,7 +68,7 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) 
 
         .state('track', {
           url: "/tracks/:trackId",
-          templateUrl: TEMPLATES_URI + 'tracks-single.html',
+          templateUrl: TEMPLATES_URI + 'partial-tracks-single.html',
           controller: "SingleTrackCtrl",
         })
         
@@ -192,7 +192,9 @@ radioApp.controller('FeatureCtrl', function ($scope, $http, $log, audio, player)
   $http.get('/?json=get_tag_posts&tag_slug=featured').
         then(function(response) {
             $scope.feature = response.data.posts[0];
-            audio.setSrc($scope.feature.custom_fields.audio[0]);
+            if($scope.feature.custom_fields.audio[0]) {
+              audio.setSrc($scope.feature.custom_fields.audio[0]);
+            }
         });
   $scope.play = function(song_url, slug) {
     audio.setSrc(song_url);

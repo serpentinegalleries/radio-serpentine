@@ -1,17 +1,17 @@
+<h1 class="participant-name">
+  {{ participant.title }}
+</h1>
+
 <div class="participant-header">
-  <h1 class="participant-name">{{ participant.title }}</h1>
-  <img ng-src="{{ participant.thumbnail_images.large.url }}" alt="{{ participant.title }}" class="participant-image">
+  <img ng-src="{{ (participant.thumbnail_images.large.url) ? participant.thumbnail_images.large.url : participant.thumbnail_images.medium.url}}" alt="{{ participant.title }}" class="participant-image">
 </div>
-<div class="participant-body">
-  <div class="participant-intro">
-    <h3 class="participant-title">
-    	<span ng-repeat="title in participant.custom_fields.title">
-			 {{ title }}{{$last ? '' : ', '}}
-		</span>
-    </h3>
-    <h5 class="participant-location">{{ participant.custom_fields.country }}</h5>
-  </div>
-  <div class="copy">
-    <div ng-bind-html="participant.content"></div>
-  </div>
+
+<h4 class="participant-title">
+	<span ng-repeat="title in participant.custom_fields.title">
+	 {{ title }}{{$last ? '' : ', '}}
+  </span>
+</h4>
+
+<div class="copy">
+  <div ng-bind-html="participant.content"></div>
 </div>

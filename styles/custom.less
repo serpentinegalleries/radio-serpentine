@@ -570,25 +570,49 @@ svg {
 * The participant single page
 */
 .participant-header {
+	height: 400px;
+	width: 100%;
 	position: relative;
-	margin-bottom: 2em;
+	.small-viewport({
+		height: auto;
+	});
+	img {
+		display: block;
+		margin: 0 auto;
+		height: 100%;
+		.small-viewport({
+			width: 95%;
+			height: auto;
+		});
+	}
 }
 .participant-name {
-	position: absolute;
-	top: -22px;
+	position: relative;
+	width: 60%;
+	display: block;
+	margin: 0 auto;
+	margin-bottom: -18px;
+	z-index: 10;
 	.small-viewport({
-		top: -14px;
-  });
+		width: 95%;
+		margin-bottom: -10px;
+	});
 }
 .participant-title {
-	margin-bottom: 0.2em;
+	position: relative;
+	width: 60%;
+	display: block;
+	margin: 0 auto;
+	padding: 25px 0;
+	text-transform: uppercase;
+	.small-viewport({
+		width: 95%;
+	});
 }
-.participant-intro {
-	margin-bottom: 3em;
-}
+
 .copy {
 	max-width: 600px;
-	margin: 100px auto;
+	margin: 50px auto;
 	.medium-viewport({
 		max-width: 460px;
 	});
@@ -707,7 +731,7 @@ Components for overview pages
 }
 
 /****************************
-Overview pages
+Overview padding: ages
 ****************************/
 
 #participants {
