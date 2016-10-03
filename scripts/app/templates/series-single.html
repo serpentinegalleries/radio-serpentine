@@ -5,16 +5,16 @@
 	<div class="title">
 		<i ng-click="play(series.custom_fields.audio[0], series.slug)" id="playerIcon-track" class="fa fa-play round-border" aria-hidden="true"></i>
 		<h3>
-				<span ng-repeat="participant in series.custom_fields.participant">
-					{{ participant }}{{$last ? '' : ', '}}
-				</span>
+			<span ng-repeat="participant in series.custom_fields.participant">
+				{{ participant }}{{$last ? '' : ', '}}
+			</span>
 		</h3>
 		<h1>
-				{{ series.title }}
-			</h1>
+			{{ series.title }}
+		</h1>
 		<h5>
-				{{ series.custom_fields.series[0] }}
-			</h5>
+			{{ series.custom_fields.series[0] }}
+		</h5>
 	</div>
 </div>
 

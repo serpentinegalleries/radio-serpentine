@@ -606,7 +606,8 @@ svg {
 
 .copy {
 	max-width: 600px;
-	margin: 50px auto;
+	margin: 0 auto;
+	margin-bottom: 100px;
 	.medium-viewport({
 		max-width: 460px;
 	});
@@ -621,6 +622,10 @@ svg {
     border-radius: 50%;
     display: block;
     margin: 0 auto;
+	.small-viewport({
+		width: 275px;
+		height: 275px;
+	});
 }
 
 img {
@@ -637,10 +642,17 @@ img {
 	margin: 0 auto;
 	margin-top: -200px;
 	z-index: 100;
+	.small-viewport({
+		width: 95%;
+		margin-top: -70px;
+		h1 {
+			font-size: 12px;
+		}
+	});
 }
 
 #feature {
-	margin-bottom: 150px;
+	margin-bottom: 100px;
 	#playerIcon-track {
 		background: #4696ff;
 		font-size: 10px;
@@ -661,6 +673,11 @@ img {
 		font-family: 'gt_walsheim_bold';
 		max-width: 10%
 	}
+	.small-viewport({
+		h1 {
+			font-size: 36px;
+		}
+	});
 }
 
 #dropdown-pages {
