@@ -3,15 +3,15 @@
 </h1>
 
 <div class="participant-header">
-  <img ng-src="{{ (participant.thumbnail_images.large.url) ? participant.thumbnail_images.large.url : participant.thumbnail_images.medium.url}}" alt="{{ participant.title }}" class="participant-image">
+	<img ng-src="{{ (participant.thumbnail_images.large.url) ? participant.thumbnail_images.large.url : participant.thumbnail_images.medium.url}}" alt="{{ participant.title }}" class="participant-image">
 </div>
 
 <h4 class="participant-title">
-	<span ng-repeat="title in participant.custom_fields.title">
-	 {{ title }}{{$last ? '' : ', '}}
+  <span ng-repeat="title in participant.custom_fields.title">
+   {{ title }}{{$last ? '' : ', '}}
   </span>
 </h4>
 
 <div class="copy">
-  <div ng-bind-html="participant.content"></div>
+	<div ng-bind-html="participant.content"></div>
 </div>

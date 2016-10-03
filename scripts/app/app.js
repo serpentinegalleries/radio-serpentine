@@ -228,7 +228,7 @@ radioApp.controller('TracksCtrl', function ($scope, $http, $log) {
 
 radioApp.controller('SingleTrackCtrl', function ($scope, $http, $log, $stateParams, player, audio) {
   var slug = $stateParams.trackId;
-  $http.get('/?json=get_post&post_slug=' + slug).
+  $http.get('/?json=get_post&post_slug=' + slug + '&date_format=m/d/Y').
         then(function(response) {
             $scope.track = response.data.post;
         });
@@ -264,7 +264,7 @@ radioApp.controller('SingleParticipantCtrl', function ($scope, $sce, $http, $log
 
 radioApp.controller('SingleSeriesCtrl', function ($scope, $sce, $http, $log, $stateParams, player, audio) {
   var slug = $stateParams.seriesId;
-  $http.get('/?json=get_post&post_slug=' + slug).
+  $http.get('/?json=get_post&post_slug=' + slug + '&date_format=m/d/Y').
         then(function(response) {
             $scope.series = response.data.post;
         });

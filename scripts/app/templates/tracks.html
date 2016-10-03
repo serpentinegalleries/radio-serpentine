@@ -1,7 +1,7 @@
 <div class="row menu-margin">
 	<div class="col-lg-8 col-lg-offset-2 col-md-10 col-sm-10">
 		<div ng-controller="DropdownCtrl">
-		    <span uib-dropdown on-toggle="toggled(open)">
+			<span uib-dropdown on-toggle="toggled(open)">
 		      <a href id="dropdown-pages" uib-dropdown-toggle>
 		        <h4>Tracks &nbsp;<i class="fa fa-angle-down"></i></h4>
 		      </a>
@@ -28,31 +28,31 @@
 </div>
 
 
-<div id="tracks" class="container view-margin">
-  <div class="row hidden-xs">
-    <div class="col-lg-4">
-      <h5>
+<div id="tracks">
+	<div class="row hidden-xs">
+		<div class="col-lg-4">
+			<h5>
         Title
       </h5>
-    </div>
-    <div class="col-lg-3">
-      <h5>
+		</div>
+		<div class="col-lg-3">
+			<h5>
         Participant
       </h5>
-    </div>    
-    <div class="col-lg-3">
-      <h5>
+		</div>
+		<div class="col-lg-3">
+			<h5>
         Series
       </h5>
-    </div>
-    <div class="col-lg-2">
-      <h5>
+		</div>
+		<div class="col-lg-2">
+			<h5>
         Date
       </h5>
-    </div>
-  </div>
+		</div>
+	</div>
 
-  	<hr class="hidden-xs">
+	<hr class="hidden-xs">
 
 	<div ng-repeat="track in tracks">
 		<div class="mobile hidden-lg hidden-md hidden-sm">
@@ -83,7 +83,7 @@
 						<p>SERIES</p>
 					</div>
 					<div class="col-xs-8">
-				      <h6>{{ track.custom_fields.series[0] }}</h6>
+						<h6>{{ track.custom_fields.series[0] }}</h6>
 					</div>
 				</div>
 				<div class="row">
@@ -99,29 +99,29 @@
 
 		<div class="row hidden-xs">
 			<a ui-sref="track({trackId: track.slug })">
-			  <div class="col-lg-4 col-md-4 col-sm-4">
-			    <p>
-			      {{ track.title }}
-			    </p>
-			  </div>
-			  <div class="col-lg-3 col-md-3 col-sm-3">
-			  	<p>
-				    <span ng-repeat="participant in track.custom_fields.participant">
+				<div class="col-lg-4 col-md-4 col-sm-4">
+					<p>
+						{{ track.title }}
+					</p>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-3">
+					<p>
+						<span ng-repeat="participant in track.custom_fields.participant">
 			          {{ participant }}{{$last ? '' : ', '}}
 			        </span>
-			    </p>
-			  </div>    
-			  <div class="col-lg-3 col-md-3 col-sm-3">
-			    <p>
-			      {{ track.custom_fields.series[0] }}
-			    </p>
-			  </div>
-			  <div class="col-lg-2 col-md-2 col-sm-2">
-			    <p>
-			      {{ track.date }}
-			    </p>
-			  </div>
-			</div>
+					</p>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-3">
+					<p>
+						{{ track.custom_fields.series[0] }}
+					</p>
+				</div>
+				<div class="col-lg-2 col-md-2 col-sm-2">
+					<p>
+						{{ track.date }}
+					</p>
+				</div>
+		</div>
 		</a>
 		<hr class="hidden-xs">
 	</div>
