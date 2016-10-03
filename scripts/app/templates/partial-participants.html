@@ -1,3 +1,34 @@
+<div class="row menu-margin">
+	<div class="col-lg-10 col-lg-offset-2 col-md-12 col-sm-12">
+		<div ng-controller="DropdownCtrl">
+		    <!-- Simple dropdown -->
+		    <span uib-dropdown on-toggle="toggled(open)">
+		      <a href id="dropdown-pages" uib-dropdown-toggle>
+		        <h4>Participants &nbsp;<i class="fa fa-angle-down"></i></h4>
+		      </a>
+		      <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="dropdown-pages">
+		        <li>
+		        	<h4>
+			          <a href ui-sref="tracks">Tracks</a>
+			         </h4>
+		        </li>
+		        <li>
+		        	<h4>
+			          <a href ui-sref="series">Series</a>
+			         </h4>
+		        </li>
+		        <li>
+		        	<h4>
+			          <a href ui-sref="Themes">Themes</a>
+			         </h4>
+		        </li>
+		      </ul>
+		    </span>
+		</div>
+	</div>
+</div>
+
+
 <div id="grid-template" class="container">
 	<div id="grid-images">
 	<div ng-repeat="item in posts">
@@ -19,7 +50,9 @@
 						{{ item.title }}
 					</h4>
 					<h6>
-						{{ item.custom_fields.title[0] }}
+						<span ng-repeat="title in item.custom_fields.title">
+			          		{{ title }}{{$last ? '' : ', '}}
+			        	</span>
 					</h6>
 				</div>
 			</div>

@@ -83,6 +83,9 @@ h1, h2, h3, h4, h5, h6 {
 	a {
 		font-family: 'gt_walsheim_bold';
 	}
+	span {
+		font-family: 'gt_walsheim_bold';		
+	}
 }
 
 p, span, time, ul, li, blockquote {
@@ -104,7 +107,6 @@ p, span, time, ul, li, blockquote {
 
 i {
 	color: @text;
-	padding: 10px;
 	cursor: pointer;
 }
 
@@ -432,6 +434,9 @@ Modals
 			}
 		}
 	}
+	i {
+		padding: 10px;
+	}
 	.player-metadata {
 		position: fixed;
 		max-width: 500px;
@@ -636,5 +641,38 @@ img {
 	span {
 		font-family: 'gt_walsheim_bold';
 		max-width: 10%
+	}
+}
+
+#dropdown-pages {
+	h1,h2,h3,h4,h5,h6 {
+		color: @text;
+		text-transform: uppercase;
+		margin-bottom: 10px;
+	}
+}
+
+.menu-margin {
+	margin-bottom: 135px;
+}
+
+.dropdown-menu {
+	background: transparent;
+	border: none;
+	box-shadow: none;
+	padding: 0;
+	margin: 0;
+	li {
+		a {
+			padding: 0;
+			text-transform: uppercase;
+			color: @inactive;
+			&:hover {
+				color: @text;
+			}
+		}
+		h1,h2,h3,h4,h5,h6 {
+			margin-bottom: 10px;
+		}
 	}
 }

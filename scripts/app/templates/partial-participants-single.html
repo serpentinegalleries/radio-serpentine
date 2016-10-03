@@ -4,7 +4,11 @@
 </div>
 <div class="participant-body">
   <div class="participant-intro">
-    <h3 class="participant-title">{{ participant.custom_fields.title[0] }}</h3>
+    <h3 class="participant-title">
+    	<span ng-repeat="title in participant.custom_fields.title">
+			 {{ title }}{{$last ? '' : ', '}}
+		</span>
+    </h3>
     <h5 class="participant-location">{{ participant.custom_fields.country }}</h5>
   </div>
   <div class="copy">

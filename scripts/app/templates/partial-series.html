@@ -1,3 +1,35 @@
+<div class="row menu-margin">
+	<div class="col-lg-10 col-lg-offset-2 col-md-12 col-sm-12">
+		<div ng-controller="DropdownCtrl">
+		    <!-- Simple dropdown -->
+		    <span uib-dropdown on-toggle="toggled(open)">
+		      <a href id="dropdown-pages" uib-dropdown-toggle>
+		        <h4>Series &nbsp;<i class="fa fa-angle-down"></i></h4>
+		      </a>
+		      <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="dropdown-pages">
+		        <li>
+		        	<h4>
+			          <a href ui-sref="participants">Participants</a>
+			         </h4>
+		        </li>
+		        <li>
+		        	<h4>
+			          <a href ui-sref="tracks">Tracks</a>
+			         </h4>
+		        </li>
+		        <li>
+		        	<h4>
+			          <a href ui-sref="themes">Themes</a>
+			         </h4>
+		        </li>
+		      </ul>
+		    </span>
+		</div>
+	</div>
+</div>
+
+
+
 <div id="grid-template" class="container">
 	<div id="grid-images">
 		<div ng-repeat="item in posts">

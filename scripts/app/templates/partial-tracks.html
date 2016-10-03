@@ -1,3 +1,34 @@
+<div class="row menu-margin">
+	<div class="col-lg-10 col-lg-offset-2 col-md-12 col-sm-12">
+		<div ng-controller="DropdownCtrl">
+		    <!-- Simple dropdown -->
+		    <span uib-dropdown on-toggle="toggled(open)">
+		      <a href id="dropdown-pages" uib-dropdown-toggle>
+		        <h4>Tracks &nbsp;<i class="fa fa-angle-down"></i></h4>
+		      </a>
+		      <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="dropdown-pages">
+		        <li>
+		        	<h4>
+			          <a href ui-sref="participants">Participants</a>
+			         </h4>
+		        </li>
+		        <li>
+		        	<h4>
+			          <a href ui-sref="series">Series</a>
+			         </h4>
+		        </li>
+		        <li>
+		        	<h4>
+			          <a href ui-sref="themes">Themes</a>
+			         </h4>
+		        </li>
+		      </ul>
+		    </span>
+		</div>
+	</div>
+</div>
+
+
 <div id="tracks" class="container view-margin">
   <div class="row">
     <div class="col-lg-3">
@@ -46,9 +77,9 @@
 				    </p>
 				  </div>
 				  <div class="col-lg-3 col-md-3 col-sm-12">
-				    <p>
-				      {{ track.custom_fields.participant }}
-				    </p>
+				    <span ng-repeat="participant in track.custom_fields.participant">
+			          {{ participant }}{{$last ? '' : ', '}}
+			        </span>
 				  </div>    
 				  <div class="col-lg-2 col-md-2 col-sm-12">
 				    <p>

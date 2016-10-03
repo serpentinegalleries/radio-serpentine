@@ -9,7 +9,9 @@
       </div>
       <div class="feature-text">
         <h5>
-          {{ feature.custom_fields.participant[0] }}
+          <span ng-repeat="participant in feature.custom_fields.participant">
+            {{ participant }}{{$last ? '' : ', '}}
+          </span>
         </h5>
         <h1>
           {{ feature.title }}

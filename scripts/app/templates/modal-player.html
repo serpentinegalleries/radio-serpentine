@@ -16,7 +16,9 @@
 
     <div class="player-metadata">
       <h4>
-        {{ track.custom_fields.participant[0] }}
+        <span ng-repeat="participant in track.custom_fields.participant">
+          {{ participant }}{{$last ? '' : ', '}}
+        </span>
       </h4>
       <h1>
         {{ track.title }}

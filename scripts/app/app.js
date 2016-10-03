@@ -248,3 +248,26 @@ radioApp.controller('SingleParticipantCtrl', function ($scope, $sce, $http, $log
     });
   }
 });
+
+radioApp.controller('DropdownCtrl', function ($scope, $log) {
+  $scope.items = [
+    'tracks',
+    'series',
+    'themes'
+  ];
+
+  $scope.status = {
+    isopen: false
+  };
+
+  $scope.toggled = function(open) {
+  };
+
+  $scope.toggleDropdown = function($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
+    $scope.status.isopen = !$scope.status.isopen;
+  };
+
+  $scope.appendToEl = angular.element(document.querySelector('#dropdown-long-content'));
+});
