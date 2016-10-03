@@ -226,6 +226,10 @@ radioApp.controller('SingleTrackCtrl', function ($scope, $http, $log, $statePara
       player.open();
     });
   }
+  angular.forEach($scope.track, function(item){
+    var values = /(.*)\s+\((.+)\)\s*$/.exec(item.custom_fields.participant||"") || [];
+    item.custom_fields.participant = values;
+  });
 });
 
 radioApp.controller('SingleParticipantCtrl', function ($scope, $sce, $http, $log, $stateParams, player, audio) {
