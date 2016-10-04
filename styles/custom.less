@@ -153,20 +153,6 @@ body, div, header, .site-header  {
 	padding: 100px 0;
 }
 
-/* Overflow track menu */
-#index-template {
-	#menu-list {
-		width: 3000px;
-		max-width: 10000px;
-		li {
-			vertical-align: top;
-		}
-	}
-	#menu-nav {
-		margin-bottom: @margin-menu-view;
-	}
-}
-
 #tracks {
 	h5 {
 		text-transform: uppercase;
@@ -267,59 +253,6 @@ a.menu-nav-item {
 	});
 }
 
-.grid-item-description {
-	background: transparent;
-	bottom: -5px;
-	h1, h2, h3, h4, h5, h6, p {
-		margin: 3px auto;
-	}
-	p {
-		line-height: 20px;
-	}
-}
-
-.grid-item-description.series {
-	width: 300px;
-	display: block;
-	margin: 0 auto;
-}
-
-.menu-feature {
-	height: 300px;
-	width: @round-image-w;
-	margin-right: @margin-feature;
-	.menu-feature-text {
-		width: @round-image-w;
-		margin-top: @margin-text;
-		z-index: 2;
-		h1, h2, h3, h4, h5, h6 {
-			margin-bottom: @margin-title;
-		}
-	}
-	.menu-mask {
-		height: @round-image-h;
-		width: @round-image-w;
-		border-radius:100%;
-		display: block;
-		margin: auto;
-		overflow: hidden;
-		z-index: 1;
-		.menu-mask-image {
-			left:-50%;
-			right:-50%;
-			top:    0;
-			margin: auto;
-			height: 100%;
-			width:  auto;
-			z-index: 0;
-			
-		}
-		img.menu-mask-image {
-			opacity: 1;
-		}
-	}
-}
-
 /* Featured track on home page */
 .feature {
 	height: 415px;
@@ -362,8 +295,46 @@ a.menu-nav-item {
 }
 
 
+/***************
+Dropdown menu
+***************/
+
+#dropdown-pages {
+	h1,h2,h3,h4,h5,h6 {
+		color: @text;
+		text-transform: uppercase;
+		margin-bottom: 10px;
+	}
+}
+
+.menu-margin {
+	margin-bottom: 135px;
+}
+
+.dropdown-menu {
+	background: transparent;
+	border: none;
+	box-shadow: none;
+	padding: 0;
+	margin: 0;
+	li {
+		a {
+			padding: 0;
+			text-transform: uppercase;
+			color: @inactive;
+			&:hover {
+				color: @text;
+			}
+		}
+		h1,h2,h3,h4,h5,h6 {
+			margin-bottom: 10px;
+		}
+	}
+}
+
+
 /**********************
-Modals
+Player modal
 **********************/
 
 .modal {
@@ -559,60 +530,12 @@ svg {
   }
 }
 
+/****************************
+Components for overview pages
+****************************/
 
-/*
-* The participant single page
-*/
-.participant-header {
-	height: 400px;
-	width: 100%;
-	position: relative;
-	.small-viewport({
-		height: auto;
-	});
-	img {
-		display: block;
-		margin: 0 auto;
-		height: 100%;
-		.small-viewport({
-			width: 95%;
-			height: auto;
-		});
-	}
-}
-.participant-name {
-	position: relative;
-	width: 60%;
-	display: block;
-	margin: 0 auto;
-	margin-bottom: -18px;
-	z-index: 10;
-	.small-viewport({
-		width: 95%;
-		margin-bottom: -10px;
-	});
-}
-.participant-title {
-	position: relative;
-	width: 60%;
-	display: block;
-	margin: 0 auto;
-	padding: 25px 0;
-	text-transform: uppercase;
-	.small-viewport({
-		width: 95%;
-	});
-}
 
-.copy {
-	max-width: 600px;
-	margin: 0 auto;
-	margin-bottom: 100px;
-	.medium-viewport({
-		max-width: 460px;
-	});
-}
-
+/* Used for feature view of circular images */
 
 .image-circle {
     width: 400px;
@@ -680,46 +603,7 @@ img {
 	});
 }
 
-#dropdown-pages {
-	h1,h2,h3,h4,h5,h6 {
-		color: @text;
-		text-transform: uppercase;
-		margin-bottom: 10px;
-	}
-}
-
-.menu-margin {
-	margin-bottom: 135px;
-	i {
-		display: inline !important;
-	}
-}
-
-.dropdown-menu {
-	background: transparent;
-	border: none;
-	box-shadow: none;
-	padding: 0;
-	margin: 0;
-	li {
-		a {
-			padding: 0;
-			text-transform: uppercase;
-			color: @inactive;
-			&:hover {
-				color: @text;
-			}
-		}
-		h1,h2,h3,h4,h5,h6 {
-			margin-bottom: 10px;
-		}
-	}
-}
-
-/****************************
-Components for overview pages
-****************************/
-
+/* Used for grid view of circular images */
 .circle-image-background {
 	background-size: cover;
 	display: block;
@@ -742,7 +626,7 @@ Components for overview pages
 }
 
 /****************************
-Overview padding: ages
+Overview pages
 ****************************/
 
 #participants {
@@ -775,6 +659,7 @@ Overview padding: ages
 		}
 	}
 }
+
 
 #series {
 	.item-box {
@@ -823,6 +708,12 @@ Overview padding: ages
 		overflow: hidden;		
 		text-overflow: ellipsis;
 	}
+	i {
+		padding: 0 10px;
+	}
+	h5 {
+		text-transform: uppercase;
+	}
 	.mobile {
 		.row {
 			h1,h2,h3,h4,h5,h6,p,span {
@@ -836,6 +727,64 @@ Overview padding: ages
 			margin-bottom: 0;
 		}
 	}
+}
+
+
+/********************
+Styling for single pages
+********************/
+
+/*
+* The participant single page
+*/
+.participant-header {
+	height: 400px;
+	width: 100%;
+	position: relative;
+	.small-viewport({
+		height: auto;
+	});
+	img {
+		display: block;
+		margin: 0 auto;
+		height: 100%;
+		.small-viewport({
+			width: 95%;
+			height: auto;
+		});
+	}
+}
+.participant-name {
+	position: relative;
+	width: 60%;
+	display: block;
+	margin: 0 auto;
+	margin-bottom: -18px;
+	z-index: 10;
+	.small-viewport({
+		width: 95%;
+		margin-bottom: -10px;
+	});
+}
+.participant-title {
+	position: relative;
+	width: 60%;
+	display: block;
+	margin: 0 auto;
+	padding: 25px 0;
+	text-transform: uppercase;
+	.small-viewport({
+		width: 95%;
+	});
+}
+
+.copy {
+	max-width: 600px;
+	margin: 0 auto;
+	margin-bottom: 100px;
+	.medium-viewport({
+		max-width: 460px;
+	});
 }
 
 .description {
@@ -852,3 +801,4 @@ Overview padding: ages
 		line-height: 20px;
 	}
 }
+
