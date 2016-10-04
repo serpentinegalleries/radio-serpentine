@@ -618,6 +618,7 @@ img {
 	display: block;
 	margin: 0 auto;
 	min-height: 325px;
+	box-sizing: content-box;
 	.small-viewport({
 		min-height: 264px;
 	});
@@ -633,6 +634,7 @@ Overview pages
 #participants {
 	.item-box {
 		width: 205px;
+		position: relative;
 	}
 	.circle-image-background {
 		width: 205px;
@@ -645,13 +647,10 @@ Overview pages
 		position: absolute;
 		width: 50px;
 		height: 50px;
-		right: 25px;
+		right: 0;
 		border: 2px solid #fff;
 		border-radius: 50%;
 		opacity: 0.7;
-		.small-viewport({
-			right: 20px;
-		});
 		p {
 			text-align: center;
 			vertical-align: middle;
@@ -805,11 +804,6 @@ Styling for single pages
 
 
 #event {
-	#supporters {
-		h3 {
-			text-transform: uppercase;
-		}
-	}
 	.section-heading {
 		margin: 100px 0 75px 0;
 	}
@@ -826,8 +820,14 @@ Styling for single pages
 			font-size: 16px;
 		}
 	}
+	.circle-info {
+		p {
+			font-size: 16px;
+		}
+	}
 	.header {
 		width: 100%;
+		min-height: 500px;
 		position: relative;
 		.small-viewport({
 			height: auto;
@@ -869,7 +869,9 @@ Styling for single pages
 			margin: 0;
 		}
 	}
-	.circle-info {
-		right: 5px;
+	#supporters {
+		h3 {
+			text-transform: uppercase;
+		}
 	}
 }
