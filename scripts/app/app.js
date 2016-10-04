@@ -176,12 +176,14 @@ radioApp.controller('PlayerInstanceCtrl', function ($uibModalInstance, $log, $sc
   $scope.track = player.get();
 
   $scope.isPlaying = true;
-
-  $scope.reinit = function() {
+  
+  $scope.$on('changeTrack', function(event, args) {
     $scope.$apply(function () {
       $scope.track = player.get();
-    });
-  }
+    }); 
+    $log.info('hello');   
+  });
+
   $scope.minim = function() {
     player.min();
   }
@@ -276,6 +278,7 @@ radioApp.controller('SingleParticipantCtrl', function ($scope, $sce, $http, $log
   $scope.play = function(song_url, slug) {
     audio.setSrc(song_url);
     player.setTrackData(slug).then(function(){
+      $scope.$emit('changeTrack', args);
       player.open();
     });
   }
