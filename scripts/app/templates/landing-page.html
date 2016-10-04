@@ -1,0 +1,68 @@
+<link  rel="stylesheet" href="/wp-content/themes/radio-serpentine/landing-page/styles/bootstrap.css" /><link  rel="stylesheet" href="/wp-content/themes/radio-serpentine/landing-page/styles/style.css" />
+
+<div class="row">
+	<div class="col-lg-4 col-lg-offset-2 col-md-4 col-md-offset-2 col-sm-12 col-sm-12">
+		<div class="circle-mask">
+			<img src="/wp-content/themes/radio-serpentine/landing-page/marathon_miracle.jpg" alt="Miracle Marathon">
+		</div>
+		<h5>
+			Miracle<br>
+			Marathon
+		</h5>
+		<h6 id="clockdiv"> 
+		</h6>
+	</div>
+	<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+		<div class="circle-mask">
+			<a href="http://radio.serpentinegalleries.org/transformation">
+				<img src="/wp-content/themes/radio-serpentine/landing-page/marathon_transformation.jpg" alt="Transformation Marathon">
+			</a>
+		</div>
+		<a href="http://radio.serpentinegalleries.org/transformation">
+			<h5>
+				Transformation<br>
+				Marathon
+			</h5>
+			<h6>
+				October 17th &amp; 18th 2015
+			</h6>
+		</a>
+	</div>
+</div>
+
+<script>
+
+	var deadline = 'October 8 2016 10:00:00 GMT+0100';
+
+	function getTimeRemaining(endtime){
+	  d = new Date();
+	  var t = Date.parse(endtime) - Date.parse(d);
+	  t = t + (d.getTimezoneOffset()*60*1000);
+	  t = t + (60*60*1000);
+	  var seconds = Math.floor( (t/1000) % 60 );
+	  var minutes = Math.floor( (t/1000/60) % 60 );
+	  var hours = Math.floor( (t/(1000*60*60)) % 24 );
+	  var days = Math.floor( t/(1000*60*60*24) );
+	  return {
+	    'total': t,
+	    'days': days,
+	    'hours': hours,
+	    'minutes': minutes,
+	    'seconds': seconds
+	  };
+	}
+
+	function initializeClock(id, endtime){
+	  var clock = document.getElementById(id);
+	  //var timeinterval = setInterval(function(){
+	    var t = getTimeRemaining(endtime);
+	    clock.innerHTML = t.days + ' Days &amp; ' + t.hours + ' Hours';
+	    /*if(t.total<=0){
+	      clearInterval(timeinterval);
+	    }*/
+	  //},1000);
+	}
+
+	initializeClock('clockdiv', deadline);
+
+</script>

@@ -7,15 +7,20 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) 
     $urlRouterProvider.otherwise('/');
 
     $stateProvider
-        
-        .state('home', {
+
+        .state('landing', {
             url: '/',
+            templateUrl: TEMPLATES_URI + 'landing-page.html',
+        })
+        
+        .state('index', {
+            url: '/home',
             views: {
                 '': { templateUrl: TEMPLATES_URI + 'home.html' },
 
-                'feature@home': { templateUrl: TEMPLATES_URI +  'feature.html' },
+                'feature@index': { templateUrl: TEMPLATES_URI +  'feature.html' },
 
-                'menu@home': { 
+                'menu@index': { 
                     templateUrl: TEMPLATES_URI + 'menu.html',
                 },
             },
