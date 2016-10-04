@@ -24,20 +24,14 @@
 
 	<!-- Navigation -->
 	<nav id="navigation" class="nav-primary" role="navigation" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
-		<div ng-hide="$state.current.name === 'landing'" class="wrap">
-			<ul id="menu-main-nav" class="menu omega-nav-menu menu-primary">
-				<li class="menu-item">
-					<a ui-sref="index">radio.Serpentine</a>
-				</li>
-				<li class="menu-item">
-					<a ui-sref="about">About</a>
-				</li>
-			</ul>
+		<div class="container">
+			<a ui-sref="index">radio.Serpentine</a>
+			<a ui-sref="about">About</a>
 		</div>
 	</nav><!-- /Navigation -->
 
 
-	<div ng-hide="$state.current.name === 'landing'"  ng-controller="WaveIconCtrl">
+	<div ng-controller="WaveIconCtrl">
 
 	    <div id="playerToggle" class="wave-container" ng-click="play()">
 		  <svg xmlns="http://www.w3.org/2000/svg" 

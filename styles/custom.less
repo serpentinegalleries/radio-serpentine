@@ -155,6 +155,27 @@ body, div, header, .site-header  {
 	padding-bottom: 100px;
 }
 
+#navigation {
+	text-align: center;
+	.container {
+		padding: 35px 0;
+	}
+	a {
+		font-family: 'gt_walsheim_thin';
+		padding: 0 20px;
+	}
+   .small-viewport({
+   		text-align: left;
+		.container {
+			padding: 35px 25px;
+		}
+ 		a {
+ 			padding: 0;
+ 			padding-right: 10px;
+ 		}
+   });
+}
+
 #tracks {
 	h5 {
 		text-transform: uppercase;
@@ -308,9 +329,8 @@ Dropdown menu
 		margin-bottom: 10px;
 	}
 }
-
-.menu-margin {
-	margin-bottom: 135px;
+.dropdown-container {
+	margin: 100px 0;
 }
 
 .dropdown-menu {
@@ -318,7 +338,8 @@ Dropdown menu
 	border: none;
 	box-shadow: none;
 	padding: 0;
-	margin: 0;
+	margin: 0
+	margin: 50px;
 	li {
 		a {
 			padding: 0;
@@ -509,6 +530,7 @@ Wave Icon
   margin: 0 auto;
   width: 40px;
   border-radius: 50%;
+  z-index: 9000;
 }
 
 svg { 

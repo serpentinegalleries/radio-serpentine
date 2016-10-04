@@ -57,13 +57,6 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) 
           controller: "SingleSeriesCtrl",
         })
 
-        .state('themes', {
-            url: '/themes',
-            views: {
-                '': { templateUrl: TEMPLATES_URI + 'themes.html' },
-            }
-        })
-
         .state('tracks', {
             url: '/tracks',
             views: {
@@ -124,9 +117,11 @@ radioApp.factory('player',function ($uibModal, $log, $http, audio) {
         if(isOpen) {
           angular.element(document.querySelector('.playerModal')).removeClass("blur");
           angular.element(document.querySelector('body')).addClass("modal-open");  
+          angular.element(document.querySelector('.wave-container')).addClass("hidden");  
           audio.pause();
           audio.play();        
         } else {
+          angular.element(document.querySelector('.wave-container')).addClass("hidden");
           var modalInstance = $uibModal.open({
             animation: false,
             ariaLabelledBy: 'modal-title',
@@ -154,6 +149,7 @@ radioApp.factory('player',function ($uibModal, $log, $http, audio) {
   var min = function() {
       angular.element(document.querySelector('.playerModal')).addClass("blur");
       angular.element(document.querySelector('body')).removeClass("modal-open");
+      angular.element(document.querySelector('.wave-container')).removeClass("hidden");  
   };
   return {
     open: open,
