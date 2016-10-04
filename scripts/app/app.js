@@ -76,6 +76,12 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) 
           templateUrl: TEMPLATES_URI + 'tracks-single.html',
           controller: "SingleTrackCtrl",
         })
+
+        .state('marathon', {
+          url: "/miracle",
+          templateUrl: TEMPLATES_URI + 'event-marathon.html',
+          controller: "MarathonCtrl",
+        })
         
         // use the HTML5 History API
         // $locationProvider.html5Mode(true);
@@ -328,4 +334,21 @@ radioApp.controller('DropdownCtrl', function ($scope, $log) {
   };
 
   $scope.appendToEl = angular.element(document.querySelector('#dropdown-long-content'));
+});
+
+
+/*********************
+Event pages
+*********************/
+
+/* Miracle Marathon */
+
+radioApp.controller('MarathonCtrl', function ($scope, $sce, $http, $log, $stateParams, player, audio) {
+  $http.get('/?json=get_post&post_slug=miracle-marathon').
+        then(function(response) {
+            $scope.post = response.data.post;
+        });
+  $scope.renderHtml = function(code) {
+      return $sce.trustAsHtml(code);
+  };
 });

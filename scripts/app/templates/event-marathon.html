@@ -1,0 +1,7 @@
+<h1 class="participant-name">
+  {{ post.title }}
+</h1>
+
+<div class="participant-header">
+	<img ng-src="{{ (post.thumbnail_images.large.url) ? post.thumbnail_images.large.url : post.thumbnail_images.medium.url}}" alt="{{ post.title }}" class="participant-image">
+</div>
