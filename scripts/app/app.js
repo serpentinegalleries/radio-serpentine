@@ -146,10 +146,14 @@ radioApp.factory('audio',function ($document, $log) {
     setSrc: function(path) {
       if(path.includes("soundcloud")) {
         SC.get('/resolve.json?url=' + path).then(function(sound){
-          audioElement.src = sound.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d';
+          if (audioElement != sound.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d') {
+            audioElement.pause();
+            audioElement.src = sound.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d';
+          };
         });
       }
       else {
+        audioElement.pause();
         audioElement.src = path;
       };
       audioElement.load();
@@ -289,7 +293,9 @@ radioApp.controller('SingleSeriesCtrl', function ($scope, $sce, $http, $log, $st
       return $sce.trustAsHtml(code);
   };
   $scope.play = function(song_url, slug) {
-    audio.setSrc(song_url);
+    audio.setSrc(song_url).then(function(){
+      audio.play();
+    });
     player.setTrackData(slug).then(function(){
       player.open();
     });
