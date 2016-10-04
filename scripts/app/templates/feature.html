@@ -1,21 +1,23 @@
-<div ng-controller="FeatureCtrl">
-  <div>
-    <div class="feature">
-      <div class="feature-mask">
-        <div class="circle-image-background" style="background-image: url('{{ item.thumbnail_images.medium.url }}')">
-          <i ng-click="play(feature.custom_fields.audio[0], feature.slug)" id="playerIcon" class="fa fa-play round-border" aria-hidden="true"></i>
+
+  <div ng-controller="FeatureCtrl">
+    <div>
+      <div class="feature">
+        <div class="feature-mask">
+          <div class="circle-image-background" style="background-image: url('{{ item.thumbnail_images.medium.url }}')">
+            <i ng-click="play(feature.custom_fields.audio[0], feature.slug)" id="playerIcon" class="fa fa-play round-border" aria-hidden="true"></i>
+          </div>
         </div>
-      </div>
-      <div class="feature-text">
-        <h5>
-          <span ng-repeat="participant in feature.custom_fields.participant">
-            {{ participant }}{{$last ? '' : ', '}}
-          </span>
-        </h5>
-        <h1>
-          {{ feature.title }}
-        </h1>
+        <div class="feature-text">
+          <h5>
+            <span ng-repeat="participant in feature.custom_fields.participant">
+              {{ participant }}{{$last ? '' : ', '}}
+            </span>
+          </h5>
+          <h1>
+            {{ feature.title }}
+          </h1>
+        </div>
       </div>
     </div>
   </div>
-</div>
+

@@ -1,56 +1,60 @@
-<div class="row menu-margin">
-	<div class="col-lg-10 col-lg-offset-2 col-md-12 col-sm-12">
-		<div ng-controller="DropdownCtrl">
-			<span uib-dropdown on-toggle="toggled(open)">
-		      <a href id="dropdown-pages" uib-dropdown-toggle>
-		        <h4>Participants &nbsp;<i class="fa fa-angle-down"></i></h4>
-		      </a>
-		      <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="dropdown-pages">
-		        <li>
-		        	<h4>
-			          <a href ui-sref="tracks">Tracks</a>
-			         </h4>
-		        </li>
-		        <li>
-		        	<h4>
-			          <a href ui-sref="series">Series</a>
-			         </h4>
-		        </li>
-		        <li>
-		        	<h4>
-			          <a href ui-sref="themes">Themes</a>
-			         </h4>
-		        </li>
-		      </ul>
-		    </span>
+<div class="container">
+
+	<div class="row menu-margin">
+		<div class="col-lg-10 col-lg-offset-2 col-md-12 col-sm-12">
+			<div ng-controller="DropdownCtrl">
+				<span uib-dropdown on-toggle="toggled(open)">
+			      <a href id="dropdown-pages" uib-dropdown-toggle>
+			        <h4>Participants &nbsp;<i class="fa fa-angle-down"></i></h4>
+			      </a>
+			      <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="dropdown-pages">
+			        <li>
+			        	<h4>
+				          <a href ui-sref="tracks">Tracks</a>
+				         </h4>
+			        </li>
+			        <li>
+			        	<h4>
+				          <a href ui-sref="series">Series</a>
+				         </h4>
+			        </li>
+			        <li>
+			        	<h4>
+				          <a href ui-sref="themes">Themes</a>
+				         </h4>
+			        </li>
+			      </ul>
+			    </span>
+			</div>
 		</div>
 	</div>
-</div>
 
 
-<div id="participants" class="container">
-	<div ng-repeat="item in posts">
-		<a ui-sref="participant({participantId: item.slug })">
+	<div id="participants" class="container">
+		<div ng-repeat="item in posts">
+			<a ui-sref="participant({participantId: item.slug })">
 
-			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-				<div class="item-box">
-					<div class="circle-info">
-						<p>
-							42
-						</p>
+				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+					<div class="item-box">
+						<div class="circle-info">
+							<p>
+								42
+							</p>
+						</div>
+
+						<div class="circle-image-background" style="background-image: url('{{ item.thumbnail_images.medium.url }}')">
+						</div>
+						<h4>
+							{{ item.title }}
+						</h4>
+						<h6>
+							{{ item.custom_fields.title[0] ? item.custom_fields.title[0] : '' }}
+						</h6>
 					</div>
-
-					<div class="circle-image-background" style="background-image: url('{{ item.thumbnail_images.medium.url }}')">
-					</div>
-					<h4>
-						{{ item.title }}
-					</h4>
-					<h6>
-						{{ item.custom_fields.title[0] ? item.custom_fields.title[0] : '' }}
-					</h6>
 				</div>
-			</div>
 
-		</a>
+			</a>
+		</div>
 	</div>
+
 </div>
