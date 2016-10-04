@@ -90,7 +90,9 @@ radioApp.factory('player',function ($uibModal, $log, $http, audio) {
   var open = function() {
         if(isOpen) {
           angular.element(document.querySelector('.playerModal')).removeClass("blur");
-          angular.element(document.querySelector('body')).addClass("modal-open");          
+          angular.element(document.querySelector('body')).addClass("modal-open");  
+          audio.pause();
+          audio.play();        
         } else {
           var modalInstance = $uibModal.open({
             animation: false,
@@ -144,19 +146,19 @@ radioApp.factory('audio',function ($document, $log) {
         audioElement.pause();
     },
     setSrc: function(path) {
+      audioElement.pause();
       if(path.includes("soundcloud")) {
         SC.get('/resolve.json?url=' + path).then(function(sound){
           if (audioElement != sound.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d') {
-            audioElement.pause();
             audioElement.src = sound.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d';
+            audioElement.load();
           };
         });
       }
       else {
-        audioElement.pause();
         audioElement.src = path;
+        audioElement.load();
       };
-      audioElement.load();
     }
   }
 });
@@ -260,10 +262,6 @@ radioApp.controller('SingleTrackCtrl', function ($scope, $http, $log, $statePara
       player.open();
     });
   }
-  angular.forEach($scope.track, function(item){
-    var values = /(.*)\s+\((.+)\)\s*$/.exec(item.custom_fields.participant||"") || [];
-    item.custom_fields.participant = values;
-  });
 });
 
 radioApp.controller('SingleParticipantCtrl', function ($scope, $sce, $http, $log, $stateParams, player, audio) {
