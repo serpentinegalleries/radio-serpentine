@@ -67,6 +67,7 @@ TYPOGRAPHY
 
 body {
 	z-index: 0;
+	padding-bottom: 100px;
 }
 
 html, body, p, a, h1, h2, h3, h4, h5, h6 {
@@ -150,7 +151,8 @@ body, div, header, .site-header  {
 }
 
 .main {
-	padding: 100px 0;
+	padding-top: 100px;
+	padding-bottom: 100px;
 }
 
 #tracks {
@@ -643,7 +645,7 @@ Overview pages
 		position: absolute;
 		width: 50px;
 		height: 50px;
-		right: 30px;
+		right: 25px;
 		border: 2px solid #fff;
 		border-radius: 50%;
 		opacity: 0.7;
@@ -803,6 +805,27 @@ Styling for single pages
 
 
 #event {
+	#supporters {
+		h3 {
+			text-transform: uppercase;
+		}
+	}
+	.section-heading {
+		margin: 100px 0 75px 0;
+	}
+	.container {
+		display: block;
+		margin: 0 auto;
+		width: 70%;
+	}
+	p {
+		font-size: 20px;
+	}
+	.information {
+		p {
+			font-size: 16px;
+		}
+	}
 	.header {
 		width: 100%;
 		position: relative;
@@ -831,12 +854,19 @@ Styling for single pages
 			margin-bottom: -10px;
 		});
 	}
-	.copy {
-		max-width: 600px;
-		margin: 0 auto;
-		margin-bottom: 100px;
-		.medium-viewport({
-			max-width: 460px;
-		});
+	#participants {
+		width: 80%;
+	}
+	#programme {
+		padding: 50px 0;
+		h2, p {
+			margin: 0;
+		}
+		.row {
+			padding: 25px 0;
+		}
+	}
+	.circle-info {
+		right: 5px;
 	}
 }

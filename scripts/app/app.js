@@ -76,13 +76,22 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) 
           templateUrl: TEMPLATES_URI + 'tracks-single.html',
           controller: "SingleTrackCtrl",
         })
-
-        .state('marathon', {
-          url: "/miracle",
-          templateUrl: TEMPLATES_URI + 'event-marathon.html',
-          controller: "MarathonCtrl",
-        })
         
+        .state('marathon', {
+            url: '/miracle',
+            views: {
+                '': { templateUrl: TEMPLATES_URI + 'event-marathon.html', controller: "MarathonCtrl", },
+
+                'programme@marathon': { templateUrl: TEMPLATES_URI +  'event-programme.html' },
+
+                'participants@marathon': { 
+                    templateUrl: TEMPLATES_URI + 'event-participants.html', controller: "MarathonParticipantsCtrl",
+                },
+                'supporters@marathon': { 
+                    templateUrl: TEMPLATES_URI + 'event-supporters.html', controller: "MarathonSupportersCtrl",
+                },                
+            },
+        })
         // use the HTML5 History API
         // $locationProvider.html5Mode(true);
 
@@ -351,4 +360,19 @@ radioApp.controller('MarathonCtrl', function ($scope, $sce, $http, $log, $stateP
   $scope.renderHtml = function(code) {
       return $sce.trustAsHtml(code);
   };
+});
+
+
+radioApp.controller('MarathonParticipantsCtrl', function ($scope, $http, $log) {
+  $http.get('/?json=get_category_posts&category_slug=miracle-marathon-participant&count=12').
+        then(function(response) {
+            $scope.posts = response.data.posts;
+        });
+});
+
+radioApp.controller('MarathonSupportersCtrl', function ($scope, $http, $log) {
+  $http.get('/?json=get_post&post_slug=supporters').
+        then(function(response) {
+            $scope.post = response.data.post;
+        });
 });

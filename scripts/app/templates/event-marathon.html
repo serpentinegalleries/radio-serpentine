@@ -7,8 +7,23 @@
 		<img ng-src="{{ (post.thumbnail_images.large.url) ? post.thumbnail_images.large.url : post.thumbnail_images.medium.url}}" alt="{{ post.title }}">
 	</div>
 
-	<div class="copy">
-		<div ng-bind-html="post.content"></div>
+	<div class="container main">
+		<div class="row">
+			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 information">
+				<h5>Saturday 8 October</h5>
+				<p>Time and address</p>
+			</div>
+			<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+				<div ng-bind-html="post.content"></div>
+			</div>
+		</div>
+	</div>
+
+	<div ui-view="programme">
+	</div>
+	<div ui-view="participants">
+	</div>
+	<div ui-view="supporters">
 	</div>
 
 </div>
