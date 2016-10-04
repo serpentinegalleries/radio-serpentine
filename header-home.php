@@ -27,7 +27,7 @@
 		<div ng-hide="$state.current.name === 'landing'" class="wrap">
 			<ul id="menu-main-nav" class="menu omega-nav-menu menu-primary">
 				<li class="menu-item">
-					<a ui-sref="home">radio.Serpentine</a>
+					<a ui-sref="index">radio.Serpentine</a>
 				</li>
 				<li class="menu-item">
 					<a ui-sref="about">About</a>

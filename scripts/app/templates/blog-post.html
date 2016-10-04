@@ -1,0 +1,27 @@
+<div id="blog">
+
+		<div class="container blog-post">
+			<div class="header">
+				<h5>
+					Miracle Live Blog
+				</h5>
+
+				<a ui-sref="blog-post({postId: post.slug })">
+					<h1>
+						{{ post.title }}
+					</h1>
+				</a>
+
+				<h3>
+					by {{ post.author.first_name }} {{ post.author.last_name }} - {{ post.date }}
+				</h3>
+			</div>
+
+			<div class="body">
+				<div ng-bind-html="post.content"></div>
+			</div>
+
+		</div>
+
+</div>
+

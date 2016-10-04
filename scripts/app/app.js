@@ -92,6 +92,19 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) 
                 },                
             },
         })
+
+        .state('blog', {
+            url: '/miracle/blog',
+            templateUrl: TEMPLATES_URI + 'blog.html',
+            controller: 'BlogCtrl',
+        })
+
+        .state('blog-post', {
+            url: '/miracle/blog/:postId',
+            templateUrl: TEMPLATES_URI + 'blog-post.html',
+            controller: 'BlogPostCtrl',
+        })
+        
         // use the HTML5 History API
         // $locationProvider.html5Mode(true);
 
@@ -372,6 +385,25 @@ radioApp.controller('MarathonParticipantsCtrl', function ($scope, $http, $log) {
 
 radioApp.controller('MarathonSupportersCtrl', function ($scope, $http, $log) {
   $http.get('/?json=get_post&post_slug=supporters').
+        then(function(response) {
+            $scope.post = response.data.post;
+        });
+});
+
+/*********************
+Event blog
+*********************/
+
+radioApp.controller('BlogCtrl', function ($scope, $http, $log) {
+  $http.get('/?json=get_category_posts&category_slug=blog&date_format=j F Y').
+        then(function(response) {
+            $scope.posts = response.data.posts;
+        });
+});
+
+radioApp.controller('BlogPostCtrl', function ($scope, $http, $log, $stateParams, player, audio) {
+  var slug = $stateParams.postId;
+  $http.get('/?json=get_post&post_slug=' + slug + '&date_format=j F Y').
         then(function(response) {
             $scope.post = response.data.post;
         });
