@@ -207,22 +207,6 @@ radioApp.factory('audio',function ($document, $log, $http, $q, $rootScope) {
   }
 });
 
-radioApp.controller('SingleTrackCtrl', function ($scope, $http, $log, $stateParams, player, audio) {
-  var slug = $stateParams.trackId;
-  $http.get('/?json=get_post&post_slug=' + slug + '&date_format=m/d/Y').
-        then(function(response) {
-            $scope.track = response.data.post;
-        });
-  $scope.play = function(song_url, slug) {
-    player.setTrackData(slug).then(function(){
-        audio.setSrc(song_url).then(function(){
-          player.open();
-        });
-    });
-  }
-});
-
-
 /**********************
 Page components
 **********************/
@@ -271,9 +255,10 @@ radioApp.controller('FeatureCtrl', function ($scope, $http, $log, audio, player)
             $scope.item = response.data.posts[0];
         });
   $scope.play = function(song_url, slug) {
-    audio.setSrc(song_url);
     player.setTrackData(slug).then(function(){
-      player.open();
+        audio.setSrc(song_url).then(function(){
+          player.open();
+        });
     });
   }
 });
@@ -319,6 +304,21 @@ Single participant, tracks, and series pages' controllers
 ******************/
 
 
+radioApp.controller('SingleTrackCtrl', function ($scope, $http, $log, $stateParams, player, audio) {
+  var slug = $stateParams.trackId;
+  $http.get('/?json=get_post&post_slug=' + slug + '&date_format=m/d/Y').
+        then(function(response) {
+            $scope.track = response.data.post;
+        });
+  $scope.play = function(song_url, slug) {
+    player.setTrackData(slug).then(function(){
+        audio.setSrc(song_url).then(function(){
+          player.open();
+        });
+    });
+  }
+});
+
 radioApp.controller('SingleParticipantCtrl', function ($scope, $sce, $http, $log, $stateParams, player, audio) {
   var slug = $stateParams.participantId;
   $http.get('/?json=get_post&post_slug=' + slug).
@@ -329,10 +329,10 @@ radioApp.controller('SingleParticipantCtrl', function ($scope, $sce, $http, $log
       return $sce.trustAsHtml(code);
   };
   $scope.play = function(song_url, slug) {
-    audio.setSrc(song_url);
     player.setTrackData(slug).then(function(){
-      $scope.$emit('changeTrack', args);
-      player.open();
+        audio.setSrc(song_url).then(function(){
+          player.open();
+        });
     });
   }
 });
@@ -347,11 +347,10 @@ radioApp.controller('SingleSeriesCtrl', function ($scope, $sce, $http, $log, $st
       return $sce.trustAsHtml(code);
   };
   $scope.play = function(song_url, slug) {
-    audio.setSrc(song_url).then(function(){
-      audio.play();
-    });
     player.setTrackData(slug).then(function(){
-      player.open();
+        audio.setSrc(song_url).then(function(){
+          player.open();
+        });
     });
   }
 });
