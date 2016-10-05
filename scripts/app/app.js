@@ -222,12 +222,18 @@ radioApp.controller('PlayerInstanceCtrl', function ($uibModalInstance, $log, $sc
   
   $scope.$on('changeTrack', function(event) {
       $scope.track = player.get();
+      $scope.isPlaying = true;
   });
 
   $scope.minim = function() {
     player.min();
   }
+  $scope.previous = function(path) {
+    /* To do: changetrack rootscope broadcast to update player data */
+    audio.setSrc(path);
+  }
   $scope.next = function(path) {
+    /* To do: changetrack rootscope broadcast to update player data */
     audio.setSrc(path);
   }
   $scope.pause = function() {
