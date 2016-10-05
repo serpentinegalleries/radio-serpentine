@@ -167,7 +167,7 @@ radioApp.factory('player',function ($uibModal, $log, $http, audio) {
 Audio audioElement factory
 **************************/
 
-radioApp.factory('audio',function ($document, $log, $http) {
+radioApp.factory('audio',function ($document, $log, $http, $rootScope) {
   var audioElement = $document[0].createElement('audio'); // $document[0].getElementById('audio');
 
   return {
@@ -192,6 +192,7 @@ radioApp.factory('audio',function ($document, $log, $http) {
         audioElement.src = path;
         audioElement.load();
       };
+    $rootScope.$broadcast('changeTrack');
     }
   }
 });
@@ -210,10 +211,11 @@ radioApp.controller('PlayerInstanceCtrl', function ($uibModalInstance, $log, $sc
 
   $scope.isPlaying = true;
   
-  $scope.$on('changeTrack', function(event, args) {
-    $scope.$apply(function () {
+  $scope.$on('changeTrack', function(event) {
+      $log.info($scope.track);
       $scope.track = player.get();
-    }); 
+      $log.info($scope.track);
+      //$scope.$apply();
   });
 
   $scope.minim = function() {
