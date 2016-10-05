@@ -28,13 +28,15 @@
     <div ng-repeat="item in posts">
 
        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12" ng-if="$index != 0 && $index % 3 == 0">
-        <div class="item-box">
-          <div class="circle-image-background show-more"> 
-            <h5>
-              show more
-            </h5>
-          </div>
-        </div>
+        <a ui-sref="tracks">
+            <div class="item-box">
+              <div class="circle-image-background show-more"> 
+                <h5>
+                  show more
+                </h5>
+              </div>
+            </div>
+          </a>
         </div>
 
       <a ui-sref="track({trackId: item.slug })">
