@@ -4,7 +4,7 @@
 	<i id="playerNext" class="fa fa-long-arrow-right round-border" aria-hidden="true"></i>
 
   <div id="feature">
-    <div class="container">
+    <div class="centered">
       <div class="circle-image-background" style="background-image: url('{{ track.thumbnail_images.large.url }}')">
         <i ng-click="pause()" id="playerIcon" class="fa fa-pause round-border playerIcon-pause" ng-show="isPlaying" aria-hidden="true"></i>
         <i ng-click="play()" id="playerIcon" class="fa fa-play round-border playerIcon-play" ng-hide="isPlaying" aria-hidden="true"></i>
@@ -12,6 +12,7 @@
     </div>
   </div>
 
+  <div class="metadata">
     <h3>
       {{ 'track.series' ? track.series : '' }}
     </h3>
@@ -23,5 +24,18 @@
     <h1>
       {{ track.title }}
     </h1>
+  </div>
 
+  <div class="download">
+    <h3>
+      <a href="{{ track.custom_fields.audio[0] }}" target="_blank">
+        RSS
+      </a>
+    </h4>
+    <h3>
+      <a href="{{ track.custom_fields.audio[0] }}" target="_blank">
+        SOUNDCLOUD
+      </a>
+    </h4>
+  </div>
 </div>

@@ -302,39 +302,61 @@ Player modal
 		padding: 10px;
 	}
 	.metadata {
-		position: absolute;
-		max-width: 500px;
+		position: fixed;
+		max-width: 40%;
 		left: 25px;
-		bottom: 0;
+		bottom: 25px;
 	}
 	#playerIcon {
 		background: transparent;
 		border: 2px #fff solid;
 		padding: 10px;
-		padding-left: 11px;
+		padding-left: 10px;
 		opacity: 0.8;
+	}
+	.download {
+		position: fixed;
+		max-width: 40%;
+		text-align: right;
+		right: 25px;
+		bottom: 25px;	
+	}
+	.playerIcon-play {
+		padding-left: 11px !important;
+	}
+	#feature {
+		.container {
+
+		}
 	}
 }
 
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -200px;
+  margin-left: -200px;
+}
+
 #playerMin {
-	position: fixed;
+	position: absolute;
 	top: 25px;
 	right: 25px;
-	cursor: pointer;
 }
 
 #playerNext {
-	position: fixed;
-	top: 50vh;
+	position: absolute;
+	top: 50%;
+	margin-top: -20px;
 	right: 25px;
-	cursor: pointer;
 }
 
 #playerBack {
-	position: fixed;
-	top: 50vh;
+	position: absolute;
+	top: 50%;
+	margin-top: -20px;
 	left: 25px;
-	cursor: pointer;
 }
 
 #playerIcon {
