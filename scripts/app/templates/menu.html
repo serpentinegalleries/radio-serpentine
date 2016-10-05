@@ -22,5 +22,36 @@
       </h4>
     </li>
   </ul>
+</div>
 
+<div id="menu" class="row">
+    <div ng-repeat="item in posts">
+
+       <div class="col-lg-1 col-md-1 col-sm-4 col-xs-12" ng-if="$index != 0 && $index % 3 == 0">
+          <div class="circle-image-background show-more"> 
+            <h5>
+              show more
+            </h5>
+          </div>
+        </div>
+
+      <a ui-sref="track({trackId: item.slug })">
+
+        <div class="col-lg-1 col-md-1 col-sm-4 col-xs-12">
+          <div class="item-box">
+            <div class="circle-image-background" style="background-image: url('{{ 'item.thumbnail_images.medium.url' ? item.thumbnail_images.medium.url : item.thumbnail_images.small.url }}')">
+            </div>
+            <div class="description-container">
+              <h5>
+                {{ item.title }}
+              </h5>
+              <h6>
+                {{ item.custom_fields.participant[0] ? item.custom_fields.participant[0] : '' }}
+              </h6>
+            </div>
+          </div>
+        </div>
+
+      </a>
+    </div>
 </div>
