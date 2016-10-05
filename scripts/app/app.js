@@ -136,7 +136,6 @@ radioApp.factory('player',function ($uibModal, $log, $http, audio) {
         };
 
     };
-
   var setTrackData = function (slug) {
     track = $http.get('/?json=get_post&post_slug=' + slug).
         then(function(response) {
@@ -162,12 +161,11 @@ radioApp.factory('player',function ($uibModal, $log, $http, audio) {
   }
 });
 
-
 /**************************
 Audio audioElement factory
 **************************/
 
-radioApp.factory('audio',function ($document, $log, $http, $rootScope) {
+radioApp.factory('audio',function ($document, $log, $http, $q, $rootScope) {
   var audioElement = $document[0].createElement('audio'); // $document[0].getElementById('audio');
 
   return {
@@ -179,21 +177,42 @@ radioApp.factory('audio',function ($document, $log, $http, $rootScope) {
         audioElement.pause();
     },
     setSrc: function(path) {
-      audioElement.pause();
-      if(path.includes("soundcloud")) {
-        $http.get('https://api.soundcloud.com/resolve.json?url=' + path + '&client_id=43c06cb0c044139be1d46e4f91eb411d').then(function(sound){
-          if (audioElement.src != sound.data.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d') {
-            audioElement.src = sound.data.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d';
+        var deferred = $q.defer();
+        audioElement.pause();
+        if(path.includes("soundcloud")) {
+            $http.get('https://api.soundcloud.com/resolve.json?url=' + path + '&client_id=43c06cb0c044139be1d46e4f91eb411d').then(function(sound){
+                if (audioElement.src != sound.data.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d') {
+                    audioElement.src = sound.data.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d';
+                    audioElement.load();
+                }
+                else {
+                    audioElement.play();
+                } 
+            });
+        }
+        else {
+            audioElement.src = path;
             audioElement.load();
-          };
-        });
-      }
-      else {
-        audioElement.src = path;
-        audioElement.load();
-      };
-    $rootScope.$broadcast('changeTrack');
+        };
+        $rootScope.$broadcast('changeTrack');
+        deferred.resolve(audioElement);
+        return deferred.promise;
     }
+  }
+});
+
+radioApp.controller('SingleTrackCtrl', function ($scope, $http, $log, $stateParams, player, audio) {
+  var slug = $stateParams.trackId;
+  $http.get('/?json=get_post&post_slug=' + slug + '&date_format=m/d/Y').
+        then(function(response) {
+            $scope.track = response.data.post;
+        });
+  $scope.play = function(song_url, slug) {
+    player.setTrackData(slug).then(function(){
+        audio.setSrc(song_url).then(function(){
+          player.open();
+        });
+    });
   }
 });
 
@@ -212,10 +231,7 @@ radioApp.controller('PlayerInstanceCtrl', function ($uibModalInstance, $log, $sc
   $scope.isPlaying = true;
   
   $scope.$on('changeTrack', function(event) {
-      $log.info($scope.track);
       $scope.track = player.get();
-      $log.info($scope.track);
-      //$scope.$apply();
   });
 
   $scope.minim = function() {
@@ -295,19 +311,7 @@ radioApp.controller('TracksCtrl', function ($scope, $http, $log) {
 /******************
 Single participant, tracks, and series pages' controllers
 ******************/
-radioApp.controller('SingleTrackCtrl', function ($scope, $http, $log, $stateParams, player, audio) {
-  var slug = $stateParams.trackId;
-  $http.get('/?json=get_post&post_slug=' + slug + '&date_format=m/d/Y').
-        then(function(response) {
-            $scope.track = response.data.post;
-        });
-  $scope.play = function(song_url, slug) {
-    audio.setSrc(song_url);
-    player.setTrackData(slug).then(function(){
-      player.open();
-    });
-  }
-});
+
 
 radioApp.controller('SingleParticipantCtrl', function ($scope, $sce, $http, $log, $stateParams, player, audio) {
   var slug = $stateParams.participantId;
