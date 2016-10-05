@@ -120,7 +120,6 @@ radioApp.factory('player',function ($uibModal, $log, $http, audio) {
           angular.element(document.querySelector('.modal-backdrop')).removeClass("send-to-back");
           angular.element(document.querySelector('body')).addClass("modal-open");  
           angular.element(document.querySelector('.wave-container')).addClass("hidden");  
-          audio.pause();
           audio.play();        
         } else {
           angular.element(document.querySelector('.wave-container')).addClass("hidden");
@@ -131,7 +130,6 @@ radioApp.factory('player',function ($uibModal, $log, $http, audio) {
             controller: 'PlayerInstanceCtrl',
             windowClass: 'playerModal',
           });
-          audio.play();
           isOpen = true;
         };
 
@@ -178,12 +176,13 @@ radioApp.factory('audio',function ($document, $log, $http, $q, $rootScope) {
     },
     setSrc: function(path) {
         var deferred = $q.defer();
-        audioElement.pause();
         if(path.includes("soundcloud")) {
             $http.get('https://api.soundcloud.com/resolve.json?url=' + path + '&client_id=43c06cb0c044139be1d46e4f91eb411d').then(function(sound){
                 if (audioElement.src != sound.data.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d') {
+                    audioElement.pause();
                     audioElement.src = sound.data.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d';
                     audioElement.load();
+                    audioElement.play();
                 }
                 else {
                     audioElement.play();
@@ -191,8 +190,15 @@ radioApp.factory('audio',function ($document, $log, $http, $q, $rootScope) {
             });
         }
         else {
-            audioElement.src = path;
-            audioElement.load();
+            if(audioElement.src !== path) {
+                audioElement.pause();
+                audioElement.src = path;
+                audioElement.load();
+                audioElement.play();
+            }
+            else {
+                audioElement.play();
+            }
         };
         $rootScope.$broadcast('changeTrack');
         deferred.resolve(audioElement);
