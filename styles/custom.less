@@ -132,7 +132,7 @@ a {
 h1 {
 	font-size: 42px;
    .small-viewport({
-   		font-size: 38px;
+   		font-size: 36px;
    });
 }
 
@@ -201,108 +201,12 @@ a.menu-nav-item {
 	}
 }
 
-.circle-wrapper {
- 	width: 214px;
- 	height: 214px;
- 	overflow: visible;
- 	margin: 0 auto;
- 	position: relative;
-   .small-viewport({
- 		width: 128px;
- 		height: 128px;
-   });
- }
-
-
-.circle-mask {
-  display: block;
-  position: relative;
-  width: 100%;
-  height: 100%;
-  margin: 0 auto;
-  overflow: hidden;
-  border-radius: 50%;
-  img {
-	height: 100%;
-	left:-50%;
-	right:-50%;
-  }
-}
-
-.circle-mask.series {
-	width: 300px;
-	height: 300px;
-}
-
-.circle-border {
-	background: transparent;
-	position: absolute;
-	right: 0;
-	width: 50px;
-	height: 50px;
-	border: 2px solid #fff;
-	border-radius: 50%;
- 	z-index: 3;
-	opacity: 0.7;
-  .small-viewport({
- 		right: -20px;
-   });
-	p {
-		text-align: center;
-		vertical-align: middle;
-		line-height: 45px;
-		opacity: 1;
-	}
-}
-
 .grid-item {
 	min-height: 325px;
 	.small-viewport({
 		min-height: 264px;
 	});
 }
-
-/* Featured track on home page */
-.feature {
-	height: 415px;
-	.feature-mask {
-		height: 400px;
-		width: 400px;
-		border-radius:100%;
-		display: block;
-		margin: auto;
-		overflow: hidden;
-		z-index: 1;
-		.feature-mask-image {
-			left:-50%;
-			right:-50%;
-			top:    0;
-			margin: auto;
-			height: 100%;
-			width:  auto;
-			z-index: 0;
-		}
-	}
-	.feature-text {
-		position: absolute;
-		width: 525px;
-		z-index: 2;
-		bottom: 0;
-		h1 {
-			margin-bottom: 0;
-		}
-		h5 {
-			margin-bottom: 3px;
-		}
-	}
-}
-
-/* Hack to separate Angular views */
-.view-margin {
-	margin-top: 75px;
-	margin-bottom: 75px;
-}
-
 
 /***************
 Dropdown menu
@@ -583,35 +487,6 @@ img {
 	});
 }
 
-#feature {
-	margin-bottom: 100px;
-	#playerIcon-track {
-		background: #4696ff;
-		font-size: 10px;
-		border: none;
-		padding: 12px;
-		padding-left: 14px;
-		margin-bottom: 15px;
-	}
-	.image-circle {
-	}
-	h1,h2,h3,h4,h5,h6 {
-		margin-bottom: 5px;
-	}
-	h1 {
-		font-size: 42px;
-	}
-	span {
-		font-family: 'gt_walsheim_bold';
-		max-width: 10%
-	}
-	.small-viewport({
-		h1 {
-			font-size: 36px;
-		}
-	});
-}
-
 /* Used for grid view of circular images */
 .circle-image-background {
 	background-size: cover;
@@ -635,7 +510,32 @@ img {
 	}
 }
 
-#feature-home {
+.description {
+	background: transparent;
+	position: absolute;
+	width: 100%;
+	max-width: 300px;
+	display: block;
+	margin-top: -50px;
+	h1, h2, h3, h4, h5, h6, p {
+		margin: 3px auto;
+	}
+	p {
+		line-height: 20px;
+	}
+}
+
+/* For featured post on the home page */
+.description-container {
+	position: absolute;
+	bottom: 50px;
+	z-index: 3;
+	.small-viewport({
+		bottom: -50px;
+	});
+}
+
+#feature {
 	.item-box {
 		width: 400px;
 		position: relative;
@@ -658,7 +558,7 @@ img {
 		position: relative;
 		box-sizing: content-box;
 		width: 65%;
-		padding: 75px 0;
+		padding: 50px 0;
 		.small-viewport({
 			width: 90%;
 		});
@@ -673,6 +573,9 @@ img {
 		padding: 12px;
 		padding-left: 14px;
 		margin-bottom: 15px;
+	}
+	.copy {
+		margin-top: 0;
 	}
 }
 
@@ -829,33 +732,10 @@ Styling for single pages
 
 .copy {
 	max-width: 600px;
-	margin: 0 auto;
-	margin-bottom: 100px;
+	margin: 100px auto;
 	.medium-viewport({
 		max-width: 460px;
 	});
-}
-
-.description {
-	background: transparent;
-	position: absolute;
-	width: 100%;
-	max-width: 300px;
-	display: block;
-	margin-top: -50px;
-	h1, h2, h3, h4, h5, h6, p {
-		margin: 3px auto;
-	}
-	p {
-		line-height: 20px;
-	}
-}
-
-/* For featured post on the home page */
-.description-container {
-	position: absolute;
-	bottom: 75px;
-	z-index: 3;
 }
 
 

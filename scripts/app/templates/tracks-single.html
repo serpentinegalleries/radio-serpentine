@@ -1,13 +1,10 @@
-
-<div class="container">
-
-
-	<div id="feature">
-		<div class="image-circle">
-			<img ng-src="{{ track.thumbnail_images.large.url }}" alt="{{ track.title }}">
+<div id="feature">
+	<div class="container">
+		<div class="circle-image-background" style="background-image: url('{{ track.thumbnail_images.large.url }}')">
+			<i ng-click="play(track.custom_fields.audio[0], track.slug)" id="playerIcon" class="fa fa-play round-border hidden-lg hidden-md hidden-sm" aria-hidden="true"></i>
 		</div>
-		<div class="title">
-			<i ng-click="play(track.custom_fields.audio[0], track.slug)" id="playerIcon-track" class="fa fa-play round-border" aria-hidden="true"></i>
+		<div class="description-container">
+			<i ng-click="play(track.custom_fields.audio[0], track.slug)" id="playerIcon-track" class="fa fa-play round-border hidden-xs" aria-hidden="true"></i>
 			<h3>
 				<span ng-repeat="participant in track.custom_fields.participant">
 					{{ participant }}{{$last ? '' : ', '}}
@@ -22,49 +19,50 @@
 		</div>
 	</div>
 
-	<div class="copy">
-		<div ng-bind-html="track.content"></div>
-	</div>
+	<div class="container">
+		<div class="copy">
+			<div ng-bind-html="track.content"></div>
+		</div>
 
-	<hr>
-	<div id="tracks">
-		<div class="row hidden-xs">
-			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-				<p>
-					<i ng-click="play(track.custom_fields.audio[0], track.slug)" class="fa fa-play"></i> {{ track.title }}
-				</p>
-			</div>
-			<div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
-				<p>
-					<span ng-repeat="participant in track.custom_fields.participant">
-						{{ participant }}{{$last ? '' : ', '}}
-					</span>
-				</p>
-			</div>
-			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-				<p>
-					{{ track.date }}
-				</p>
-			</div>
-		</div>
-		<div class="row mobile hidden-lg hidden-md hidden-sm">
-			<div class="col-xs-2">
-				<p>
-					<i ng-click="play(track.custom_fields.audio[0], track.slug)" class="fa fa-play"></i>
-				</p>
-			</div>
-			<div class="col-xs-10">
-				<h6>
-					<span ng-repeat="participant in track.custom_fields.participant">
-						{{ participant }}{{$last ? '' : ', '}}
-					</span>
-				</h6>
-				<p>
-					{{ track.title }}
-				</p>
-			</div>
-		</div>
 		<hr>
-
+		<div id="tracks">
+			<div class="row hidden-xs">
+				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+					<p>
+						<i ng-click="play(track.custom_fields.audio[0], track.slug)" class="fa fa-play"></i> {{ track.title }}
+					</p>
+				</div>
+				<div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+					<p>
+						<span ng-repeat="participant in track.custom_fields.participant">
+							{{ participant }}{{$last ? '' : ', '}}
+						</span>
+					</p>
+				</div>
+				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+					<p>
+						{{ track.date }}
+					</p>
+				</div>
+			</div>
+			<div class="row mobile hidden-lg hidden-md hidden-sm">
+				<div class="col-xs-2">
+					<p>
+						<i ng-click="play(track.custom_fields.audio[0], track.slug)" class="fa fa-play"></i>
+					</p>
+				</div>
+				<div class="col-xs-10">
+					<h6>
+						<span ng-repeat="participant in track.custom_fields.participant">
+							{{ participant }}{{$last ? '' : ', '}}
+						</span>
+					</h6>
+					<p>
+						{{ track.title }}
+					</p>
+				</div>
+			</div>
+			<hr>
+		</div>
 	</div>
 </div>
