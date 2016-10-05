@@ -1,18 +1,16 @@
 <div class="modal-body" id="modal-body">
-	<i ng-click="minim()" id="playerMin" class="fa fa-compress round-border" aria-hidden="true"></i>
+	<!--<i ng-click="minim()" id="playerMin" class="fa fa-compress round-border" aria-hidden="true"></i>
 	<i id="playerBack" class="fa fa-long-arrow-left round-border" aria-hidden="true"></i>
-	<i id="playerNext" class="fa fa-long-arrow-right round-border" aria-hidden="true"></i>
+	<i id="playerNext" class="fa fa-long-arrow-right round-border" aria-hidden="true"></i>-->
 
-
-	    <div class="feature">
-	      <div class="feature-mask">
-	        <div class="feature-mask-image">
-              <img ng-src="{{ track.thumbnail_images.large.url }}" alt="{{ track.title }}">
-              <i ng-click="pause()" id="playerIcon" class="fa fa-pause round-border playerIcon-pause" ng-show="isPlaying" aria-hidden="true"></i>
-              <i ng-click="play()" id="playerIcon" class="fa fa-play round-border playerIcon-play" ng-hide="isPlaying" aria-hidden="true"></i>
-          </div>
-	      </div>
-	    </div>
+  <div id="feature">
+    <div class="container">
+      <div class="circle-image-background" style="background-image: url('{{ track.thumbnail_images.large.url }}')">
+        <i ng-click="pause()" id="playerIcon" class="fa fa-pause round-border playerIcon-pause" ng-show="isPlaying" aria-hidden="true"></i>
+        <i ng-click="play()" id="playerIcon" class="fa fa-play round-border playerIcon-play" ng-hide="isPlaying" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div>
 
     <div class="player-metadata">
       <h4>

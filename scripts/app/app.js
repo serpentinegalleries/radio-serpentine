@@ -125,7 +125,6 @@ radioApp.factory('player',function ($uibModal, $log, $http, audio) {
           angular.element(document.querySelector('.wave-container')).addClass("hidden");
           var modalInstance = $uibModal.open({
             animation: false,
-            ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
             templateUrl: TEMPLATES_URI + 'modal-player.html',
             controller: 'PlayerInstanceCtrl',
