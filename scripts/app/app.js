@@ -182,11 +182,9 @@ radioApp.factory('audio',function ($document, $log, $http) {
       audioElement.pause();
       if(path.includes("soundcloud")) {
         $http.get('https://api.soundcloud.com/resolve.json?url=' + path + '&client_id=43c06cb0c044139be1d46e4f91eb411d').then(function(sound){
-          $log.info(sound.data.uri);
           if (audioElement.src != sound.data.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d') {
             audioElement.src = sound.data.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d';
             audioElement.load();
-            $log.info(audioElement);
           };
         });
       }
