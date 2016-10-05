@@ -241,7 +241,7 @@ radioApp.controller('WaveIconCtrl', function ($uibModal, $scope, $log, audio, pl
 radioApp.controller('FeatureCtrl', function ($scope, $http, $log, audio, player) {
   $http.get('/?json=get_tag_posts&tag_slug=featured').
         then(function(response) {
-            $scope.feature = response.data.posts[0];
+            $scope.item = response.data.posts[0];
         });
   $scope.play = function(song_url, slug) {
     audio.setSrc(song_url);

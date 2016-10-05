@@ -129,6 +129,13 @@ a {
 	}
 }
 
+h1 {
+	font-size: 42px;
+   .small-viewport({
+   		font-size: 38px;
+   });
+}
+
 .active {
 	color: @text !important;
 }
@@ -176,19 +183,6 @@ body, div, header, .site-header  {
    });
 }
 
-#tracks {
-	h5 {
-		text-transform: uppercase;
-	}
-	hr {
-		margin-top: 0;
-		opacity: .2;
-	}
-	i {
-		padding: 0 10px;
-	}
-}
-
 hr {
 	margin-top: 0;
 	opacity: .2;
@@ -197,14 +191,6 @@ hr {
 /*************
 ELEMENTS
 *************/
-
-@round-image-w:     225px;
-@round-image-h:     225px;
-@margin-feature:    @round-image-w / 6;
-@margin-title:      5px;
-@margin-text:       -35px;
-@margin-text-grid:  -20px;
-
 
 a.menu-nav-item {
 	text-transform: uppercase;
@@ -649,6 +635,42 @@ img {
 	}
 }
 
+#feature-home {
+	.item-box {
+		width: 400px;
+		position: relative;
+		.small-viewport({
+			width: 250px;
+			height: 250px;
+		});
+	}
+	.circle-image-background {
+		width: 400px;
+		height: 400px;
+		max-width: 100%;
+		max-height: 100%;
+		.small-viewport({
+			width: 250px;
+			height: 250px;
+		});
+	}
+	.container {
+		position: relative;
+		box-sizing: content-box;
+		width: 50%;
+		padding: 75px 0;
+		.small-viewport({
+			width: 90%;
+		});
+	}
+	h1,h2,h3,h4,h5,h6 {
+		margin:0;
+	}
+	h1 {
+		margin-bottom: 25px;
+	}
+}
+
 /****************************
 Overview pages
 ****************************/
@@ -822,6 +844,13 @@ Styling for single pages
 	p {
 		line-height: 20px;
 	}
+}
+
+/* For featured post on the home page */
+.description-container {
+	position: absolute;
+	bottom: 75px;
+	z-index: 3;
 }
 
 
