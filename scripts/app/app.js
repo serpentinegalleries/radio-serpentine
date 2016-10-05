@@ -134,6 +134,7 @@ radioApp.factory('player',function ($uibModal, $log, $http, audio) {
           audio.play();
           isOpen = true;
         };
+
     };
 
   var setTrackData = function (slug) {
@@ -168,6 +169,7 @@ Audio audioElement factory
 
 radioApp.factory('audio',function ($document, $log) {
   var audioElement = $document[0].createElement('audio'); // $document[0].getElementById('audio');
+
   return {
     audioElement: audioElement,
     play: function() {
@@ -178,18 +180,18 @@ radioApp.factory('audio',function ($document, $log) {
     },
     setSrc: function(path) {
       audioElement.pause();
-      if(path.includes("soundcloud")) {
-        SC.get('/resolve.json?url=' + path).then(function(sound){
-          if (audioElement != sound.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d') {
+     // if(path.includes("soundcloud")) {
+        SC.get('/resolve.json?url=' + path + '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d').then(function(sound){
+          if (audioElement.src != sound.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d') {
             audioElement.src = sound.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d';
             audioElement.load();
           };
         });
-      }
-      else {
-        audioElement.src = path;
+     // }
+     // else {
+     //   audioElement.src = path;
         audioElement.load();
-      };
+   //  };
     }
   }
 });
@@ -212,7 +214,6 @@ radioApp.controller('PlayerInstanceCtrl', function ($uibModalInstance, $log, $sc
     $scope.$apply(function () {
       $scope.track = player.get();
     }); 
-    $log.info('hello');   
   });
 
   $scope.minim = function() {
