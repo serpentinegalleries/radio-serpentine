@@ -167,7 +167,7 @@ radioApp.factory('player',function ($uibModal, $log, $http, audio) {
 Audio audioElement factory
 **************************/
 
-radioApp.factory('audio',function ($document, $log) {
+radioApp.factory('audio',function ($document, $log, $http) {
   var audioElement = $document[0].createElement('audio'); // $document[0].getElementById('audio');
 
   return {
@@ -180,18 +180,20 @@ radioApp.factory('audio',function ($document, $log) {
     },
     setSrc: function(path) {
       audioElement.pause();
-     // if(path.includes("soundcloud")) {
-        SC.get('/resolve.json?url=' + path + '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d').then(function(sound){
-          if (audioElement.src != sound.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d') {
-            audioElement.src = sound.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d';
+      if(path.includes("soundcloud")) {
+        $http.get('https://api.soundcloud.com/resolve.json?url=' + path + '&client_id=43c06cb0c044139be1d46e4f91eb411d').then(function(sound){
+          $log.info(sound.data.uri);
+          if (audioElement.src != sound.data.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d') {
+            audioElement.src = sound.data.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d';
             audioElement.load();
+            $log.info(audioElement);
           };
         });
-     // }
-     // else {
-     //   audioElement.src = path;
+      }
+      else {
+        audioElement.src = path;
         audioElement.load();
-   //  };
+      };
     }
   }
 });
