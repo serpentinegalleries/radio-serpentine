@@ -117,6 +117,7 @@ radioApp.factory('player',function ($uibModal, $log, $http, audio) {
   var open = function() {
         if(isOpen) {
           angular.element(document.querySelector('.playerModal')).removeClass("blur");
+          angular.element(document.querySelector('.modal-backdrop')).removeClass("send-to-back");
           angular.element(document.querySelector('body')).addClass("modal-open");  
           angular.element(document.querySelector('.wave-container')).addClass("hidden");  
           audio.pause();
@@ -150,6 +151,7 @@ radioApp.factory('player',function ($uibModal, $log, $http, audio) {
       angular.element(document.querySelector('.playerModal')).addClass("blur");
       angular.element(document.querySelector('body')).removeClass("modal-open");
       angular.element(document.querySelector('.wave-container')).removeClass("hidden");  
+      angular.element(document.querySelector('.modal-backdrop')).addClass("send-to-back");
   };
   return {
     open: open,

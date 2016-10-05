@@ -1,7 +1,7 @@
 <div class="modal-body" id="modal-body">
-	<!--<i ng-click="minim()" id="playerMin" class="fa fa-compress round-border" aria-hidden="true"></i>
+	<i ng-click="minim()" id="playerMin" class="fa fa-compress round-border" aria-hidden="true"></i>
 	<i id="playerBack" class="fa fa-long-arrow-left round-border" aria-hidden="true"></i>
-	<i id="playerNext" class="fa fa-long-arrow-right round-border" aria-hidden="true"></i>-->
+	<i id="playerNext" class="fa fa-long-arrow-right round-border" aria-hidden="true"></i>
 
   <div id="feature">
     <div class="container">
@@ -12,7 +12,10 @@
     </div>
   </div>
 
-    <div class="player-metadata">
+    <div class="metadata">
+      <h3>
+        {{ 'track.series' ? track.series : '' }}
+      </h3>
       <h4>
         <span ng-repeat="participant in track.custom_fields.participant">
           {{ participant }}{{$last ? '' : ', '}}
