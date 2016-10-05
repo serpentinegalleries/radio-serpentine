@@ -580,14 +580,26 @@ img {
 	}
 }
 
+.menu-container {
+	margin-top: 100px;
+}
+
 #menu {
 	width: 3000px;
 	overflow: scroll;
 	margin: 100px auto;
 	margin-left: 50px;
+	.small-viewport({
+		width: 100vw;
+		height: auto;
+		margin: 0;
+	});
 	.item-box {
 		width: 205px;
 		position: relative;
+		.small-viewport({
+			min-height: 275px;
+		})
 	}
 	.circle-image-background {
 		width: 205px;
