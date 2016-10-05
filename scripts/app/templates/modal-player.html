@@ -12,18 +12,16 @@
     </div>
   </div>
 
-    <div class="metadata">
-      <h3>
-        {{ 'track.series' ? track.series : '' }}
-      </h3>
-      <h4>
-        <span ng-repeat="participant in track.custom_fields.participant">
-          {{ participant }}{{$last ? '' : ', '}}
-        </span>
-      </h4>
-      <h1>
-        {{ track.title }}
-      </h1>
-    </div>
+    <h3>
+      {{ 'track.series' ? track.series : '' }}
+    </h3>
+    <h4>
+      <span ng-repeat="participant in track.custom_fields.participant">
+        {{ participant }}{{$last ? '' : ', '}}
+      </span>
+    </h4>
+    <h1>
+      {{ track.title }}
+    </h1>
 
 </div>
