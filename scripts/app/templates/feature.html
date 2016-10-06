@@ -1,5 +1,5 @@
 <div id="feature" ng-controller="FeatureCtrl">
-	<div class="container">
+	<div class="container feature-container">
 		<div class="description-container">
 			<h1>
 				{{ item.title }}
@@ -8,7 +8,8 @@
 				ON AIR NOW
 			</h4>
 		</div>
-		<div class="circle-image-background" style="background-image: url('{{ item.thumbnail }}')">
+		<div class="circle-image-background">
+			<img src="{{ item.thumbnail }}" alt="">
 			<i ng-click="play(feature.custom_fields.audio[0], feature.slug)" id="playerIcon" class="fa fa-play round-border" aria-hidden="true"></i>
 		</div>
 	</div>
