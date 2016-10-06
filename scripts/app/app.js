@@ -173,15 +173,18 @@ radioApp.factory('audio',function ($document, $log, $http, $q, $rootScope) {
     },
     pause: function() {
         audioElement.pause();
+        $log.info(audioElement.duration);
     },
     setSrc: function(path) {
         var deferred = $q.defer();
+        var audioDuration;
         if(path.includes("soundcloud")) {
             $http.get('https://api.soundcloud.com/resolve.json?url=' + path + '&client_id=43c06cb0c044139be1d46e4f91eb411d').then(function(sound){
                 if (audioElement.src != sound.data.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d') {
                     audioElement.pause();
                     audioElement.src = sound.data.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d';
                     audioElement.load();
+                    audioDuration = sound.data.duration;
                     audioElement.play();
                 }
                 else {
@@ -200,7 +203,7 @@ radioApp.factory('audio',function ($document, $log, $http, $q, $rootScope) {
                 audioElement.play();
             }
         };
-        $rootScope.$broadcast('changeTrack');
+        $rootScope.$broadcast('changeTrack', audioDuration);
         deferred.resolve(audioElement);
         return deferred.promise;
     }
@@ -215,13 +218,16 @@ Page components
 // Please note that $uibModalInstance represents a modal window (instance) dependency.
 
 radioApp.controller('PlayerInstanceCtrl', function ($uibModalInstance, $log, $scope, player, audio) {
+  // get related tracks and cue them for the next / previous buttons
 
   $scope.track = player.get();
 
   $scope.isPlaying = true;
   
-  $scope.$on('changeTrack', function(event) {
+  $scope.$on('changeTrack', function(event, args) {
       $scope.track = player.get();
+      $log.info(args);
+      $scope.track.duration = args;
       $scope.isPlaying = true;
   });
 

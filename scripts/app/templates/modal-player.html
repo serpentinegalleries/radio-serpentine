@@ -14,7 +14,8 @@
 
   <div class="metadata">
     <h3>
-      {{ 'track.series' ? track.series : '' }}
+      {{ 'track.series' ? track.series : '' }} <br>
+      {{ track.duration }}
     </h3>
     <h4>
       <span ng-repeat="participant in track.custom_fields.participant">
