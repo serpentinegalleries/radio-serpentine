@@ -279,7 +279,7 @@ radioApp.controller('FeatureCtrl', function ($scope, $http, $log, audio, player)
 
 /* Controller for menu on the homepage */
 radioApp.controller('MenuCtrl', function ($scope, $http, $log, audio, player) {
-  $http.get('/?json=get_category_posts&category_slug=tracks&count=9').
+  $http.get('/?json=get_category_posts&category_slug=tracks&count=200').
         then(function(response) {
             $scope.posts = response.data.posts;
         });
@@ -292,7 +292,7 @@ Page controllers
 **********************/
 
 radioApp.controller('ParticipantsCtrl', function ($scope, $http, $log) {
-  $http.get('/?json=get_category_posts&category_slug=participants&count=50').
+  $http.get('/?json=get_category_posts&category_slug=participants&count=250').
         then(function(response) {
             $scope.posts = response.data.posts;
         });
