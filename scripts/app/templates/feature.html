@@ -10,7 +10,7 @@
 				ON AIR NOW
 			</h4>
 		</div>
-            <div class="circle-image-background" style="background-image: url('{{ 'item.thumbnail_images.large.url' ? item.thumbnail_images.large.url : item.thumbnail_images.medium.url }}')">
+            <div class="circle-image-background" style="background-image: url('{{ 'item.thumbnail_images.full.url' ? item.thumbnail_images.full.url : item.thumbnail_images.medium.url }}')">
 			<i ng-click="play(item.custom_fields.audio[0], item.slug)" id="playerIcon" class="fa fa-play round-border" aria-hidden="true"></i>
 		</div>
 	</div>
