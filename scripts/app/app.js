@@ -126,6 +126,7 @@ radioApp.factory('player',function ($uibModal, $log, $http, audio) {
           angular.element(document.querySelector('.wave-container')).addClass("hidden");  
           angular.element(document.querySelector('.metadata')).removeClass("hidden");  
           angular.element(document.querySelector('.download')).removeClass("hidden");  
+          angular.element(document.querySelector('.on-air')).removeClass("hidden");  
           audio.play();        
         } else {
           angular.element(document.querySelector('.wave-container')).addClass("hidden");
@@ -158,6 +159,7 @@ radioApp.factory('player',function ($uibModal, $log, $http, audio) {
       angular.element(document.querySelector('.modal-backdrop')).addClass("send-to-back");
       angular.element(document.querySelector('.metadata')).addClass("hidden");  
       angular.element(document.querySelector('.download')).addClass("hidden");  
+      angular.element(document.querySelector('.on-air')).addClass("hidden");  
   };
   return {
     open: open,
@@ -232,7 +234,7 @@ radioApp.controller('PlayerInstanceCtrl', function ($uibModalInstance, $log, $sc
 
   $scope.isPlaying = true;
 
-  $scope.isVideo = false;
+  $scope.isVideo = true;
   
   $scope.$on('changeTrack', function(event, args) {
       $scope.track = player.get();
