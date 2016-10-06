@@ -234,7 +234,7 @@ radioApp.controller('PlayerInstanceCtrl', function ($uibModalInstance, $log, $sc
 
   $scope.isPlaying = true;
 
-  $scope.isVideo = true;
+  $scope.isVideo = false;
   
   $scope.$on('changeTrack', function(event, args) {
       $scope.track = player.get();
@@ -289,7 +289,7 @@ radioApp.controller('FeatureCtrl', function ($scope, $http, $log, audio, player)
 
 /* Controller for menu on the homepage */
 radioApp.controller('MenuCtrl', function ($scope, $http, $log, audio, player) {
-  $http.get('/?json=get_category_posts&category_slug=tracks&count=9').
+  $http.get('/?json=get_category_posts&category_slug=tracks&count=4').
         then(function(response) {
             $scope.posts = response.data.posts;
         });
