@@ -30,6 +30,7 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) 
         .state('about', {
             url: '/about',
             templateUrl: TEMPLATES_URI + 'about.html',
+            controller: 'AboutCtrl',
         })
         
         .state('participants', {
@@ -309,6 +310,13 @@ radioApp.controller('TracksCtrl', function ($scope, $http, $log) {
   $http.get('/?json=get_category_posts&category_slug=tracks&count=250&date_format=m/d/Y').
         then(function(response) {
             $scope.tracks = response.data.posts;
+        });
+});
+
+radioApp.controller('AboutCtrl', function ($scope, $http, $log) {
+  $http.get('/?json=get_post&post_slug=about').
+        then(function(response) {
+            $scope.about = response.data.post;
         });
 });
 
