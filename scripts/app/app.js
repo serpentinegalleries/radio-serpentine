@@ -84,6 +84,9 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) 
                 },
                 'supporters@marathon': { 
                     templateUrl: TEMPLATES_URI + 'event-supporters.html', controller: "MarathonSupportersCtrl",
+                },
+                'event-blog@marathon': { 
+                    templateUrl: TEMPLATES_URI + 'event-blog.html', controller: "EventBlogCtrl",
                 },                
             },
         })
@@ -451,5 +454,12 @@ radioApp.controller('BlogPostCtrl', function ($scope, $http, $log, $stateParams,
   $http.get('/?json=get_post&post_slug=' + slug + '&date_format=j F Y').
         then(function(response) {
             $scope.post = response.data.post;
+        });
+});
+
+radioApp.controller('EventBlogCtrl', function ($scope, $http, $log) {
+  $http.get('/?json=get_category_posts&category_slug=blog&count=2&date_format=j F Y').
+        then(function(response) {
+            $scope.post= response.data.posts[0];
         });
 });

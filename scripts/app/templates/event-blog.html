@@ -1,0 +1,35 @@
+<div id="blog">
+	<hr>
+	<div class="container blog-post">
+		<div class="header">
+			<h5>
+				Miracle Live Blog
+			</h5>
+
+			<a ui-sref="blog-post({postId: post.slug })">
+				<h1>
+					{{ post.title }}
+				</h1>
+			</a>
+
+			<h3>
+				by {{ post.author.first_name }} {{ post.author.last_name }} - {{ post.date }}
+			</h3>
+		</div>
+
+		<div class="body">
+			<div ng-bind-html="post.excerpt"></div>
+		</div>
+
+	      <a ui-sref="blog">
+	          <div class="circle-image-background show-more"> 
+	            <h5>
+	              show more
+	            </h5>
+	          </div>
+	      </a>
+
+	</div>
+	<hr>
+</div>
+
