@@ -223,6 +223,8 @@ radioApp.controller('PlayerInstanceCtrl', function ($uibModalInstance, $log, $sc
   $scope.track = player.get();
 
   $scope.isPlaying = true;
+
+  $scope.isVideo = true;
   
   $scope.$on('changeTrack', function(event, args) {
       $scope.track = player.get();

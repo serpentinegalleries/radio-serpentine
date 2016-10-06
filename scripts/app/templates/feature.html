@@ -1,5 +1,7 @@
 <div id="feature" ng-controller="FeatureCtrl">
 	<div class="container feature-container container-scaled">
+
+		
 		<div class="description-container">
 			<h1>
 				{{ item.title }}
@@ -10,7 +12,7 @@
 		</div>
 		<div class="circle-image-background circle-image-background-wrapper">
 			<img src="{{ item.thumbnail }}" class="feature-image" alt="">
-			<i ng-click="play(feature.custom_fields.audio[0], feature.slug)" id="playerIcon" class="fa fa-play round-border" aria-hidden="true"></i>
+			<i ng-click="play(item.custom_fields.audio[0], item.slug)" id="playerIcon" class="fa fa-play round-border" aria-hidden="true"></i>
 		</div>
 	</div>
 </div>
