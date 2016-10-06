@@ -37,7 +37,7 @@
 							</p>
 						</div>
 
-						<div class="circle-image-background" style="background-image: url('{{ item.thumbnail_images.medium.url }}')">
+						<div class="circle-image-background" style="background-image: url('{{ 'item.thumbnail.url' ? item.thumbnail.url : item.thumbnail_images.medium.url }}')">
 						</div>
 						<h4>
 							{{ item.title }}

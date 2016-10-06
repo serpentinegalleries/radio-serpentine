@@ -29,7 +29,7 @@
 		  <a ui-sref="series-single({seriesId: post.slug })">
 		    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
 				<div class="item-box">
-					<div class="circle-image-background" style="background-image: url('{{ post.thumbnail_images.medium.url }}')">
+					<div class="circle-image-background" style="background-image: url('{{ 'post.thumbnail.url' ? post.thumbnail.url : post.thumbnail_images.medium.url }}')">
 						<i ng-click="play(post.custom_fields.audio[0], post.slug)" class="fa fa-play round-border player-icon" aria-hidden="true"></i>
 					</div>
 					<h3>
