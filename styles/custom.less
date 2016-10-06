@@ -585,7 +585,9 @@ img {
 	.container-scaled {
 		height: 400px;
 		height: calc(~"100vh - 280px");
-		max-height: 450px;
+		.medium-viewport({
+			max-height: 450px;
+		})
 		.small-viewport({
 			width: 90%;
 			height: auto;
