@@ -306,7 +306,7 @@ radioApp.controller('SeriesCtrl', function ($scope, $http, $log) {
 });
 
 radioApp.controller('TracksCtrl', function ($scope, $http, $log) {
-  $http.get('/?json=get_category_posts&category_slug=tracks&date_format=m/d/Y').
+  $http.get('/?json=get_category_posts&category_slug=tracks&count=250&date_format=m/d/Y').
         then(function(response) {
             $scope.tracks = response.data.posts;
         });
