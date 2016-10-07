@@ -25,19 +25,7 @@
 </div>
 
 <div id="menu" class="row">
-    <div ng-repeat="item in posts">
-
-       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12" ng-if="$index != 0 && $index % 3 == 0">
-        <a ui-sref="tracks">
-            <div class="item-box">
-              <div class="circle-image-background show-more"> 
-                <h5>
-                  show more
-                </h5>
-              </div>
-            </div>
-          </a>
-        </div>
+    <div ng-repeat="item in posts" ng-if="$index < 3">
 
       <a ui-sref="track({trackId: item.slug })">
 
@@ -58,4 +46,18 @@
 
       </a>
     </div>
+
+   <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">
+    <a ui-sref="tracks">
+        <div class="item-box">
+          <div class="circle-image-background show-more"> 
+            <h5>
+              show more
+            </h5>
+          </div>
+        </div>
+      </a>
+    </div>
+
+
 </div>

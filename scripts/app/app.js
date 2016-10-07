@@ -146,7 +146,6 @@ radioApp.factory('player',function ($uibModal, $log, $http, audio, $rootScope) {
           });
           isOpen = true;
         };
-      $rootScope.$broadcast('isTrackPlaying');
     };
   var setTrackData = function (slug) {
     track = $http.get('/?json=get_post&post_slug=' + slug).
@@ -274,7 +273,7 @@ radioApp.controller('PlayerInstanceCtrl', function ($uibModalInstance, $log, $sc
 
   $scope.isPlaying = true;
 
-  $scope.isVideo = true;
+  $scope.isVideo = false;
 
   $scope.$on('isTrackPlaying', function(event) {
     $log.info(!(audio.isAudioPlaying()));
@@ -421,6 +420,10 @@ radioApp.controller('SingleSeriesCtrl', function ($scope, $sce, $http, $log, $st
   $http.get('/?json=get_post&post_slug=' + slug + '&date_format=m/d/Y').
         then(function(response) {
             $scope.series = response.data.post;
+        });
+  $http.get('/?json=get_category_posts&category_slug=' + slug + '&date_format=m/d/Y').
+        then(function(response) {
+            $scope.tracks = response.data.posts;
         });
   $scope.renderHtml = function(code) {
       return $sce.trustAsHtml(code);
