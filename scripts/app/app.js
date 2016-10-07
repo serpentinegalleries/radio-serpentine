@@ -77,7 +77,9 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
             views: {
                 '': { templateUrl: TEMPLATES_URI + 'event-marathon.html', controller: "MarathonCtrl", },
 
-                'programme@marathon': { templateUrl: TEMPLATES_URI +  'event-programme.html' },
+                'programme@marathon': { templateUrl: TEMPLATES_URI +  'event-programme.html',
+                  controller: "ProgrammeCtrl",
+                 },
 
                 'participants@marathon': { 
                     templateUrl: TEMPLATES_URI + 'event-participants.html', controller: "MarathonParticipantsCtrl",
@@ -489,6 +491,18 @@ radioApp.controller('MarathonSupportersCtrl', function ($scope, $http, $log) {
             $scope.post = response.data.post;
         });
 });
+
+radioApp.controller('ProgrammeCtrl', function ($scope, $http, $log) {
+  $http.get('/?json=get_category_posts&category_slug=saturday-8').
+        then(function(response) {
+            $scope.saturday = response.data.posts;
+        });
+  $http.get('/?json=get_category_posts&category_slug=sunday-9').
+        then(function(response) {
+            $scope.sunday = response.data.posts;
+        });
+});
+
 
 /*********************
 Event blog
