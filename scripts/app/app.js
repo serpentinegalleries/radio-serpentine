@@ -178,16 +178,13 @@ radioApp.factory('audio',function ($document, $log, $http, $q, $rootScope) {
   return {
     audioElement: audioElement,
     play: function() {
-        $rootScope.$broadcast('isTrackPlaying');
         audioElement.play();
+        $rootScope.$broadcast('isTrackPlaying');
     },
     pause: function() {
-        $rootScope.$broadcast('isTrackPlaying');
         audioElement.pause();
-        $log.info(audioElement.duration);
     },
     isAudioPlaying: function() {
-      $log.info(audioElement.paused);
       return audioElement.paused;
     },
     setSrc: function(path) {
@@ -219,13 +216,13 @@ radioApp.factory('audio',function ($document, $log, $http, $q, $rootScope) {
             }
         };
         $rootScope.$broadcast('changeTrack', audioDuration);
-        $rootScope.$broadcast('isTrackPlaying');
         deferred.resolve(audioElement);
         return deferred.promise;
     },
     loadSrc: function(path) {
       var deferred = $q.defer();
       var audioDuration;
+      if(audioElement.src === '') {
       if(path.includes("soundcloud")) {
           $http.get('https://api.soundcloud.com/resolve.json?url=' + path + '&client_id=43c06cb0c044139be1d46e4f91eb411d').then(function(sound){
               if (audioElement.src != sound.data.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d') {
@@ -237,15 +234,16 @@ radioApp.factory('audio',function ($document, $log, $http, $q, $rootScope) {
               else {
               } 
           });
-      }
-      else {
-          if(audioElement.src !== path) {
-              audioElement.pause();
-              audioElement.src = path;
-              audioElement.load();
-          }
-          else {
-          }
+        }
+        else {
+            if(audioElement.src !== path) {
+                audioElement.pause();
+                audioElement.src = path;
+                audioElement.load();
+            }
+            else {
+            }
+        };
       };
       $rootScope.$broadcast('changeTrack', audioDuration);
       deferred.resolve(audioElement);
@@ -271,7 +269,7 @@ radioApp.controller('PlayerInstanceCtrl', function ($uibModalInstance, $log, $sc
   $scope.isVideo = false;
 
   $scope.$on('isTrackPlaying', function(event) {
-    $log.info('is track playing')
+    $log.info(!(audio.isAudioPlaying()));
     $scope.isPlaying = !(audio.isAudioPlaying());
   });
   
