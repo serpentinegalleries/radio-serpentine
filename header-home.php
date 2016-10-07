@@ -27,9 +27,9 @@
 		<div class="container">
 			<a ui-sref="index">radio.Serpentine</a>
 			<a ui-sref="about">About</a>
+			<a ui-sref="marathon">Miracle Marathon</a>
 		</div>
 	</nav><!-- /Navigation -->
-
 
 	<div ng-controller="WaveIconCtrl">
 

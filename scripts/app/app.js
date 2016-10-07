@@ -119,7 +119,6 @@ radioApp.factory('player',function ($uibModal, $log, $http, audio, $rootScope) {
   var isOpen = false;
 
   var open = function() {
-        $rootScope.$broadcast('isTrackPlaying');
         if(isOpen) {
           angular.element(document.querySelector('.playerModal')).removeClass("blur");
           angular.element(document.querySelector('.modal-backdrop')).removeClass("send-to-back");
@@ -139,7 +138,7 @@ radioApp.factory('player',function ($uibModal, $log, $http, audio, $rootScope) {
           });
           isOpen = true;
         };
-
+      $rootScope.$broadcast('isTrackPlaying');
     };
   var setTrackData = function (slug) {
     track = $http.get('/?json=get_post&post_slug=' + slug).
@@ -179,15 +178,17 @@ radioApp.factory('audio',function ($document, $log, $http, $q, $rootScope) {
   return {
     audioElement: audioElement,
     play: function() {
+        $rootScope.$broadcast('isTrackPlaying');
         audioElement.play();
     },
     pause: function() {
+        $rootScope.$broadcast('isTrackPlaying');
         audioElement.pause();
         $log.info(audioElement.duration);
     },
     isAudioPlaying: function() {
-      $log.info('check playing');
-      return audio.paused;
+      $log.info(audioElement.paused);
+      return audioElement.paused;
     },
     setSrc: function(path) {
         var deferred = $q.defer();
@@ -218,6 +219,7 @@ radioApp.factory('audio',function ($document, $log, $http, $q, $rootScope) {
             }
         };
         $rootScope.$broadcast('changeTrack', audioDuration);
+        $rootScope.$broadcast('isTrackPlaying');
         deferred.resolve(audioElement);
         return deferred.promise;
     },
@@ -264,13 +266,14 @@ radioApp.controller('PlayerInstanceCtrl', function ($uibModalInstance, $log, $sc
 
   $scope.track = player.get();
 
-  $scope.isPlaying = false;
+  $scope.isPlaying = true;
 
   $scope.isVideo = false;
 
-  /*$scope.$on('isTrackPlaying', function(event) {
-      $scope.isPlaying = audio.isAudioPlaying();
-  });*/
+  $scope.$on('isTrackPlaying', function(event) {
+    $log.info('is track playing')
+    $scope.isPlaying = !(audio.isAudioPlaying());
+  });
   
   $scope.$on('changeTrack', function(event, args) {
       $scope.track = player.get();
@@ -300,9 +303,11 @@ radioApp.controller('PlayerInstanceCtrl', function ($uibModalInstance, $log, $sc
 });
 
 /* Wave Icon Controller, Triggers player open and closed */
-radioApp.controller('WaveIconCtrl', function ($uibModal, $scope, $log, audio, player) {
+radioApp.controller('WaveIconCtrl', function ($uibModal, $scope, $log, audio, player, $rootScope) {
   $scope.play = function() {
+    audio.play();
     player.open();
+    $rootScope.$broadcast('isTrackPlaying');
   }
 });
 
@@ -311,7 +316,6 @@ radioApp.controller('FeatureCtrl', function ($scope, $http, $log, audio, player)
   $http.get('/?json=get_tag_posts&tag_slug=featured').
         then(function(response) {
             $scope.item = response.data.posts[0];
-            //$log.info(item);
             player.setTrackData($scope.item.slug).then(function(){
                   audio.loadSrc($scope.item.custom_fields.audio[0]);
             });
