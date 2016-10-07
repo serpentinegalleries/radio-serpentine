@@ -4,20 +4,20 @@
 			<h3>PROGRAMME</h3>
 		</div>
 		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-			<h3>Saturday 8</h3>
+			<h3 ng-click="isSaturday = true">Saturday 8</h3>
 		</div>
 		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-			<h3>Sunday 9</h3>
+			<h3 ng-click="isSaturday = false">Sunday 9</h3>
 		</div>
 	</div>
 </div>
 
-<div id="programme" class="saturday">
+<div id="programme" ng-show="isSaturday" class="saturday">
 	<div ng-repeat="post in saturday">
 	<hr>
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+			<div ng-click="{{ post.slug }} != {{ post.slug }}" class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
 				<h2>
 					{{ post.title }}
 				</h2>
@@ -32,7 +32,7 @@
 	</div>
 </div>
 
-<div id="programme" class="sunday">
+<div id="programme" ng-show="!isSaturday" class="sunday">
 	<div ng-repeat="post in sunday">
 	<hr>
 	<div class="container">

@@ -268,7 +268,7 @@ radioApp.controller('PlayerInstanceCtrl', function ($uibModalInstance, $log, $sc
 
   $scope.isPlaying = true;
 
-  $scope.isVideo = false;
+  $scope.isVideo = true;
 
   $scope.$on('isTrackPlaying', function(event) {
     $log.info(!(audio.isAudioPlaying()));
@@ -493,6 +493,7 @@ radioApp.controller('MarathonSupportersCtrl', function ($scope, $http, $log) {
 });
 
 radioApp.controller('ProgrammeCtrl', function ($scope, $http, $log) {
+  $isSaturday = true;
   $http.get('/?json=get_category_posts&category_slug=saturday-8').
         then(function(response) {
             $scope.saturday = response.data.posts;
