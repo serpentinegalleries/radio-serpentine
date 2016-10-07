@@ -451,6 +451,9 @@ radioApp.controller('MarathonCtrl', function ($scope, $sce, $http, $log, $stateP
   $http.get('/?json=get_post&post_slug=miracle-marathon').
         then(function(response) {
             $scope.post = response.data.post;
+            player.setTrackData($scope.post.slug).then(function(){
+                  audio.loadSrc($scope.post.custom_fields.audio[0]);
+            });
         });
   $scope.renderHtml = function(code) {
       return $sce.trustAsHtml(code);

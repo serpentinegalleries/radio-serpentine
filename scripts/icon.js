@@ -1,7 +1,6 @@
 jQuery(function($){ 
 
 setInterval(function(){
-  console.log('begin')
   $.ajax({
     type: "POST",
     format: "json",
@@ -10,15 +9,30 @@ setInterval(function(){
       streamurl: 'http://tx.sharp-stream.com/http_live.php?i=rsl7.mp3&device=website'
     },
     success: function success(msg) {
-       console.log('success')
        console.log(msg);
+       $('#live-metadata').html(msg);
     },
     error: function error(jqXHR, textStatus, errorThrown) {
       console.log(errorThrown);
     },
   });
-}, 16000);
+}, 3000);
 
+$.ajax({
+  type: "POST",
+  format: "json",
+  url: "/wp-content/themes/radio-serpentine/metadata.php",
+  data: {
+    streamurl: 'http://tx.sharp-stream.com/http_live.php?i=rsl7.mp3&device=website'
+  },
+  success: function success(msg) {
+     console.log(msg);
+     $('#live-metadata').html(msg);
+  },
+  error: function error(jqXHR, textStatus, errorThrown) {
+    console.log(errorThrown);
+  },
+});
 
 
 const path = document.querySelector('#wave');

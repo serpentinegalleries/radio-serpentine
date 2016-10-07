@@ -33,6 +33,9 @@
 
 	<div ng-controller="WaveIconCtrl">
 
+		<p id="live-metadata">
+		</p>
+
 	    <div id="playerToggle" class="wave-container" ng-click="play()">
 		  <svg xmlns="http://www.w3.org/2000/svg" 
 		     width="42px" height="42px"

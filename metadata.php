@@ -52,7 +52,7 @@ function getMp3StreamTitle($steam_url)
     }
  
     if (empty($result)) {
-        $result = $icy_name;
+        // $result = $icy_name;
     }
  
     return $result;
