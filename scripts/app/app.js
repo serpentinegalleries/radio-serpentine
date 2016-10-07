@@ -216,6 +216,34 @@ radioApp.factory('audio',function ($document, $log, $http, $q, $rootScope) {
         $rootScope.$broadcast('changeTrack', audioDuration);
         deferred.resolve(audioElement);
         return deferred.promise;
+    },
+    loadSrc: function(path) {
+      var deferred = $q.defer();
+      var audioDuration;
+      if(path.includes("soundcloud")) {
+          $http.get('https://api.soundcloud.com/resolve.json?url=' + path + '&client_id=43c06cb0c044139be1d46e4f91eb411d').then(function(sound){
+              if (audioElement.src != sound.data.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d') {
+                  audioElement.pause();
+                  audioElement.src = sound.data.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d';
+                  audioElement.load();
+                  audioDuration = sound.data.duration;
+              }
+              else {
+              } 
+          });
+      }
+      else {
+          if(audioElement.src !== path) {
+              audioElement.pause();
+              audioElement.src = path;
+              audioElement.load();
+          }
+          else {
+          }
+      };
+      $rootScope.$broadcast('changeTrack', audioDuration);
+      deferred.resolve(audioElement);
+      return deferred.promise;
     }
   }
 });
@@ -277,6 +305,10 @@ radioApp.controller('FeatureCtrl', function ($scope, $http, $log, audio, player)
   $http.get('/?json=get_tag_posts&tag_slug=featured').
         then(function(response) {
             $scope.item = response.data.posts[0];
+            //$log.info(item);
+            player.setTrackData($scope.item.slug).then(function(){
+                  audio.loadSrc($scope.item.custom_fields.audio[0]);
+            });
         });
   $scope.play = function(song_url, slug) {
     player.setTrackData(slug).then(function(){
