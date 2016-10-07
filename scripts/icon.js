@@ -9,14 +9,13 @@ setInterval(function(){
       streamurl: 'http://tx.sharp-stream.com/http_live.php?i=rsl7.mp3&device=website'
     },
     success: function success(msg) {
-       console.log(msg);
        $('#live-metadata').html(msg);
     },
     error: function error(jqXHR, textStatus, errorThrown) {
       console.log(errorThrown);
     },
   });
-}, 3000);
+}, 1600);
 
 $.ajax({
   type: "POST",
@@ -26,7 +25,6 @@ $.ajax({
     streamurl: 'http://tx.sharp-stream.com/http_live.php?i=rsl7.mp3&device=website'
   },
   success: function success(msg) {
-     console.log(msg);
      $('#live-metadata').html(msg);
   },
   error: function error(jqXHR, textStatus, errorThrown) {
