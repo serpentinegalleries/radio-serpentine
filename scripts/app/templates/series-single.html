@@ -6,8 +6,8 @@
 		<div class="description-container">
 			<i ng-click="play(series.custom_fields.audio[0], series.slug)" id="playerIcon-track" class="fa fa-play round-border hidden-xs" aria-hidden="true"></i>
 			<h3>
-				<span ng-repeat="participant in series.custom_fields.participant">
-					{{ participant }}{{$last ? '' : ', '}}
+				<span ng-repeat="participant in series.custom_fields.participant track by $index" ng-if="$index < 5">
+					{{ participant }}<span ng-if="$index < 4">, </span>
 				</span>
 			</h3>
 			<h1>
@@ -22,6 +22,10 @@
 	<div class="container">
 		<div class="copy">
 			<div ng-bind-html="series.content"></div>
+			<p>Participants include <span ng-repeat="participant in series.custom_fields.participant track by $index">
+					{{ participant }}{{$last ? '' : ', '}}
+				</span>
+			</p>
 		</div>
 
 		<hr>
