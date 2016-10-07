@@ -111,7 +111,6 @@ p, span, time, ul, li, blockquote {
 
 i {
 	color: @text;
-	cursor: pointer;
 }
 
 html {
@@ -291,7 +290,7 @@ Player modal
 
 .modal-body {
 	height: 100%;
-	margin: 10px 10px 50px 10px;
+	margin: 0;
 	padding: 0;
 	border: none;
 }
@@ -302,6 +301,7 @@ Player modal
 		margin: 0;
 	}
 	i {
+		cursor: pointer;
 		padding: 10px;
 	}
 	.metadata {
@@ -333,7 +333,9 @@ Player modal
 		}
 	}
 	iframe {
-		min-height: 600px;
+		position: fixed;
+		bottom: 0;
+		padding-top: 86px;
 	}
 }
 
@@ -353,6 +355,7 @@ Player modal
 	position: absolute;
 	top: 25px;
 	right: 25px;
+	z-index: 10000;
 }
 
 #playerNext {
@@ -397,6 +400,7 @@ Player modal
 	-o-filter: blur(5px);
 	filter: blur(5px);
 	i {
+		cursor: pointer;
 		display: none;
 	}
 	iframe {
@@ -755,6 +759,7 @@ Overview pages
 		text-overflow: ellipsis;
 	}
 	i {
+		cursor: pointer;
 		padding: 0 10px;
 	}
 	h5 {
@@ -916,7 +921,7 @@ Styling for single pages
 			height: auto;
 		});
 		img {
-			max-height: 500px;
+			height: 500px;
 			overflow: hidden;
 			display: block;
 			margin: 0 auto;
@@ -932,6 +937,7 @@ Styling for single pages
 		width: 60%;
 		display: block;
 		margin: 0 auto;
+		min-height: 50px;
 		margin-bottom: -18px;
 		z-index: 10;
 		.small-viewport({

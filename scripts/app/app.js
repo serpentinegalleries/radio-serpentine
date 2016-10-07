@@ -113,12 +113,13 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
 Player modal factory
 **************************/
 
-radioApp.factory('player',function ($uibModal, $log, $http, audio) {
+radioApp.factory('player',function ($uibModal, $log, $http, audio, $rootScope) {
   var track = {};
 
   var isOpen = false;
 
   var open = function() {
+        $rootScope.$broadcast('isTrackPlaying');
         if(isOpen) {
           angular.element(document.querySelector('.playerModal')).removeClass("blur");
           angular.element(document.querySelector('.modal-backdrop')).removeClass("send-to-back");
@@ -127,7 +128,6 @@ radioApp.factory('player',function ($uibModal, $log, $http, audio) {
           angular.element(document.querySelector('.metadata')).removeClass("hidden");  
           angular.element(document.querySelector('.download')).removeClass("hidden");  
           angular.element(document.querySelector('.on-air')).removeClass("hidden");  
-          audio.play();        
         } else {
           angular.element(document.querySelector('.wave-container')).addClass("hidden");
           var modalInstance = $uibModal.open({
@@ -184,6 +184,10 @@ radioApp.factory('audio',function ($document, $log, $http, $q, $rootScope) {
     pause: function() {
         audioElement.pause();
         $log.info(audioElement.duration);
+    },
+    isAudioPlaying: function() {
+      $log.info('check playing');
+      return audio.paused;
     },
     setSrc: function(path) {
         var deferred = $q.defer();
@@ -260,14 +264,16 @@ radioApp.controller('PlayerInstanceCtrl', function ($uibModalInstance, $log, $sc
 
   $scope.track = player.get();
 
-  $scope.isPlaying = true;
+  $scope.isPlaying = false;
 
   $scope.isVideo = false;
+
+  /*$scope.$on('isTrackPlaying', function(event) {
+      $scope.isPlaying = audio.isAudioPlaying();
+  });*/
   
   $scope.$on('changeTrack', function(event, args) {
       $scope.track = player.get();
-      $log.info(args);
-      $scope.track.duration = args;
       $scope.isPlaying = true;
   });
 
