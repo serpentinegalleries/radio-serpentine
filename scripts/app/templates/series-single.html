@@ -1,6 +1,6 @@
 <div id="feature">
 	<div class="container">
-		<div class="circle-image-background" style="background-image: url('{{ series.thumbnail_images.large.url }}')">
+		<div class="circle-image-background" style="background-image: url('{{ series.thumbnail_images.large.url ? series.thumbnail_images.large.url : series.thumbnail_images.full.url }}')">
 			<i ng-click="play(series.custom_fields.audio[0], series.slug)" id="playerIcon" class="fa fa-play round-border hidden-lg hidden-md hidden-sm" aria-hidden="true"></i>
 		</div>
 		<div class="description-container">
