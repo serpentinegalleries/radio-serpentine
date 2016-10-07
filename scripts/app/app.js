@@ -2,7 +2,7 @@
 var radioApp = angular.module('radioApp', ['ui.router','ui.bootstrap', 'ngSanitize']);
 var TEMPLATES_URI = '/wp-content/themes/radio-serpentine/scripts/app/templates/';
 
-radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
+radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $urlMatcherFactoryProvider) {
     
     $urlRouterProvider.otherwise('/');
 
@@ -104,8 +104,8 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) 
         })
         
         // use the HTML5 History API
-        // $locationProvider.html5Mode(true);
-
+//        $locationProvider.html5Mode(true);
+  //      $urlMatcherFactoryProvider.strictMode(false);
 });
 
 
@@ -422,6 +422,13 @@ radioApp.controller('MarathonCtrl', function ($scope, $sce, $http, $log, $stateP
         });
   $scope.renderHtml = function(code) {
       return $sce.trustAsHtml(code);
+  };
+  $scope.play = function(song_url, slug) {
+    player.setTrackData(slug).then(function(){
+        audio.setSrc(song_url).then(function(){
+          player.open();
+        });
+    });
   };
 });
 
