@@ -93,6 +93,12 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
             },
         })
 
+        .state('marathon-participants', {
+          url: "/miracle/participants",
+          templateUrl: TEMPLATES_URI + 'event-participants-all.html',
+          controller: "MarathonParticipantsCtrl",
+        })
+
         .state('blog', {
             url: '/miracle/blog',
             templateUrl: TEMPLATES_URI + 'blog.html',
@@ -482,6 +488,10 @@ radioApp.controller('MarathonParticipantsCtrl', function ($scope, $http, $log) {
   $http.get('/?json=get_category_posts&category_slug=miracle-marathon-participant&count=12').
         then(function(response) {
             $scope.posts = response.data.posts;
+        });
+  $http.get('/?json=get_category_posts&category_slug=miracle-marathon-participant&count=150').
+        then(function(response) {
+            $scope.participants = response.data.posts;
         });
 });
 

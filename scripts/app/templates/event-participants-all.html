@@ -1,0 +1,39 @@
+<div class="container">
+
+	<div class="row dropdown-container">
+		<div class="col-lg-10 col-lg-offset-2 col-md-12 col-sm-12">
+			      <a href id="dropdown-pages" uib-dropdown-toggle>
+			        <h4>Miracle Marathon Participants</h4>
+			      </a>
+		</div>
+	</div>
+
+
+	<div id="participants" class="container">
+		<div ng-repeat="item in participants">
+			<a ui-sref="participant({participantId: item.slug })">
+
+				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+					<div class="item-box">
+						<!--<div class="circle-info">
+							<p>
+								42
+							</p>
+						</div>-->
+
+						<div class="circle-image-background" style="background-image: url('{{ 'item.thumbnail_images.medium.url' ? item.thumbnail_images.medium.url : item.thumbnail }}')">
+						</div>
+						<h4>
+							{{ item.title }}
+						</h4>
+						<h6>
+							{{ item.custom_fields.title[0] ? item.custom_fields.title[0] : '' }}
+						</h6>
+					</div>
+				</div>
+
+			</a>
+		</div>
+	</div>
+
+</div>
