@@ -563,8 +563,8 @@ radioApp.controller('MarathonCtrl', function ($scope, $sce, $http, $log, $stateP
   $http.get('/?json=get_post&post_slug=miracle-marathon').
         then(function(response) {
             $scope.post = response.data.post;
-            player.setTrackData($scope.post.slug).then(function(){
-                  audio.loadSrc($scope.post.custom_fields.audio[0]);
+            /*player.setTrackData($scope.post.slug).then(function(){
+                  audio.loadSrc($scope.post.custom_fields.audio[0]);*/
             });
         });
   $scope.renderHtml = function(code) {
@@ -600,7 +600,7 @@ radioApp.controller('MarathonSupportersCtrl', function ($scope, $http, $log) {
 });
 
 radioApp.controller('ProgrammeCtrl', function ($scope, $http, $log) {
-  $isSaturday = true;
+  $isSaturday = false;
   $http.get('/?json=get_category_posts&category_slug=saturday-8').
         then(function(response) {
             $scope.saturday = response.data.posts;
