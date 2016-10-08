@@ -8,7 +8,7 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
 
     $stateProvider
         
-        .state('index', {
+       /* .state('index', {
             url: '/',
             views: {
                 '': { templateUrl: TEMPLATES_URI + 'home.html' },
@@ -20,27 +20,29 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
                     controller: "MenuCtrl",
                 },
             },
-        })
+        })*/
         
         .state('about', {
             url: '/about',
             templateUrl: TEMPLATES_URI + 'about.html',
             controller: 'AboutCtrl',
         })
-        
-        .state('participants', {
+
+ /*       .state('participants', {
             url: '/participants',
             views: {
                 '': { templateUrl: TEMPLATES_URI + 'participants.html', controller: "ParticipantsCtrl", },
             },
         })
-
+*/
         .state('participant', {
           url: "/participants/:participantId",
           templateUrl: TEMPLATES_URI + 'participants-single.html',
           controller: "SingleParticipantCtrl",
         })
 
+
+/*
         .state('series', {
             url: '/series',
             views: {
@@ -65,10 +67,10 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
           url: "/tracks/:trackId",
           templateUrl: TEMPLATES_URI + 'tracks-single.html',
           controller: "SingleTrackCtrl",
-        })
+        })*/
         
         .state('marathon', {
-            url: '/miracle',
+            url: '/',
             views: {
                 '': { templateUrl: TEMPLATES_URI + 'event-marathon.html', controller: "MarathonCtrl", },
 
@@ -104,7 +106,7 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
         })
 
         .state('marathon-participants', {
-          url: "/miracle/participants",
+          url: "/participants",
           templateUrl: TEMPLATES_URI + 'event-participants-all.html',
           controller: "MarathonParticipantsCtrl",
         })
@@ -409,7 +411,14 @@ radioApp.controller('PlayerMarathonInstanceCtrl', function ($uibModalInstance, m
 });
 
 /* Wave Icon Controller, Triggers player open and closed */
-radioApp.controller('WaveIconCtrl', function ($uibModal, $scope, $log, audio, player, $rootScope) {
+radioApp.controller('WaveIconCtrl', function ($uibModal, $scope, $log, audio, player, $rootScope, $http) {
+  $http.get('/?json=get_tag_posts&tag_slug=featured').
+        then(function(response) {
+            $scope.item = response.data.posts[0];
+            player.setTrackData($scope.item.slug).then(function(){
+                  audio.loadSrc($scope.item.custom_fields.audio[0]);
+            });
+        });
   $scope.play = function() {
     audio.play();
     player.open();
@@ -436,13 +445,13 @@ radioApp.controller('FeatureCtrl', function ($scope, $http, $log, audio, player,
   }
 });
 
-/* Controller for menu on the homepage */
+/* Controller for menu on the homepage 
 radioApp.controller('MenuCtrl', function ($scope, $http, $log, audio, player) {
   $http.get('/?json=get_category_posts&category_slug=tracks&count=4').
         then(function(response) {
             $scope.posts = response.data.posts;
         });
-});
+});*/
 
 
 
@@ -456,7 +465,7 @@ radioApp.controller('ParticipantsCtrl', function ($scope, $http, $log) {
             $scope.posts = response.data.posts;
         });
 });
-
+/*
 radioApp.controller('SeriesCtrl', function ($scope, $http, $log) {
   $http.get('/?json=get_category_posts&category_slug=series').
         then(function(response) {
@@ -469,7 +478,7 @@ radioApp.controller('TracksCtrl', function ($scope, $http, $log) {
         then(function(response) {
             $scope.tracks = response.data.posts;
         });
-});
+});*/
 
 radioApp.controller('AboutCtrl', function ($scope, $http, $log) {
   $http.get('/?json=get_post&post_slug=about').
@@ -483,7 +492,7 @@ radioApp.controller('AboutCtrl', function ($scope, $http, $log) {
 Single participant, tracks, and series pages' controllers
 ******************/
 
-
+/*
 radioApp.controller('SingleTrackCtrl', function ($scope, $http, $log, $stateParams, player, audio) {
   var slug = $stateParams.trackId;
   $http.get('/?json=get_post&post_slug=' + slug + '&date_format=m/d/Y').
@@ -497,7 +506,7 @@ radioApp.controller('SingleTrackCtrl', function ($scope, $http, $log, $statePara
         });
     });
   }
-});
+});*/
 
 radioApp.controller('SingleParticipantCtrl', function ($scope, $sce, $http, $log, $stateParams, player, audio) {
   var slug = $stateParams.participantId;
@@ -517,6 +526,7 @@ radioApp.controller('SingleParticipantCtrl', function ($scope, $sce, $http, $log
   }
 });
 
+/*
 radioApp.controller('SingleSeriesCtrl', function ($scope, $sce, $http, $log, $stateParams, player, audio) {
   var slug = $stateParams.seriesId;
   $http.get('/?json=get_post&post_slug=' + slug + '&date_format=m/d/Y').
@@ -537,7 +547,7 @@ radioApp.controller('SingleSeriesCtrl', function ($scope, $sce, $http, $log, $st
         });
     });
   }
-});
+});*/
 
 
 /*****************

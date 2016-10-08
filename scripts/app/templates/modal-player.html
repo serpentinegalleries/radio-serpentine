@@ -19,7 +19,7 @@
 
     <div id="feature">
       <div class="centered">
-        <div class="circle-image-background" style="background-image: url('{{ track.thumbnail_images.large.url }}')">
+        <div class="circle-image-background" style="background-image: url('{{ track.thumbnail_images.full.url ? track.thumbnail_images.full.url : track.thumbnail_images.medium.url }}')">
           <i ng-click="pause()" id="playerIcon" class="fa fa-pause round-border playerIcon-pause" ng-show="isPlaying" aria-hidden="true"></i>
           <i ng-click="play()" id="playerIcon" class="fa fa-play round-border playerIcon-play" ng-hide="isPlaying" aria-hidden="true"></i>
         </div>
@@ -32,9 +32,7 @@
         {{ track.duration }}
       </h3>
       <h4>
-        <span ng-repeat="participant in track.custom_fields.participant track by $index" ng-if="$index < 5">
-          {{ participant }}<span ng-if="$index < 4">, </span>
-        </span>
+        ON AIR 12:00-24:00
       </h4>
       <h1>
         {{ track.title }}
@@ -48,7 +46,7 @@
         </a>
       </h5>
       <h5>
-        <a href="{{ track.custom_fields.audio[0] }}" target="_blank">
+        <a href="https://soundcloud.com/serpentine-uk" target="_blank">
           SOUNDCLOUD
         </a>
       </h5>
