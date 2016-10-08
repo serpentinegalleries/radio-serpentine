@@ -1,6 +1,6 @@
 jQuery(function($){ 
 
-/*setInterval(function(){
+setInterval(function(){
   $.ajax({
     type: "POST",
     format: "json",
@@ -9,15 +9,15 @@ jQuery(function($){
       streamurl: 'http://tx.sharp-stream.com/http_live.php?i=rsl7.mp3&device=website'
     },
     success: function success(msg) {
-       //$('#live-metadata').html(msg);
+       $('#live-audio-metadata').html(msg);
     },
     error: function error(jqXHR, textStatus, errorThrown) {
       console.log(errorThrown);
     },
   });
-}, 1600);*/
+}, 16000);
 
-/*$.ajax({
+$.ajax({
   type: "POST",
   format: "json",
   url: "/wp-content/themes/radio-serpentine/metadata.php",
@@ -25,12 +25,12 @@ jQuery(function($){
     streamurl: 'http://tx.sharp-stream.com/http_live.php?i=rsl7.mp3&device=website'
   },
   success: function success(msg) {
-     //$('#live-metadata').html(msg);
+     $('#live-audio-metadata').html(msg);
   },
   error: function error(jqXHR, textStatus, errorThrown) {
     console.log(errorThrown);
   },
-});*/
+});
 
 
 const path = document.querySelector('#wave');

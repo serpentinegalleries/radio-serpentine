@@ -19,7 +19,7 @@
 
     <div id="feature">
       <div class="centered">
-        <div class="circle-image-background" style="background-image: url('http://local.wordpress.dev/wp-content/uploads/2016/10/Miracle-Series-Icon.jpg')">
+        <div class="circle-image-background" style="background-image: url('http://radio.serpentinegalleries.org/wp-content/uploads/2016/10/Miracle-Series-Icon.jpg')">
           <i ng-click="pause()" id="playerIcon" class="fa fa-pause round-border playerIcon-pause" ng-show="isPlaying" aria-hidden="true"></i>
           <i ng-click="play()" id="playerIcon" class="fa fa-play round-border playerIcon-play" ng-hide="isPlaying" aria-hidden="true"></i>
         </div>
@@ -27,11 +27,7 @@
     </div>
 
     <div class="metadata">
-      <h3>
-        {{ 'track.series' ? track.series : '' }} <br>
-        {{ track.duration }}
-      </h3>
-      <h4>
+      <h4 id="live-audio-metadata">
         OCTOBER 9 12:00-24:00
       </h4>
       <h1>

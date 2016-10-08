@@ -132,7 +132,7 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
 Player modal factory
 **************************/
 
-radioApp.factory('player',function ($uibModal, $log, $http, audio, $rootScope) {
+radioApp.factory('player',function ($uibModal, $log, $http, audio, $rootScope, $timeout) {
   var track = {};
 
   var isOpen = false;
@@ -237,6 +237,7 @@ Audio audioElement factory
 
 radioApp.factory('audio',function ($document, $log, $http, $q, $rootScope) {
   var audioElement = $document[0].createElement('audio'); // $document[0].getElementById('audio');
+  audioElement.src = "http://tx.sharp-stream.com/http_live.php?i=rsl7.mp3&device=website";
 
   return {
     audioElement: audioElement,
@@ -322,7 +323,7 @@ Page components
 /* Player modal instance */
 // Please note that $uibModalInstance represents a modal window (instance) dependency.
 
-radioApp.controller('PlayerInstanceCtrl', function ($uibModalInstance, $log, $scope, player, audio) {
+radioApp.controller('PlayerInstanceCtrl', function ($uibModalInstance, $log, $scope, player, audio, $timeout, $interval) {
   // get related tracks and cue them for the next / previous buttons
 
   $scope.track = player.get();
@@ -330,6 +331,8 @@ radioApp.controller('PlayerInstanceCtrl', function ($uibModalInstance, $log, $sc
   $scope.isPlaying = true;
 
   $scope.isVideo = false;
+
+  $interval(callAtInterval, 5000);
 
   $scope.$on('isTrackPlaying', function(event) {
     $log.info(!(audio.isAudioPlaying()));
@@ -362,6 +365,11 @@ radioApp.controller('PlayerInstanceCtrl', function ($uibModalInstance, $log, $sc
   };
 
 });
+
+function callAtInterval() {
+    console.log("Interval occurred");
+    angular.element(document.querySelector('#live-audio-metadata')).html("hello");
+}
 
 /* Marathon Modal */
 radioApp.controller('PlayerMarathonInstanceCtrl', function ($uibModalInstance, marathon_player, $log, $scope, player, audio) {
@@ -426,8 +434,9 @@ radioApp.controller('WaveIconCtrl', function ($uibModal, $scope, $log, audio, pl
     $rootScope.$broadcast('isTrackPlaying');
   }*/
     $scope.play = function(song_url, slug) {
-      marathon_player.open();
-    };
+            player.open();
+            audio.play();
+  };
 });
 
 /* Controller for featured track or event on the homepage */
@@ -583,23 +592,9 @@ Event pages
 /* Miracle Marathon */
 
 radioApp.controller('MarathonCtrl', function ($scope, $sce, $http, $log, $stateParams, player, audio, marathon_player) {
-  $http.get('/?json=get_post&post_slug=miracle-marathon').
-        then(function(response) {
-            $scope.post = response.data.post;
-            /*player.setTrackData($scope.post.slug).then(function(){
-                  audio.loadSrc($scope.post.custom_fields.audio[0]);
-            });*/
-        });
-  $scope.renderHtml = function(code) {
-      return $sce.trustAsHtml(code);
-  };
   $scope.play = function(song_url, slug) {
-    marathon_player.open();
-    /*player.setTrackData(slug).then(function(){
-        audio.setSrc(song_url).then(function(){
-          player.open();
-        });
-    });*/
+    player.open();
+    audio.play();
   };
 });
 
