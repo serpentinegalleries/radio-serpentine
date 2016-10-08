@@ -16,6 +16,36 @@
   ga('create', 'UA-83659405-1', 'auto');
   ga('send', 'pageview');
 
+	var audioTogglePlayer = document.getElementById("wave-icon-player");
+
+	//var audioVideoPlayer = document.getElementById('playerToggle');
+
+	/* Adds a listener for the "submit" event.
+	audioTogglePlayer.addEventListener('click', function(event) {
+
+		ga('send', {
+		  hitType: 'event',
+		  eventCategory: 'Audio',
+		  eventAction: 'play',
+		  eventLabel: 'audio-livestream'
+		});
+
+	});
+
+	/* Adds a listener for the "submit" event.
+	audioVideoPlayer.addEventListener('click', function(event) {
+
+		ga('send', {
+		  hitType: 'event',
+		  eventCategory: 'Video',
+		  eventAction: 'play',
+		  eventLabel: 'video-livestream'
+		});
+
+	});*/
+
+
+
 </script>
 
 
@@ -30,7 +60,7 @@
 		</div>
 	</nav><!-- /Navigation -->
 
-	<div ng-controller="WaveIconCtrl">
+	<div id="wave-icon-player" ng-controller="WaveIconCtrl">
 
 		<p id="live-metadata">
 			ON AIR
