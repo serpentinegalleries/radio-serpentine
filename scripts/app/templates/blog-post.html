@@ -8,7 +8,7 @@
 
 				<a ui-sref="blog-post({postId: post.slug })">
 					<h1>
-						{{ post.title }}
+						<div ng-bind-html="post.title | to_trusted"></div>
 					</h1>
 				</a>
 
