@@ -57,6 +57,7 @@
 		<div class="container">
 			<a ui-sref="about">About</a>
 			<a ui-sref="marathon">Miracle Marathon</a>
+			<a ui-sref="blog">Live Blog</a>
 		</div>
 	</nav><!-- /Navigation -->
 
