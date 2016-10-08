@@ -34,6 +34,7 @@
 	<div ng-controller="WaveIconCtrl">
 
 		<p id="live-metadata">
+			ON AIR
 		</p>
 
 	    <div id="playerToggle" class="wave-container" ng-click="play()">

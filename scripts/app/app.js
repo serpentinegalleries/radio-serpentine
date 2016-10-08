@@ -175,6 +175,51 @@ radioApp.factory('player',function ($uibModal, $log, $http, audio, $rootScope) {
   }
 });
 
+
+radioApp.factory('marathon_player',function ($uibModal, $log, $http, audio, $rootScope) {
+  var track = {};
+
+  var isOpen = false;
+
+  var open = function() {
+          angular.element(document.querySelector('.wave-container')).addClass("hidden");
+          var modalInstance = $uibModal.open({
+            animation: false,
+            ariaDescribedBy: 'modal-body',
+            templateUrl: TEMPLATES_URI + 'modal-player-marathon.html',
+            controller: 'PlayerMarathonInstanceCtrl',
+            windowClass: 'marathonModal',
+          });
+        };
+
+  var setTrackData = function (slug) {
+    track = $http.get('/?json=get_post&post_slug=' + slug).
+        then(function(response) {
+            track = response.data.post;
+            return track;
+        });
+    return track; 
+  };
+  var getTrackData = function () {
+      return track;
+  };
+  var min = function() {
+      angular.element(document.querySelector('.marathonModal')).addClass("blur");
+      angular.element(document.querySelector('body')).removeClass("modal-open");
+      angular.element(document.querySelector('.wave-container')).removeClass("hidden");  
+      angular.element(document.querySelector('.modal-backdrop')).addClass("send-to-back");
+      angular.element(document.querySelector('.metadata')).addClass("hidden");  
+      angular.element(document.querySelector('.download')).addClass("hidden");  
+      angular.element(document.querySelector('.on-air')).addClass("hidden");  
+  };
+  return {
+    open: open,
+    setTrackData: setTrackData,
+    get: getTrackData,
+    min: min,
+  }
+});
+
 /**************************
 Audio audioElement factory
 **************************/
@@ -307,6 +352,53 @@ radioApp.controller('PlayerInstanceCtrl', function ($uibModalInstance, $log, $sc
 
 });
 
+/* Marathon Modal */
+radioApp.controller('PlayerMarathonInstanceCtrl', function ($uibModalInstance, marathon_player, $log, $scope, player, audio) {
+  // get related tracks and cue them for the next / previous buttons
+
+  $scope.track = player.get();
+
+  $scope.isPlaying = true;
+
+  $scope.isVideo = true;
+
+  $scope.$on('isTrackPlaying', function(event) {
+    $log.info(!(audio.isAudioPlaying()));
+    $scope.isPlaying = !(audio.isAudioPlaying());
+  });
+  
+  $scope.$on('changeTrack', function(event, args) {
+      $scope.track = player.get();
+      $scope.isPlaying = true;
+  });
+
+  $scope.minim = function() {
+    marathon_player.min();
+  }
+  $scope.previous = function(path) {
+    /* To do: changetrack rootscope broadcast to update player data */
+    audio.setSrc(path);
+  }
+  $scope.next = function(path) {
+    /* To do: changetrack rootscope broadcast to update player data */
+    audio.setSrc(path);
+  }
+  $scope.pause = function() {
+    audio.pause();
+    $scope.isPlaying = false;
+  };
+  $scope.play = function() {
+    audio.play();  
+    $scope.isPlaying = true;
+  };
+
+  $scope.ok = function () {
+    $uibModalInstance.dismiss();
+    angular.element(document.querySelector('.wave-container')).removeClass("hidden");
+  };
+
+});
+
 /* Wave Icon Controller, Triggers player open and closed */
 radioApp.controller('WaveIconCtrl', function ($uibModal, $scope, $log, audio, player, $rootScope) {
   $scope.play = function() {
@@ -317,7 +409,7 @@ radioApp.controller('WaveIconCtrl', function ($uibModal, $scope, $log, audio, pl
 });
 
 /* Controller for featured track or event on the homepage */
-radioApp.controller('FeatureCtrl', function ($scope, $http, $log, audio, player) {
+radioApp.controller('FeatureCtrl', function ($scope, $http, $log, audio, player, marathon_player) {
   $http.get('/?json=get_tag_posts&tag_slug=featured').
         then(function(response) {
             $scope.item = response.data.posts[0];
@@ -326,11 +418,12 @@ radioApp.controller('FeatureCtrl', function ($scope, $http, $log, audio, player)
             });
         });
   $scope.play = function(song_url, slug) {
-    player.setTrackData(slug).then(function(){
+    marathon_player.open();
+    /*marathon_player.setTrackData(slug).then(function(){
         audio.setSrc(song_url).then(function(){
-          player.open();
+          marathon_player.open();
         });
-    });
+    });*/
   }
 });
 
@@ -466,7 +559,7 @@ Event pages
 
 /* Miracle Marathon */
 
-radioApp.controller('MarathonCtrl', function ($scope, $sce, $http, $log, $stateParams, player, audio) {
+radioApp.controller('MarathonCtrl', function ($scope, $sce, $http, $log, $stateParams, player, audio, marathon_player) {
   $http.get('/?json=get_post&post_slug=miracle-marathon').
         then(function(response) {
             $scope.post = response.data.post;
@@ -478,11 +571,12 @@ radioApp.controller('MarathonCtrl', function ($scope, $sce, $http, $log, $stateP
       return $sce.trustAsHtml(code);
   };
   $scope.play = function(song_url, slug) {
-    player.setTrackData(slug).then(function(){
+    marathon_player.open();
+    /*player.setTrackData(slug).then(function(){
         audio.setSrc(song_url).then(function(){
           player.open();
         });
-    });
+    });*/
   };
 });
 
