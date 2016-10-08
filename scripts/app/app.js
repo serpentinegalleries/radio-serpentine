@@ -93,6 +93,18 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
             },
         })
 
+        // nested list with just some random string data
+        .state('marathon.saturday', {
+            url: '/',
+            templateUrl: TEMPLATES_URI + 'event-programme-saturday.html',
+        })
+
+        // nested list with just some random string data
+        .state('marathon.sunday', {
+            url: '',
+            templateUrl: TEMPLATES_URI + 'event-programme-sunday.html',
+        })
+
         .state('marathon-participants', {
           url: "/miracle/participants",
           templateUrl: TEMPLATES_URI + 'event-participants-all.html',
@@ -564,8 +576,8 @@ radioApp.controller('MarathonCtrl', function ($scope, $sce, $http, $log, $stateP
         then(function(response) {
             $scope.post = response.data.post;
             /*player.setTrackData($scope.post.slug).then(function(){
-                  audio.loadSrc($scope.post.custom_fields.audio[0]);*/
-            });
+                  audio.loadSrc($scope.post.custom_fields.audio[0]);
+            });*/
         });
   $scope.renderHtml = function(code) {
       return $sce.trustAsHtml(code);

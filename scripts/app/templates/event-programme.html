@@ -4,50 +4,14 @@
 			<h3>PROGRAMME</h3>
 		</div>
 		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-			<h3 ng-click="isSaturday = true">Saturday 8</h3>
+			<h3 ng-class="{true: 'active', false: 'schedule-deactive'}[!yupNope.isSelected]" 
+  ng-click="yupNope.isSelected ? (yupNope.isSelected = !yupNope.isSelected) : ''" ui-sref=".saturday">Saturday 8</h3>
 		</div>
 		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-			<h3 ng-click="isSaturday = false">Sunday 9</h3>
+			<h3 ng-class="{false: 'active', true: 'schedule-deactive'}[!yupNope.isSelected]" 
+  ng-click="!yupNope.isSelected ? (yupNope.isSelected = !yupNope.isSelected) : ''" ui-sref=".sunday" >Sunday 9</h3>
 		</div>
 	</div>
 </div>
 
-<div id="programme" ng-show="isSaturday" class="saturday">
-	<div ng-repeat="post in saturday">
-	<hr>
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-				<h2>
-					{{ post.title }}
-				</h2>
-				<div class="programme-item" ng-bind-html="post.content"></div>
-			</div>
-			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-				<i class="fa fa-angle-down fa-2x"></i>
-			</div>
-		</div>
-	</div>
-	<hr>
-	</div>
-</div>
-
-<div id="programme" ng-show="!isSaturday" class="sunday">
-	<div ng-repeat="post in sunday">
-	<hr>
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-				<h2>
-					{{ post.title }}
-				</h2>
-				<div class="programme-item" ng-bind-html="post.content"></div>
-			</div>
-			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-				<i class="fa fa-angle-down fa-2x"></i>
-			</div>
-		</div>
-	</div>
-	<hr>
-	</div>
-</div>
+<div ui-view></div>
