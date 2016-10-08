@@ -616,10 +616,11 @@ radioApp.controller('ProgrammeCtrl', function ($scope, $http, $log) {
 Event blog
 *********************/
 
-radioApp.controller('BlogCtrl', function ($scope, $http, $log) {
+radioApp.controller('BlogCtrl', function ($scope, $http, $log, $sce) {
   $http.get('/?json=get_category_posts&category_slug=blog&date_format=j F Y').
         then(function(response) {
             $scope.posts = response.data.posts;
+            $scope.posts = $sce.trustAsHtml($scope.posts);
         });
 });
 
@@ -637,3 +638,9 @@ radioApp.controller('EventBlogCtrl', function ($scope, $http, $log) {
             $scope.post= response.data.posts[0];
         });
 });
+
+radioApp.filter('to_trusted', ['$sce', function($sce){
+    return function(text) {
+        return $sce.trustAsHtml(text);
+    };
+}]);
