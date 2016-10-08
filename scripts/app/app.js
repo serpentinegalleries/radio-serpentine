@@ -68,7 +68,6 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
         })
         
         .state('marathon', {
-            abstract: true,
             url: '/miracle',
             views: {
                 '': { templateUrl: TEMPLATES_URI + 'event-marathon.html', controller: "MarathonCtrl", },
@@ -610,7 +609,7 @@ radioApp.controller('MarathonSupportersCtrl', function ($scope, $http, $log) {
 });
 
 radioApp.controller('ProgrammeCtrl', function ($scope, $http, $log) {
-  $isSaturday = false;
+  $isSaturday = true;
   $http.get('/?json=get_category_posts&category_slug=saturday-8').
         then(function(response) {
             $scope.saturday = response.data.posts;

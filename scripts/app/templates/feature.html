@@ -1,17 +1,18 @@
 <div id="feature" ng-controller="FeatureCtrl">
 	<div class="container feature-container container-scaled">
 
-		
-		<div class="description-container">
-			<h1>
-				{{ item.title }}
-			</h1>
-			<h4>
-				ON AIR NOW
-			</h4>
-		</div>
-            <div class="circle-image-background" style="background-image: url('{{ 'item.thumbnail_images.full.url' ? item.thumbnail_images.full.url : item.thumbnail_images.medium.url }}')">
-			<i ng-click="play(item.custom_fields.audio[0], item.slug)" id="playerIcon" class="fa fa-play round-border" aria-hidden="true"></i>
-		</div>
+		<a ui-sref="marathon">
+			<div class="description-container">
+				<h1>
+					{{ item.title }}
+				</h1>
+				<h4>
+					ON AIR NOW
+				</h4>
+			</div>
+	            <div class="circle-image-background" style="background-image: url('{{ 'item.thumbnail_images.full.url' ? item.thumbnail_images.full.url : item.thumbnail_images.medium.url }}')">
+				<i ng-click="play(item.custom_fields.audio[0], item.slug)" id="playerIcon" class="fa fa-play round-border" aria-hidden="true"></i>
+			</div>
+		</a>
 	</div>
 </div>
