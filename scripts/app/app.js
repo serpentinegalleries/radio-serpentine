@@ -406,7 +406,7 @@ radioApp.controller('PlayerMarathonInstanceCtrl', function ($uibModalInstance, m
   $scope.ok = function () {
     $uibModalInstance.dismiss();
     angular.element(document.querySelector('.wave-container')).removeClass("hidden");
-    angular.element(document.querySelector('body').removeClass("modal-open");
+    angular.element(document.querySelector('body')).removeClass("modal-open");
   };
 
 });
