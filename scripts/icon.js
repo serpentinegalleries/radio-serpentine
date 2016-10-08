@@ -1,6 +1,6 @@
 jQuery(function($){ 
 
-setInterval(function(){
+/*setInterval(function(){
   $.ajax({
     type: "POST",
     format: "json",
@@ -15,9 +15,9 @@ setInterval(function(){
       console.log(errorThrown);
     },
   });
-}, 1600);
+}, 1600);*/
 
-$.ajax({
+/*$.ajax({
   type: "POST",
   format: "json",
   url: "/wp-content/themes/radio-serpentine/metadata.php",
@@ -30,7 +30,7 @@ $.ajax({
   error: function error(jqXHR, textStatus, errorThrown) {
     console.log(errorThrown);
   },
-});
+});*/
 
 
 const path = document.querySelector('#wave');
