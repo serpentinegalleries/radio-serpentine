@@ -7,14 +7,9 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
     $urlRouterProvider.otherwise('/');
 
     $stateProvider
-
-        .state('landing', {
-            url: '/',
-            templateUrl: TEMPLATES_URI + 'landing-page.html',
-        })
         
         .state('index', {
-            url: '/home',
+            url: '/',
             views: {
                 '': { templateUrl: TEMPLATES_URI + 'home.html' },
 
@@ -73,6 +68,7 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
         })
         
         .state('marathon', {
+            abstract: true,
             url: '/miracle',
             views: {
                 '': { templateUrl: TEMPLATES_URI + 'event-marathon.html', controller: "MarathonCtrl", },
@@ -91,11 +87,14 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
                     templateUrl: TEMPLATES_URI + 'event-blog.html', controller: "EventBlogCtrl",
                 },                
             },
+            params: {
+                    autoActivateChild: 'marathon.saturday'
+            },
         })
 
         // nested list with just some random string data
         .state('marathon.saturday', {
-            url: '/',
+            url: '',
             templateUrl: TEMPLATES_URI + 'event-programme-saturday.html',
         })
 
@@ -127,7 +126,6 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
 //        $locationProvider.html5Mode(true);
   //      $urlMatcherFactoryProvider.strictMode(false);
 });
-
 
 /**************************
 Player modal factory
