@@ -412,8 +412,8 @@ radioApp.controller('PlayerMarathonInstanceCtrl', function ($uibModalInstance, m
 });
 
 /* Wave Icon Controller, Triggers player open and closed */
-radioApp.controller('WaveIconCtrl', function ($uibModal, $scope, $log, audio, player, $rootScope, $http) {
-  $http.get('/?json=get_tag_posts&tag_slug=featured').
+radioApp.controller('WaveIconCtrl', function ($uibModal, $scope, $log, audio, player, $rootScope, $http, marathon_player) {
+  /*$http.get('/?json=get_tag_posts&tag_slug=featured').
         then(function(response) {
             $scope.item = response.data.posts[0];
             player.setTrackData($scope.item.slug).then(function(){
@@ -424,7 +424,10 @@ radioApp.controller('WaveIconCtrl', function ($uibModal, $scope, $log, audio, pl
     audio.play();
     player.open();
     $rootScope.$broadcast('isTrackPlaying');
-  }
+  }*/
+    $scope.play = function(song_url, slug) {
+      marathon_player.open();
+    };
 });
 
 /* Controller for featured track or event on the homepage */
