@@ -323,7 +323,7 @@ Page components
 /* Player modal instance */
 // Please note that $uibModalInstance represents a modal window (instance) dependency.
 
-radioApp.controller('PlayerInstanceCtrl', function ($uibModalInstance, $log, $scope, player, audio, $timeout, $interval) {
+radioApp.controller('PlayerInstanceCtrl', function ($uibModalInstance, $log, $http, $scope, player, audio, $timeout, $interval) {
   // get related tracks and cue them for the next / previous buttons
 
   $scope.track = player.get();
@@ -332,7 +332,7 @@ radioApp.controller('PlayerInstanceCtrl', function ($uibModalInstance, $log, $sc
 
   $scope.isVideo = false;
 
-  $interval(callAtInterval, 5000);
+  $interval($scope.callAtInterval, 5000);
 
   $scope.$on('isTrackPlaying', function(event) {
     $log.info(!(audio.isAudioPlaying()));
@@ -343,6 +343,12 @@ radioApp.controller('PlayerInstanceCtrl', function ($uibModalInstance, $log, $sc
       $scope.track = player.get();
       $scope.isPlaying = true;
   });
+
+  $scope.callAtInterval = function() {
+    console.log("Interval occurred");
+   // angular.element(document.querySelector('#live-audio-metadata')).html("hello");
+
+  }
 
   $scope.minim = function() {
     player.min();
@@ -365,11 +371,6 @@ radioApp.controller('PlayerInstanceCtrl', function ($uibModalInstance, $log, $sc
   };
 
 });
-
-function callAtInterval() {
-    console.log("Interval occurred");
-    angular.element(document.querySelector('#live-audio-metadata')).html("hello");
-}
 
 /* Marathon Modal */
 radioApp.controller('PlayerMarathonInstanceCtrl', function ($uibModalInstance, marathon_player, $log, $scope, player, audio) {
