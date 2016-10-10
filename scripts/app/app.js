@@ -117,14 +117,14 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
             controller: 'BlogCtrl',
         })
 
-        .state('blog-2', {
-            url: '/miracle/blog/2',
+        .state('blog2', {
+            url: '/miracle/blog/previous/2',
             templateUrl: TEMPLATES_URI + 'blog-2.html',
             controller: 'BlogCtrl',
         })
 
-        .state('blog-3', {
-            url: '/miracle/blog/3',
+        .state('blog3', {
+            url: '/miracle/blog/previous/3',
             templateUrl: TEMPLATES_URI + 'blog-3.html',
             controller: 'BlogCtrl',
         })
