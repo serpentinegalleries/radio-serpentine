@@ -117,6 +117,18 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
             controller: 'BlogCtrl',
         })
 
+        .state('blog-2', {
+            url: '/miracle/blog/2',
+            templateUrl: TEMPLATES_URI + 'blog-2.html',
+            controller: 'BlogCtrl',
+        })
+
+        .state('blog-3', {
+            url: '/miracle/blog/3',
+            templateUrl: TEMPLATES_URI + 'blog-3.html',
+            controller: 'BlogCtrl',
+        })
+
         .state('blog-post', {
             url: '/miracle/blog/:postId',
             templateUrl: TEMPLATES_URI + 'blog-post.html',
@@ -635,7 +647,7 @@ Event blog
 *********************/
 
 radioApp.controller('BlogCtrl', function ($scope, $http, $log, $sce) {
-  $http.get('/?json=get_category_posts&category_slug=blog&date_format=j F Y').
+  $http.get('/?json=get_category_posts&category_slug=blog&count=50&date_format=j F Y').
         then(function(response) {
             $scope.posts = response.data.posts;
             $scope.posts = $sce.trustAsHtml($scope.posts);
