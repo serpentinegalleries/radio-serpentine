@@ -8,7 +8,7 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
 
     $stateProvider
         
-       /* .state('index', {
+        .state('index', {
             url: '/',
             views: {
                 '': { templateUrl: TEMPLATES_URI + 'home.html' },
@@ -20,7 +20,7 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
                     controller: "MenuCtrl",
                 },
             },
-        })*/
+        })
         
         .state('about', {
             url: '/about',
@@ -28,21 +28,19 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
             controller: 'AboutCtrl',
         })
 
- /*       .state('participants', {
+        .state('participants', {
             url: '/participants',
             views: {
                 '': { templateUrl: TEMPLATES_URI + 'participants.html', controller: "ParticipantsCtrl", },
             },
         })
-*/
+
         .state('participant', {
           url: "/participants/:participantId",
           templateUrl: TEMPLATES_URI + 'participants-single.html',
           controller: "SingleParticipantCtrl",
         })
 
-
-/*
         .state('series', {
             url: '/series',
             views: {
@@ -67,10 +65,10 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
           url: "/tracks/:trackId",
           templateUrl: TEMPLATES_URI + 'tracks-single.html',
           controller: "SingleTrackCtrl",
-        })*/
+        })
         
         .state('marathon', {
-            url: '/',
+            url: '/miracle',
             views: {
                 '': { templateUrl: TEMPLATES_URI + 'event-marathon.html', controller: "MarathonCtrl", },
 
@@ -87,9 +85,6 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
                 'event-blog@marathon': { 
                     templateUrl: TEMPLATES_URI + 'event-blog.html', controller: "EventBlogCtrl",
                 },                
-            },
-            params: {
-                    autoActivateChild: 'marathon.saturday'
             },
         })
 
@@ -190,11 +185,23 @@ radioApp.factory('player',function ($uibModal, $log, $http, audio, $rootScope, $
       angular.element(document.querySelector('.download')).addClass("hidden");  
       angular.element(document.querySelector('.on-air')).addClass("hidden");  
   };
+  var bringToFront = function() {
+      if(isOpen) {
+        angular.element(document.querySelector('.playerModal')).removeClass("blur");
+        angular.element(document.querySelector('.modal-backdrop')).removeClass("send-to-back");
+        angular.element(document.querySelector('body')).addClass("modal-open");  
+        angular.element(document.querySelector('.wave-container')).addClass("hidden");  
+        angular.element(document.querySelector('.metadata')).removeClass("hidden");  
+        angular.element(document.querySelector('.download')).removeClass("hidden");  
+        angular.element(document.querySelector('.on-air')).removeClass("hidden");  
+      };
+  };
   return {
     open: open,
     setTrackData: setTrackData,
     get: getTrackData,
     min: min,
+    bringToFront: bringToFront,
   }
 });
 
@@ -446,9 +453,8 @@ radioApp.controller('WaveIconCtrl', function ($uibModal, $scope, $log, audio, pl
     player.open();
     $rootScope.$broadcast('isTrackPlaying');
   }*/
-    $scope.play = function(song_url, slug) {
-            player.open();
-            audio.play();
+    $scope.bringToFront = function() {
+      player.bringToFront();
   };
 });
 
@@ -471,13 +477,13 @@ radioApp.controller('FeatureCtrl', function ($scope, $http, $log, audio, player,
   }
 });
 
-/* Controller for menu on the homepage 
+/* Controller for menu on the homepage */
 radioApp.controller('MenuCtrl', function ($scope, $http, $log, audio, player) {
   $http.get('/?json=get_category_posts&category_slug=tracks&count=4').
         then(function(response) {
             $scope.posts = response.data.posts;
         });
-});*/
+});
 
 
 
@@ -491,7 +497,7 @@ radioApp.controller('ParticipantsCtrl', function ($scope, $http, $log) {
             $scope.posts = response.data.posts;
         });
 });
-/*
+
 radioApp.controller('SeriesCtrl', function ($scope, $http, $log) {
   $http.get('/?json=get_category_posts&category_slug=series').
         then(function(response) {
@@ -504,21 +510,21 @@ radioApp.controller('TracksCtrl', function ($scope, $http, $log) {
         then(function(response) {
             $scope.tracks = response.data.posts;
         });
-});*/
+});
 
-radioApp.controller('AboutCtrl', function ($scope, $http, $log) {
+/*radioApp.controller('AboutCtrl', function ($scope, $http, $log) {
   $http.get('/?json=get_post&post_slug=about').
         then(function(response) {
             $scope.about = response.data.post;
         });
-});
+});*/
 
 
 /******************
 Single participant, tracks, and series pages' controllers
 ******************/
 
-/*
+
 radioApp.controller('SingleTrackCtrl', function ($scope, $http, $log, $stateParams, player, audio) {
   var slug = $stateParams.trackId;
   $http.get('/?json=get_post&post_slug=' + slug + '&date_format=m/d/Y').
@@ -532,7 +538,7 @@ radioApp.controller('SingleTrackCtrl', function ($scope, $http, $log, $statePara
         });
     });
   }
-});*/
+});
 
 radioApp.controller('SingleParticipantCtrl', function ($scope, $sce, $http, $log, $stateParams, player, audio) {
   var slug = $stateParams.participantId;
@@ -552,7 +558,7 @@ radioApp.controller('SingleParticipantCtrl', function ($scope, $sce, $http, $log
   }
 });
 
-/*
+
 radioApp.controller('SingleSeriesCtrl', function ($scope, $sce, $http, $log, $stateParams, player, audio) {
   var slug = $stateParams.seriesId;
   $http.get('/?json=get_post&post_slug=' + slug + '&date_format=m/d/Y').
@@ -573,7 +579,7 @@ radioApp.controller('SingleSeriesCtrl', function ($scope, $sce, $http, $log, $st
         });
     });
   }
-});*/
+});
 
 
 /*****************

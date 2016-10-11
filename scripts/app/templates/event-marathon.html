@@ -7,13 +7,13 @@
 	<div class="header">
 		<img ng-src="http://radio.serpentinegalleries.org/wp-content/uploads/2016/10/marathon_miracle-2.jpg" alt="{{ post.title }}">
 	</div>
-<div id="watch-livestream" ng-click="play()"><h3>Tune into the Livestream</h3></div>
+	<div id="watch-livestream"></div>
 
 	<div class="container main">
 		<div class="row">
 			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 information">
-				<a ng-click="play(post.custom_fields.audio[0], post.slug)">
-					<h5>Listen Live</h5>
+				<a ui-sref="blog">
+					<h5>Live Blog</h5>
 					<img ng-src="http://radio.serpentinegalleries.org/wp-content/uploads/2016/10/wave_icon.png">
 				</a>
 				<h5>Saturday 8 October</h5>

@@ -19,7 +19,7 @@
 
     <div id="feature">
       <div class="centered">
-        <div class="circle-image-background" style="background-image: url('http://radio.serpentinegalleries.org/wp-content/uploads/2016/10/Miracle-Series-Icon.jpg')">
+        <div class="circle-image-background" style="background-image: url(' {{ track.thumbnail_images.full.url }} ')">
           <i ng-click="pause()" id="playerIcon" class="fa fa-pause round-border playerIcon-pause" ng-show="isPlaying" aria-hidden="true"></i>
           <i ng-click="play()" id="playerIcon" class="fa fa-play round-border playerIcon-play" ng-hide="isPlaying" aria-hidden="true"></i>
         </div>
@@ -27,11 +27,13 @@
     </div>
 
     <div class="metadata">
-      <h4 id="live-audio-metadata">
-        OCTOBER 9 12:00-24:00
+      <h4>
+        <span ng-repeat="participant in track.custom_fields.participant track by $index" ng-if="$index < 5">
+          {{ participant }}<span ng-if="$index < 4">, </span>
+        </span>
       </h4>
       <h1>
-        Miracle Marathon
+        {{ track.title }}
       </h1>
     </div>
 

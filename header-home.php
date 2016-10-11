@@ -55,19 +55,15 @@
 	<!-- Navigation -->
 	<nav id="navigation" class="nav-primary" role="navigation" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
 		<div class="container">
+			<a ui-sref="index">radio.Serpentine</a>
 			<a ui-sref="about">About</a>
 			<a ui-sref="marathon">Miracle Marathon</a>
-			<a ui-sref="blog">Live Blog</a>
 		</div>
 	</nav><!-- /Navigation -->
 
 	<div id="wave-icon-player" ng-controller="WaveIconCtrl">
 
-		<p id="live-metadata">
-			ON AIR
-		</p>
-
-	    <div id="playerToggle" class="wave-container" ng-click="play()">
+	    <div id="playerToggle" class="wave-container" ng-click="bringToFront()">
 		  <svg xmlns="http://www.w3.org/2000/svg" 
 		     width="42px" height="42px"
 		     viewBox="20 4 40 50">
