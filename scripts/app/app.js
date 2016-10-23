@@ -141,6 +141,7 @@ Player modal factory
 
 radioApp.factory('player',function ($uibModal, $log, $http, audio, $rootScope, $timeout) {
   var track = {};
+  var track_playlist = {};
 
   var isOpen = false;
 
@@ -165,10 +166,17 @@ radioApp.factory('player',function ($uibModal, $log, $http, audio, $rootScope, $
           isOpen = true;
         };
     };
-  var setTrackData = function (slug) {
+  var setTrackData = function (slug, playlist) {
     track = $http.get('/?json=get_post&post_slug=' + slug).
         then(function(response) {
             track = response.data.post;
+            if(track.custom_fields[playlist]) {
+              $http.get('/?json=get_category_posts&category_slug=' + track.custom_fields[playlist]).
+                then(function(response) {
+                  track_playlist = response.data.posts;
+                  $log.info(track_playlist);
+              });
+            };
             return track;
         });
     return track; 
@@ -257,6 +265,10 @@ Audio audioElement factory
 radioApp.factory('audio',function ($document, $log, $http, $q, $rootScope) {
   var audioElement = $document[0].createElement('audio'); // $document[0].getElementById('audio');
   audioElement.src = "http://tx.sharp-stream.com/http_live.php?i=rsl7.mp3&device=website";
+
+  /* When a track ends */
+  audioElement.addEventListener("ended", function(){
+  });
 
   return {
     audioElement: audioElement,
@@ -573,7 +585,7 @@ radioApp.controller('SingleSeriesCtrl', function ($scope, $sce, $http, $log, $st
       return $sce.trustAsHtml(code);
   };
   $scope.play = function(song_url, slug) {
-    player.setTrackData(slug).then(function(){
+    player.setTrackData(slug, "series").then(function(){
         audio.setSrc(song_url).then(function(){
           player.open();
         });
