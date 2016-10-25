@@ -130,7 +130,7 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
         })
 
         .state('marathon-participants', {
-          url: "/participants",
+          url: "/miracle/participants",
           templateUrl: TEMPLATES_URI + 'event-participants-all.html',
           controller: "MarathonParticipantsCtrl",
         })
