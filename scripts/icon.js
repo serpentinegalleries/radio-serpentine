@@ -1,6 +1,6 @@
 jQuery(function($){ 
 
-
+/*
 setInterval(function(){
   $.ajax({
     type: "POST",
@@ -31,7 +31,7 @@ $.ajax({
     error: function error(jqXHR, textStatus, errorThrown) {
       console.log(errorThrown);
     },
-  });
+  });*/
 
 
 const path = document.querySelector('#wave');
