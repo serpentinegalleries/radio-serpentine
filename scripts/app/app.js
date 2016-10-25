@@ -1,4 +1,33 @@
-// app.js
+/* app.js
+angular.module('d3', [])
+  .factory('d3Service', ['$document', '$q', '$rootScope',
+    function($document, $q, $rootScope) {
+      var d = $q.defer();
+      function onScriptLoad() {
+        // Load client in the browser
+        $rootScope.$apply(function() { d.resolve(window.d3); });
+      }
+      // Create a script tag with d3 as the source
+      // and call our onScriptLoad callback when it
+      // has been loaded
+      var scriptTag = $document[0].createElement('script');
+      scriptTag.type = 'text/javascript'; 
+      scriptTag.async = true;
+      scriptTag.src = 'http://d3js.org/d3.v3.min.js';
+      scriptTag.onreadystatechange = function () {
+        if (this.readyState == 'complete') onScriptLoad();
+      }
+      scriptTag.onload = onScriptLoad;
+ 
+      var s = $document[0].getElementsByTagName('body')[0];
+      s.appendChild(scriptTag);
+ 
+      return {
+        d3: function() { return d.promise; }
+      };
+}]);*/
+
+
 var radioApp = angular.module('radioApp', ['ui.router','ui.bootstrap', 'ngSanitize']);
 var TEMPLATES_URI = '/wp-content/themes/radio-serpentine/scripts/app/templates/';
 
@@ -134,6 +163,16 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
 //        $locationProvider.html5Mode(true);
   //      $urlMatcherFactoryProvider.strictMode(false);
 });
+
+angular.module('radioApp.directives', ['d3'])
+  .directive('barChart', ['d3Service', function(d3Service) {
+    return {
+      link: function(scope, element, attrs) {
+        d3Service.d3().then(function(d3) {
+          // d3 is the raw d3 object
+        });
+      }}
+  }]);
 
 /**************************
 Player modal factory

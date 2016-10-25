@@ -3,12 +3,14 @@
 
 		<a ui-sref="marathon">
 			<div class="description-container">
+				<h4>
+					<span ng-repeat="participant in series.custom_fields.participant track by $index" ng-if="$index < 5">
+						{{ participant }}<span ng-if="$index < 4">, </span>
+					</span>
+				</h4>
 				<h1>
 					{{ item.title }}
 				</h1>
-				<h4>
-					ARCHIVE COMING SOON
-				</h4>
 			</div>
 	            <div class="circle-image-background" style="background-image: url('{{ 'item.thumbnail_images.full.url' ? item.thumbnail_images.full.url : item.thumbnail_images.medium.url }}')">
 				<!--<i ng-click="play(item.custom_fields.audio[0], item.slug)" id="playerIcon" class="fa fa-play round-border" aria-hidden="true"></i>-->
