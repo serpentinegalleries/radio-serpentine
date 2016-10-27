@@ -62,9 +62,9 @@
 
 	<div id="wave-icon-player" ng-controller="WaveIconCtrl">
 
-		<div id="playerPause"><!-- ng-show="isPlaying">-->
-			<i ng-click="pause()" class="fa fa-pause" ng-show="isPlaying" aria-hidden="true"></i>
-			<i ng-click="play()" class="fa fa-play playerPause-play" ng-hide="isPlaying" aria-hidden="true"></i>
+		<div id="playerPause" class="hidden" ng-click="playToggle()"><!-- ng-show="isPlaying">-->
+			<i class="fa fa-pause" ng-show="isPlaying" aria-hidden="true"></i>
+			<i class="fa fa-play playerPause-play" ng-hide="isPlaying" aria-hidden="true"></i>
 		</div>
 
 	    <div id="playerToggle" class="wave-container" ng-click="bringToFront()">

@@ -203,6 +203,7 @@ radioApp.factory('player',function ($uibModal, $log, $http, audio, $rootScope, $
             windowClass: 'playerModal',
           });
           isOpen = true;
+          angular.element(document.querySelector('#playerPause')).removeClass("hidden");
         };
     };
   var setTrackData = function (slug, playlist) {
@@ -542,7 +543,7 @@ radioApp.controller('WaveIconCtrl', function ($uibModal, $scope, $log, audio, pl
     $rootScope.$broadcast('isTrackPlaying');
   }*/
   
-  $scope.isPlaying = false;
+  $scope.isPlaying = true;
 
   $scope.bringToFront = function() {
       player.bringToFront();
@@ -552,8 +553,12 @@ radioApp.controller('WaveIconCtrl', function ($uibModal, $scope, $log, audio, pl
     audio.pause();  
   };
 
-  $scope.play = function() {
-    audio.play();  
+  $scope.playToggle = function() {
+    if(audio.isAudioPlaying()) {
+      audio.play();  
+    } else {
+      audio.pause();
+    }
   };
 
   $scope.$on('isTrackPlaying', function(event) {
