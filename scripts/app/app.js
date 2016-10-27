@@ -302,6 +302,8 @@ Audio audioElement factory
 **************************/
 
 radioApp.factory('audio',function ($document, $log, $http, $q, $rootScope) {
+  var audioDuration = angular.element( document.querySelector( '#audio-duration' ) );
+  var audioCurrentTime = angular.element( document.querySelector( '#audio-current-time' ) );
   var audioElement = $document[0].createElement('audio'); // $document[0].getElementById('audio');
   audioElement.src = "http://tx.sharp-stream.com/http_live.php?i=rsl7.mp3&device=website";
 
