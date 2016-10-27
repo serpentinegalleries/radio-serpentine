@@ -353,6 +353,7 @@ radioApp.factory('audio',function ($document, $log, $http, $q, $rootScope, $time
     },
     pause: function() {
         audioElement.pause();
+        $rootScope.$broadcast('isTrackPlaying');
     },
     isAudioPlaying: function() {
       return audioElement.paused;
@@ -540,9 +541,31 @@ radioApp.controller('WaveIconCtrl', function ($uibModal, $scope, $log, audio, pl
     player.open();
     $rootScope.$broadcast('isTrackPlaying');
   }*/
-    $scope.bringToFront = function() {
+  
+  $scope.isPlaying = false;
+
+  $scope.bringToFront = function() {
       player.bringToFront();
   };
+
+  $scope.pause = function() {
+    audio.pause();  
+  };
+
+  $scope.play = function() {
+    audio.play();  
+  };
+
+  $scope.$on('isTrackPlaying', function(event) {
+    $scope.isPlaying = !(audio.isAudioPlaying());
+    if ($scope.isPlaying) {
+      angular.element(document.querySelector('#wave-icon-player')).removeClass("transparency");
+    }
+    else {
+      angular.element(document.querySelector('#wave-icon-player')).addClass("transparency");
+    }
+  });
+
 });
 
 /* Controller for featured track or event on the homepage */
