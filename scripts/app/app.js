@@ -301,6 +301,24 @@ radioApp.factory('marathon_player',function ($uibModal, $log, $http, audio, $roo
 Audio audioElement factory
 **************************/
 
+function msToTime(duration) {
+    var milliseconds = parseInt((duration%1000)/100)
+        , seconds = parseInt((duration/1000)%60)
+        , minutes = parseInt((duration/(1000*60))%60)
+        , hours = parseInt((duration/(1000*60*60))%24);
+
+    hours = (hours < 10) ? "0" + hours : hours;
+    minutes = (minutes < 10) ? "0" + minutes : minutes;
+    seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+    if (hours > 0) {
+      return hours + ":" + minutes + ":" + seconds;
+    }
+    else {
+      return minutes + ":" + seconds;
+    }
+};
+
 radioApp.factory('audio',function ($document, $log, $http, $q, $rootScope) {
   var audioDuration = angular.element( document.querySelector( '#audio-duration' ) );
   var audioCurrentTime = angular.element( document.querySelector( '#audio-current-time' ) );
@@ -332,7 +350,7 @@ radioApp.factory('audio',function ($document, $log, $http, $q, $rootScope) {
                     audioElement.pause();
                     audioElement.src = sound.data.uri +  '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d';
                     audioElement.load();
-                    audioDuration = sound.data.duration;
+                    angular.element( document.querySelector( '#audio-duration' ) ).html(msToTime(sound.data.duration));
                     audioElement.play();
                 }
                 else {
