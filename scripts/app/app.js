@@ -317,11 +317,27 @@ function msToTime(duration) {
     else {
       return minutes + ":" + seconds;
     }
+
 };
 
-radioApp.factory('audio',function ($document, $log, $http, $q, $rootScope) {
+function audioElToTime(duration) {
+    var minutes = Math.floor(duration / 60);
+    var seconds = Math.floor(duration % 60);
+    var hours = Math.floor(seconds / 3600);
+    minutes = (minutes < 10) ? "0" + minutes : minutes;
+    seconds = (seconds < 10) ? "0" + seconds : seconds;
+    hours = (hours < 10) ? "0" + hours : hours;
+
+    if (hours > 0) {
+      return hours + ":" + minutes + ":" + seconds;
+    }
+    else {
+      return minutes + ":" + seconds;
+    }
+};
+
+radioApp.factory('audio',function ($document, $log, $http, $q, $rootScope, $timeout, $interval) {
   var audioDuration = angular.element( document.querySelector( '#audio-duration' ) );
-  var audioCurrentTime = angular.element( document.querySelector( '#audio-current-time' ) );
   var audioElement = $document[0].createElement('audio'); // $document[0].getElementById('audio');
   audioElement.src = "http://tx.sharp-stream.com/http_live.php?i=rsl7.mp3&device=website";
 
@@ -340,6 +356,9 @@ radioApp.factory('audio',function ($document, $log, $http, $q, $rootScope) {
     },
     isAudioPlaying: function() {
       return audioElement.paused;
+    },
+    getTime: function() {
+      return audioElement.currentTime;
     },
     setSrc: function(path) {
         var deferred = $q.defer();
@@ -422,10 +441,14 @@ radioApp.controller('PlayerInstanceCtrl', function ($uibModalInstance, $log, $ht
 
   $scope.isVideo = false;
 
-  $interval($scope.callAtInterval, 5000);
+  $scope.callAtInterval = function() {
+    angular.element( document.querySelector( '#audio-current-time' ) ).html(audioElToTime(audio.getTime()));
+   // angular.element(document.querySelector('#live-audio-metadata')).html("hello");
+
+  }
+  $interval($scope.callAtInterval, 1000);
 
   $scope.$on('isTrackPlaying', function(event) {
-    $log.info(!(audio.isAudioPlaying()));
     $scope.isPlaying = !(audio.isAudioPlaying());
   });
   
@@ -433,12 +456,6 @@ radioApp.controller('PlayerInstanceCtrl', function ($uibModalInstance, $log, $ht
       $scope.track = player.get();
       $scope.isPlaying = true;
   });
-
-  $scope.callAtInterval = function() {
-    console.log("Interval occurred");
-   // angular.element(document.querySelector('#live-audio-metadata')).html("hello");
-
-  }
 
   $scope.minim = function() {
     player.min();
@@ -473,7 +490,6 @@ radioApp.controller('PlayerMarathonInstanceCtrl', function ($uibModalInstance, m
   $scope.isVideo = true;
 
   $scope.$on('isTrackPlaying', function(event) {
-    $log.info(!(audio.isAudioPlaying()));
     $scope.isPlaying = !(audio.isAudioPlaying());
   });
   
