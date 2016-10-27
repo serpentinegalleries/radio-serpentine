@@ -29,7 +29,7 @@
 		</div>
 
 		<hr>
-		<div ng-repeat="track in tracks | orderBy: 'date'" id="tracks">
+		<div ng-repeat="track in tracks | orderBy: 'date'" id="tracks"ng-if="track.custom_fields.audio[0]">
 			<div class="row hidden-xs">
 				<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
 					<p>
