@@ -24,6 +24,9 @@
           <span id="audio-duration"> 00:00</span>
         </div>
         <div class="circle-image-background" style="background-image: url(' {{ track.thumbnail_images.full.url }} ')">
+          <div ng-app="chartApp" ng-controller="SalesController">
+            <div linear-chart class="viz" chart-data="salesData"></div>
+          </div>
           <i ng-click="pause()" id="playerIcon" class="fa fa-pause round-border playerIcon-pause" ng-show="isPlaying" aria-hidden="true"></i>
           <i ng-click="play()" id="playerIcon" class="fa fa-play round-border playerIcon-play" ng-hide="isPlaying" aria-hidden="true"></i>
         </div>

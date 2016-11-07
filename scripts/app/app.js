@@ -1,33 +1,3 @@
-/* app.js
-angular.module('d3', [])
-  .factory('d3Service', ['$document', '$q', '$rootScope',
-    function($document, $q, $rootScope) {
-      var d = $q.defer();
-      function onScriptLoad() {
-        // Load client in the browser
-        $rootScope.$apply(function() { d.resolve(window.d3); });
-      }
-      // Create a script tag with d3 as the source
-      // and call our onScriptLoad callback when it
-      // has been loaded
-      var scriptTag = $document[0].createElement('script');
-      scriptTag.type = 'text/javascript'; 
-      scriptTag.async = true;
-      scriptTag.src = 'http://d3js.org/d3.v3.min.js';
-      scriptTag.onreadystatechange = function () {
-        if (this.readyState == 'complete') onScriptLoad();
-      }
-      scriptTag.onload = onScriptLoad;
- 
-      var s = $document[0].getElementsByTagName('body')[0];
-      s.appendChild(scriptTag);
- 
-      return {
-        d3: function() { return d.promise; }
-      };
-}]);*/
-
-
 var radioApp = angular.module('radioApp', ['ui.router','ui.bootstrap', 'ngSanitize']);
 var TEMPLATES_URI = '/wp-content/themes/radio-serpentine/scripts/app/templates/';
 
@@ -163,16 +133,6 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
 //        $locationProvider.html5Mode(true);
   //      $urlMatcherFactoryProvider.strictMode(false);
 });
-
-angular.module('radioApp.directives', ['d3'])
-  .directive('barChart', ['d3Service', function(d3Service) {
-    return {
-      link: function(scope, element, attrs) {
-        d3Service.d3().then(function(d3) {
-          // d3 is the raw d3 object
-        });
-      }}
-  }]);
 
 /**************************
 Player modal factory
@@ -362,6 +322,9 @@ radioApp.factory('audio',function ($document, $log, $http, $q, $rootScope, $time
     getTime: function() {
       return audioElement.currentTime;
     },
+    getDuration: function() {
+      return audioElement.duration;
+    },
     setSrc: function(path) {
         var deferred = $q.defer();
         var audioDuration;
@@ -430,6 +393,89 @@ radioApp.factory('audio',function ($document, $log, $http, $q, $rootScope, $time
       return deferred.promise;
     }
   }
+});
+
+/**********************
+D3
+**********************/
+
+radioApp.controller('SalesController', ['$scope','$interval', function($scope, $interval){
+    $scope.salesData=[
+        {hour: 1,sales: 54},
+        {hour: 2,sales: 66},
+        {hour: 3,sales: 77},
+        {hour: 4,sales: 70},
+        {hour: 5,sales: 60},
+        {hour: 6,sales: 63},
+        {hour: 7,sales: 55},
+        {hour: 8,sales: 47},
+        {hour: 9,sales: 55},
+        {hour: 10,sales: 30}
+    ];
+
+    $interval(function(){
+        var hour=$scope.salesData.length+1;
+        var sales= Math.round(Math.random() * 100);
+        $scope.salesData.push({hour: hour, sales:sales});
+    }, 1000, 10);
+}]);
+
+radioApp.directive('linearChart', function($parse, $window, $log, $interval, $timeout, audio){
+   return{
+      restrict:'EA',
+      template:"<svg width='430' height='430'></svg>",
+       link: function(scope, elem, attrs){
+
+           var position = 0;
+
+           var callAtInterval = function() {
+              if(Math.round((audio.getTime() / audio.getDuration()) * 360) != position) {
+                position = Math.round((audio.getTime() / audio.getDuration()) * 360);
+                redrawArc();
+              }
+            }
+            $interval(callAtInterval, 1000);
+
+           var d3 = $window.d3;
+           var rawSvg=elem.find('svg');
+           var svg = d3.select(rawSvg[0]);
+
+           var fullArc = d3.svg.arc()
+                .innerRadius(195)
+                .outerRadius(198)
+                .startAngle(0)
+                .endAngle(7)
+
+           var currentArc = d3.svg.arc()
+                .innerRadius(195)
+                .outerRadius(198)
+                .startAngle(0)
+                .endAngle(position * (Math.PI/180))
+
+            svg.append("path")
+                .attr("d", fullArc)
+                .attr("fill", "#4c4c4c")
+                .attr("transform", "translate(200,200)")
+
+            svg.append("path")
+                .attr("d", currentArc)
+                .attr("fill", "#4696ff")
+                .attr("transform", "translate(200,200)")
+
+            function redrawArc(){
+              currentArc = d3.svg.arc()
+                .innerRadius(195)
+                .outerRadius(198)
+                .startAngle(0) //converting from degs to radians
+                .endAngle(position * (Math.PI/180)); //just radians
+
+              svg.append("path")
+                  .attr("d", currentArc)
+                  .attr("fill", "#4696ff")
+                  .attr("transform", "translate(200,200)");
+            }
+       }
+   };
 });
 
 /**********************
