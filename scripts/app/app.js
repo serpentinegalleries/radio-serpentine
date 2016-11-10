@@ -451,6 +451,9 @@ radioApp.directive('durationChart', function($parse, $window, $log) {
         height = +svg.attr("height"),
         g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
+      svg.attr("preserveAspectRatio", "xMinYMin meet");
+      svg.attr("viewBox", "0 0 400 400");
+
       scope.$watchCollection(exp, function(newVal, oldVal) {
         positionDataToPlot = newVal;
         redrawArc();
