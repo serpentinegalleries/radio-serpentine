@@ -404,21 +404,31 @@ radioApp.controller('D3Controller', ['$scope','$interval', '$log','audio', funct
         { position: 0 },
       ];
 
+    $scope.$on('changeTrack', function(event, args) {
+      $scope.positionData = [
+        { position: 0 },
+      ];
+    });
+
     $interval(function(){
-      if(Math.round((audio.getTime() / audio.getDuration()) * 360) != $scope.positionData.position) {
+      if(Math.round((audio.getTime() / audio.getDuration()) * 360) != $scope.positionData[0].position) {
         var position = Math.round((audio.getTime() / audio.getDuration()) * 360);
-        $scope.positionData = [
-          { position: position },
-        ];
+        if (position > 0.02) {
+          $scope.positionData = [
+            { position: position },
+          ];
+        }
       }
     }, 1000);
 }]);
 
-radioApp.directive('durationChart', function($parse, $window){
+radioApp.directive('durationChart', function($parse, $window, $log){
    return{
       restrict:'EA',
-      template:"<svg width='430' height='430'></svg>",
+      template:"<svg width='400' height='400'></svg>",
        link: function(scope, elem, attrs){
+
+        var tau = 2 * Math.PI;
 
           var exp = $parse(attrs.chartData);
 
@@ -426,47 +436,58 @@ radioApp.directive('durationChart', function($parse, $window){
 
            var d3 = $window.d3;
            var rawSvg=elem.find('svg');
-           var svg = d3.select(rawSvg[0]);
+           var svg = d3.select(rawSvg[0]),
+              width = +svg.attr("width"),
+              height = +svg.attr("height"),
+              g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
            scope.$watchCollection(exp, function(newVal, oldVal){
                positionDataToPlot=newVal;
                redrawArc();
            });
 
-           var fullArc = d3.svg.arc()
-                .innerRadius(195)
-                .outerRadius(198)
-                .startAngle(0)
-                .endAngle(7)
+          var arc = d3.arc()
+              .innerRadius(195)
+              .outerRadius(198)
+              .startAngle(0)
 
-           var currentArc = d3.svg.arc()
-                .innerRadius(195)
-                .outerRadius(198)
-                .startAngle(0)
-                .endAngle(positionDataToPlot[0].position * (Math.PI/180))
+          var background = g.append("path")
+              .datum({endAngle: tau})
+              .style("fill", "#4c4c4c")
+              .attr("d", arc);
 
-            svg.append("path")
-                .attr("d", fullArc)
-                .attr("fill", "#4c4c4c")
-                .attr("transform", "translate(200,200)")
+          var foreground = g.append("path")
+              .datum({endAngle: 0})
+              .style("fill", "#4696ff")
+              .attr("d", arc)
 
-            svg.append("path")
-                .attr("d", currentArc)
-                .attr("fill", "#4696ff")
-                .attr("transform", "translate(200,200)")
-
-            function redrawArc(){
-              currentArc = d3.svg.arc()
-                .innerRadius(195)
-                .outerRadius(198)
-                .startAngle(0) //converting from degs to radians
-                .endAngle(positionDataToPlot[0].position * (Math.PI/180)); //just radians
-
-              svg.append("path")
-                  .attr("d", currentArc)
-                  .attr("fill", "#4696ff")
-                  .attr("transform", "translate(200,200)");
+          function redrawArc() {
+            var degrees = positionDataToPlot[0].position * (Math.PI/180);
+            if(isNaN(degrees)) {
+              degrees = 0;
             }
+            $log.info(degrees);
+            foreground.transition()
+                .duration(100)
+                .attrTween("d", arcTransition(degrees));
+          };
+
+          function arcTransition(newAngle) {
+            return function(d) {
+
+              if(isNaN(d.endAngle)) {
+                d.endAngle = 0;
+              }
+              var interpolate = d3.interpolate(d.endAngle, newAngle);
+
+              return function(t) {
+
+                d.endAngle = interpolate(t);
+
+                return arc(d);
+              };
+            };
+          }
        }
    };
 });

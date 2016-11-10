@@ -9,7 +9,7 @@ function theme_enqueue_styles() {
     wp_enqueue_script( 'soundcloud', get_stylesheet_directory_uri().'/vendor/soundcloud/sdk-3.1.2.js' );
     wp_enqueue_style( 'fontawesome-css', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css' );
 
-    wp_enqueue_script( 'd3', get_stylesheet_directory_uri().'/vendor/d3.v3.min.js' );
+    wp_enqueue_script( 'd3', get_stylesheet_directory_uri().'/vendor/d3.v4.min.js' );
 
     if ( is_front_page() ) { 
         wp_enqueue_script( 'angular', get_stylesheet_directory_uri().'/vendor/angular/angular-1.5.8/angular.min.js' );
