@@ -343,6 +343,8 @@ radioApp.factory('audio', function($document, $log, $http, $q, $rootScope, $time
       return audioElement.duration;
     },
     setSrc: function(path) {
+      angular.element(document.querySelector('#audio-current-time')).html("00:00");  
+      $rootScope.$broadcast('changeTrack', audioDuration);  
       var deferred = $q.defer();
       var audioDuration;
       if (path.includes("soundcloud")) {
@@ -371,11 +373,11 @@ radioApp.factory('audio', function($document, $log, $http, $q, $rootScope, $time
           $rootScope.$broadcast('isTrackPlaying');
         }
       };
-      $rootScope.$broadcast('changeTrack', audioDuration);
       deferred.resolve(audioElement);
       return deferred.promise;
     },
     loadSrc: function(path) {
+     $rootScope.$broadcast('changeTrack', audioDuration);
       var deferred = $q.defer();
       var audioDuration;
       if (audioElement.src === '') {
@@ -397,7 +399,6 @@ radioApp.factory('audio', function($document, $log, $http, $q, $rootScope, $time
           } else {}
         };
       };
-      $rootScope.$broadcast('changeTrack', audioDuration);
       deferred.resolve(audioElement);
       return deferred.promise;
     }
@@ -480,7 +481,7 @@ radioApp.directive('durationChart', function($parse, $window, $log) {
           degrees = 0;
         }
         foreground.transition()
-          .duration(100)
+          .duration(0)
           .attrTween("d", arcTransition(degrees));
       };
 
@@ -511,7 +512,7 @@ Page components
 /* Player modal instance */
 // Please note that $uibModalInstance represents a modal window (instance) dependency.
 
-radioApp.controller('PlayerInstanceCtrl', function($uibModalInstance, $log, $http, $scope, player, audio, $timeout, $interval) {
+radioApp.controller('PlayerInstanceCtrl', function($uibModalInstance, $log, $http, $rootScope, $scope, player, audio, $timeout, $interval) {
   // get related tracks and cue them for the next / previous buttons
 
   $scope.track = player.get();
@@ -522,8 +523,6 @@ radioApp.controller('PlayerInstanceCtrl', function($uibModalInstance, $log, $htt
 
   $scope.callAtInterval = function() {
     angular.element(document.querySelector('#audio-current-time')).html(audioElToTime(audio.getTime()));
-    // angular.element(document.querySelector('#live-audio-metadata')).html("hello");
-
   }
   $interval($scope.callAtInterval, 1000);
 
