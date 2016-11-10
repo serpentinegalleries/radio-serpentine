@@ -399,46 +399,39 @@ radioApp.factory('audio',function ($document, $log, $http, $q, $rootScope, $time
 D3
 **********************/
 
-radioApp.controller('SalesController', ['$scope','$interval', function($scope, $interval){
-    $scope.salesData=[
-        {hour: 1,sales: 54},
-        {hour: 2,sales: 66},
-        {hour: 3,sales: 77},
-        {hour: 4,sales: 70},
-        {hour: 5,sales: 60},
-        {hour: 6,sales: 63},
-        {hour: 7,sales: 55},
-        {hour: 8,sales: 47},
-        {hour: 9,sales: 55},
-        {hour: 10,sales: 30}
-    ];
+radioApp.controller('D3Controller', ['$scope','$interval', '$log','audio', function($scope, $interval, $log, audio){
+    $scope.positionData = [
+        { position: 0 },
+      ];
 
     $interval(function(){
-        var hour=$scope.salesData.length+1;
-        var sales= Math.round(Math.random() * 100);
-        $scope.salesData.push({hour: hour, sales:sales});
-    }, 1000, 10);
+      if(Math.round((audio.getTime() / audio.getDuration()) * 360) != $scope.positionData.position) {
+        var position = Math.round((audio.getTime() / audio.getDuration()) * 360);
+        $scope.positionData = [
+          { position: position },
+        ];
+      }
+    }, 1000);
 }]);
 
-radioApp.directive('linearChart', function($parse, $window, $log, $interval, $timeout, audio){
+radioApp.directive('durationChart', function($parse, $window){
    return{
       restrict:'EA',
       template:"<svg width='430' height='430'></svg>",
        link: function(scope, elem, attrs){
 
-           var position = 0;
+          var exp = $parse(attrs.chartData);
 
-           var callAtInterval = function() {
-              if(Math.round((audio.getTime() / audio.getDuration()) * 360) != position) {
-                position = Math.round((audio.getTime() / audio.getDuration()) * 360);
-                redrawArc();
-              }
-            }
-            $interval(callAtInterval, 1000);
+           var positionDataToPlot=exp(scope);
 
            var d3 = $window.d3;
            var rawSvg=elem.find('svg');
            var svg = d3.select(rawSvg[0]);
+
+           scope.$watchCollection(exp, function(newVal, oldVal){
+               positionDataToPlot=newVal;
+               redrawArc();
+           });
 
            var fullArc = d3.svg.arc()
                 .innerRadius(195)
@@ -450,7 +443,7 @@ radioApp.directive('linearChart', function($parse, $window, $log, $interval, $ti
                 .innerRadius(195)
                 .outerRadius(198)
                 .startAngle(0)
-                .endAngle(position * (Math.PI/180))
+                .endAngle(positionDataToPlot[0].position * (Math.PI/180))
 
             svg.append("path")
                 .attr("d", fullArc)
@@ -467,7 +460,7 @@ radioApp.directive('linearChart', function($parse, $window, $log, $interval, $ti
                 .innerRadius(195)
                 .outerRadius(198)
                 .startAngle(0) //converting from degs to radians
-                .endAngle(position * (Math.PI/180)); //just radians
+                .endAngle(positionDataToPlot[0].position * (Math.PI/180)); //just radians
 
               svg.append("path")
                   .attr("d", currentArc)
