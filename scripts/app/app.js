@@ -339,6 +339,9 @@ radioApp.factory('audio', function($document, $log, $http, $q, $rootScope, $time
     getTime: function() {
       return audioElement.currentTime;
     },
+    setTime: function() {
+      return audioElement.currentTime = 100;
+    },
     getDuration: function() {
       return audioElement.duration;
     },
@@ -420,6 +423,12 @@ radioApp.controller('D3Controller', ['$scope', '$interval', '$log', 'audio', fun
     }, ];
   });
 
+  $scope.$on('changePosition', function(event, args) {
+    $scope.positionData = [{
+      position: args
+    }, ];
+  });
+
   $interval(function() {
     if (Math.round((audio.getTime() / audio.getDuration()) * 360) != $scope.positionData[0].position) {
       var position = Math.round((audio.getTime() / audio.getDuration()) * 360);
@@ -432,7 +441,7 @@ radioApp.controller('D3Controller', ['$scope', '$interval', '$log', 'audio', fun
   }, 1000);
 }]);
 
-radioApp.directive('durationChart', function($parse, $window, $log) {
+radioApp.directive('durationChart', function($parse, $window, $log, $rootScope, audio) {
   return {
     restrict: 'EA',
     template: "<svg width='400' height='400'></svg>",
@@ -453,6 +462,18 @@ radioApp.directive('durationChart', function($parse, $window, $log) {
 
       svg.attr("preserveAspectRatio", "xMinYMin meet");
       svg.attr("viewBox", "0 0 400 400");
+
+      svg.on('click', function () {
+        // Calculate the bounding box for the circle arc
+        var boundingMin = Math.round(svg.attr("width") * 0.25);
+        var boundingMax = svg.attr("width") - boundingMin;
+        if((d3.mouse(this)[0] < boundingMin || d3.mouse(this)[0] > boundingMax) || (d3.mouse(this)[1] < boundingMin || d3.mouse(this)[1] > boundingMax)) {
+          var radians = Math.atan2(d3.mouse(this)[1] - 200, d3.mouse(this)[0] - 200); 
+          $rootScope.$broadcast('changePosition', radians);
+        }
+        // Set audio time
+        audio.setTime();
+      });
 
       scope.$watchCollection(exp, function(newVal, oldVal) {
         positionDataToPlot = newVal;
@@ -479,7 +500,12 @@ radioApp.directive('durationChart', function($parse, $window, $log) {
         .attr("d", arc)
 
       function redrawArc() {
-        var degrees = positionDataToPlot[0].position * (Math.PI / 180);
+        var degrees;
+        if(Number.isInteger(positionDataToPlot[0].position)) {
+          degrees = positionDataToPlot[0].position * (Math.PI / 180);
+        } else {
+          degrees = positionDataToPlot[0].position;
+        }
         if (isNaN(degrees)) {
           degrees = 0;
         }
