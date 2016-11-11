@@ -526,9 +526,15 @@ radioApp.directive('durationChart', function($parse, $window, $log, $rootScope, 
         if (isNaN(radians)) {
           radians = 0;
         }
-        foreground.transition()
-          .duration(200)
-          .attrTween("d", arcTransition(radians));
+        if(radians == 0) {
+          foreground.transition()
+            .duration(0)
+            .attrTween("d", arcTransition(radians));          
+        } else {
+          foreground.transition()
+            .duration(200)
+            .attrTween("d", arcTransition(radians));
+        }
       };
 
       function arcTransition(newAngle) {
