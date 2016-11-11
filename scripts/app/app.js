@@ -339,8 +339,8 @@ radioApp.factory('audio', function($document, $log, $http, $q, $rootScope, $time
     getTime: function() {
       return audioElement.currentTime;
     },
-    setTime: function() {
-      return audioElement.currentTime = 100;
+    setTime: function(args) {
+      return audioElement.currentTime = (args * audioElement.duration);
     },
     getDuration: function() {
       return audioElement.duration;
@@ -464,15 +464,32 @@ radioApp.directive('durationChart', function($parse, $window, $log, $rootScope, 
       svg.attr("viewBox", "0 0 400 400");
 
       svg.on('click', function () {
+        var songPositionRatio;
         // Calculate the bounding box for the circle arc
         var boundingMin = Math.round(svg.attr("width") * 0.25);
         var boundingMax = svg.attr("width") - boundingMin;
         if((d3.mouse(this)[0] < boundingMin || d3.mouse(this)[0] > boundingMax) || (d3.mouse(this)[1] < boundingMin || d3.mouse(this)[1] > boundingMax)) {
-          var radians = Math.atan2(d3.mouse(this)[1] - 200, d3.mouse(this)[0] - 200); 
+          // Get radians from atan2
+          var radians = Math.atan2((d3.mouse(this)[1] - 200), (d3.mouse(this)[0] - 200)); 
+          // Convert to degrees for adjustments
+          var degrees = radians * (180/Math.PI);
+          if(degrees < 0) {
+            degrees = 360 + degrees;
+          }
+          // Move starting angle back 90 degrees
+          degrees = degrees + 90;
+          if(degrees > 360) {
+            degrees = degrees - 360;
+          }
+          degrees = Math.round(degrees);
+          // Convert adjustments back to radians for arc display
+          radians = degrees * (Math.PI/180);
+          // Calculate fraction for song duration
+          songPositionRatio = degrees / 360;
           $rootScope.$broadcast('changePosition', radians);
         }
         // Set audio time
-        audio.setTime();
+        audio.setTime(songPositionRatio);
       });
 
       scope.$watchCollection(exp, function(newVal, oldVal) {
@@ -500,18 +517,18 @@ radioApp.directive('durationChart', function($parse, $window, $log, $rootScope, 
         .attr("d", arc)
 
       function redrawArc() {
-        var degrees;
+        var radians;
         if(Number.isInteger(positionDataToPlot[0].position)) {
-          degrees = positionDataToPlot[0].position * (Math.PI / 180);
+          radians = positionDataToPlot[0].position * (Math.PI / 180);
         } else {
-          degrees = positionDataToPlot[0].position;
+          radians = positionDataToPlot[0].position;
         }
-        if (isNaN(degrees)) {
-          degrees = 0;
+        if (isNaN(radians)) {
+          radians = 0;
         }
         foreground.transition()
           .duration(0)
-          .attrTween("d", arcTransition(degrees));
+          .attrTween("d", arcTransition(radians));
       };
 
       function arcTransition(newAngle) {
