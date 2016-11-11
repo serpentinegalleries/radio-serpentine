@@ -527,7 +527,7 @@ radioApp.directive('durationChart', function($parse, $window, $log, $rootScope, 
           radians = 0;
         }
         foreground.transition()
-          .duration(0)
+          .duration(200)
           .attrTween("d", arcTransition(radians));
       };
 
