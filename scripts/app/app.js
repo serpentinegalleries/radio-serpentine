@@ -63,6 +63,22 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
     controller: "SingleSeriesCtrl",
   })
 
+  .state('events', {
+    url: '/events',
+    views: {
+      '': {
+        templateUrl: TEMPLATES_URI + 'series.html',
+        controller: "SeriesCtrl",
+      },
+    }
+  })
+
+  .state('event-single', {
+    url: "/event/:seriesId",
+    templateUrl: TEMPLATES_URI + 'series-single.html',
+    controller: "SingleSeriesCtrl",
+  })
+
   .state('tracks', {
     url: '/tracks',
     views: {
