@@ -28,7 +28,24 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
   .state('about', {
     url: '/about',
     templateUrl: TEMPLATES_URI + 'about.html',
-    controller: 'AboutCtrl',
+    controller: "AboutCtrl",
+    /*onEnter: [
+      "$uibModal",
+      function($uibModal) {
+        angular.element(document.querySelector('.wave-container')).addClass("hidden");
+        $uibModal.open({
+          controller: "AboutInstanceCtrl",
+          templateUrl: TEMPLATES_URI + 'about.html',
+          animation: false,
+          ariaDescribedBy: 'modal-body',
+          windowClass: 'aboutModal',
+        }).result.then(function(result) {
+            if (result) {
+                return $state.transitionTo("index");
+            }
+        });
+      }
+    ]*/
   })
 
   .state('participants', {
@@ -173,6 +190,21 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
 /**************************
 Main Navigation
 **************************/
+
+radioApp.run(function ($rootScope, $location) {
+
+    var history = [];
+
+    $rootScope.$on('$routeChangeSuccess', function() {
+        history.push($location.$$path);
+    });
+
+    $rootScope.back = function () {
+        var prevUrl = history.length > 1 ? history.splice(-2)[0] : "/";
+        $location.path(prevUrl);
+    };
+
+});
 
 /* Wave Icon Controller, Triggers player open and closed */
 radioApp.controller('NavCtrl', function($uibModal, $scope, $log, aboutModal) {
@@ -709,7 +741,7 @@ radioApp.controller('PlayerMarathonInstanceCtrl', function($uibModalInstance, ma
 });
 
 /* About Modal */
-radioApp.controller('AboutInstanceCtrl', function($uibModalInstance, $http, $log, $scope, aboutModal) {
+radioApp.controller('AboutInstanceCtrl', function($uibModalInstance, $rootScope, $http, $log, $scope, aboutModal) {
 
   $http.get('/?json=get_post&post_slug=about').
     then(function(response) {
