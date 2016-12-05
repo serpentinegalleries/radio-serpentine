@@ -171,6 +171,20 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
 });
 
 /**************************
+Main Navigation
+**************************/
+
+/* Wave Icon Controller, Triggers player open and closed */
+radioApp.controller('NavCtrl', function($uibModal, $scope, $log, aboutModal) {
+
+  $scope.open = function() {
+    aboutModal.open();
+  };
+
+});
+
+
+/**************************
 Player modal factory
 **************************/
 
@@ -292,6 +306,26 @@ radioApp.factory('marathon_player', function($uibModal, $log, $http, audio, $roo
     get: getTrackData,
     min: min,
   }
+});
+
+radioApp.factory('aboutModal', function($uibModal, $http, $log) {
+
+  var open = function() {
+    var modalInstance = $uibModal.open({
+      animation: false,
+      ariaDescribedBy: 'modal-body',
+      templateUrl: TEMPLATES_URI + 'about.html',
+      controller: 'AboutInstanceCtrl',
+      windowClass: 'aboutModal',
+    });
+    // Hide wave icon
+    angular.element(document.querySelector('.wave-container')).addClass("hidden");
+  };
+
+  return {
+    open: open,
+  };
+
 });
 
 /**************************
@@ -674,6 +708,20 @@ radioApp.controller('PlayerMarathonInstanceCtrl', function($uibModalInstance, ma
 
 });
 
+/* About Modal */
+radioApp.controller('AboutInstanceCtrl', function($uibModalInstance, $http, $log, $scope, aboutModal) {
+
+  $http.get('/?json=get_post&post_slug=about').
+    then(function(response) {
+        $scope.post = response.data.post;
+    });
+
+  $scope.close = function() {
+    $uibModalInstance.dismiss();
+  };
+
+});
+
 /* Wave Icon Controller, Triggers player open and closed */
 radioApp.controller('WaveIconCtrl', function($uibModal, $rootScope, $scope, $log, audio, player, $rootScope, $http, marathon_player) {
   /*$http.get('/?json=get_tag_posts&tag_slug=featured').
@@ -770,12 +818,12 @@ radioApp.controller('TracksCtrl', function($scope, $http, $log) {
   });
 });
 
-/*radioApp.controller('AboutCtrl', function ($scope, $http, $log) {
+radioApp.controller('AboutCtrl', function ($scope, $http, $log) {
   $http.get('/?json=get_post&post_slug=about').
         then(function(response) {
-            $scope.about = response.data.post;
+            $scope.post = response.data.post;
         });
-});*/
+});
 
 
 /******************

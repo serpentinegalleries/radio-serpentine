@@ -177,6 +177,7 @@ body, div, header, .site-header  {
 	a {
 		font-family: 'gt_walsheim_thin';
 		padding: 0 20px;
+		cursor: pointer;
 	}
    .small-viewport({
    		text-align: left;
@@ -264,7 +265,7 @@ Player modal
 **********************/
 
  body.modal-open {
-    overflow: hidden;
+   /* overflow: hidden;*/
     position:fixed;
     width: 100%;
 }
@@ -278,7 +279,6 @@ Player modal
 }
 
 .modal-window {
-	max-height: 100%;
 }
 
 .modal-backdrop {
@@ -288,7 +288,7 @@ Player modal
 .modal-dialog {
 	height: 100%;
 	width: 100%;
-	overflow: hidden;
+	/*overflow: hidden;*/
 	margin: 0;
 }
 
@@ -372,6 +372,7 @@ Player modal
 	}
 }
 
+
 /* Marathon Modal */
 .marathonModal {
 	h1,h2,h3,h4,h5,h6 {
@@ -415,6 +416,33 @@ Player modal
 		bottom: 0;
 		padding-top: 86px;
 	}
+}
+
+.aboutModal {
+	background: rgba(20, 20, 20, 0.8);
+	.modal-content {
+		background: transparent;
+	}
+	-webkit-filter: blur(0) !important;
+	-moz-filter: blur(0) !important;
+	-ms-filter: blur(0) !important;
+	-o-filter: blur(0) !important;
+	filter: blur(0) !important;
+	opacity: 1 !important;
+}
+
+
+.close-icon {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 20px;
+	color: @text;
+	cursor: pointer;
+}
+
+.fa-times-thin:before {
+  content: '\00d7';
 }
 
 .centered {
@@ -944,9 +972,12 @@ Styling for single pages
 ********************/
 
 #about {
-	margin-top: 25px;
 	.container {
-		width: 65%;
+		width: 50%;
+		padding-top: 100px;
+		.small-viewport({
+			width: 80%;
+		});
 	}
 	h3 {
 		font-family: 'gt_walsheim_thin';
