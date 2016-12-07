@@ -1,0 +1,156 @@
+<div id="event">
+
+	<h1 class="name">
+	  Miracle Marathon
+	</h1>
+
+	<div class="header">
+		<img ng-src="http://radio.serpentinegalleries.org/wp-content/uploads/2016/10/marathon_miracle-2.jpg" alt="{{ post.title }}">
+	</div>
+	<div id="watch-livestream"></div>
+
+	<div class="container main">
+		<div class="row">
+			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 information">
+				<a ui-sref="blog">
+					<h5>Live Blog</h5>
+					<img ng-src="http://radio.serpentinegalleries.org/wp-content/uploads/2016/10/wave_icon.png">
+				</a>
+				<h5>Saturday 8 October</h5>
+				<p>10:00-22:00<br>
+					Serpentine Sackler Gallery, London W2 2AR
+				</p>
+				<h5>Sunday 9 October</h5>
+				<p>12:00-24:00<br>
+					Second Home, London E1 5JL
+				</p>
+			</div>
+			<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+				<div ng-bind-html="post.content"></div>
+			</div>
+		</div>
+	</div>
+
+
+	<div>
+		{{ programme.content }}
+	</div>
+
+
+	<!-- Participants -->
+		<div class="container">
+			<div class="row section-heading">
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+					<h3>PARTICIPANTS</h3>
+				</div>
+				<!--<div class="col-lg-1 col-lg-offset-4 col-md-2 col-sm-2 col-xs-12">
+					<h3>All</h3>
+				</div>
+				<div class="col-lg-1 col-md-2 col-sm-2 col-xs-12">
+					<h3>A-J</h3>
+				</div>
+				<div class="col-lg-1 col-md-2 col-sm-2 col-xs-12">
+					<h3>K-S</h3>
+				</div>
+				<div class="col-lg-1 col-md-2 col-sm-2 col-xs-12">
+					<h3>T-Z</h3>
+				</div>-->
+			</div>
+		</div>
+
+		<div id="participants" class="container">
+			<div ng-repeat="item in participants">
+				<a ui-sref="participant({participantId: item.slug })">
+
+					<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+						<div class="item-box">
+							<!--<div class="circle-info">
+								<p>
+									42
+								</p>
+							</div>-->
+
+							<div class="circle-image-background" style="background-image: url('{{ item.thumbnail_images.medium.url }}')">
+							</div>
+							<h4>
+								{{ item.title }}
+							</h4>
+							<h6>
+								{{ item.custom_fields.title[0] ? item.custom_fields.title[0] : '' }}
+							</h6>
+						</div>
+					</div>
+
+				</a>
+			</div>
+
+		</div>
+
+		<div id="blog">
+			<a ui-sref="marathon-participants">
+			  <div id="participants-show-more" class="circle-image-background show-more"> 
+			    <h5>
+			      show more
+			    </h5>
+			  </div>
+			</a>
+		</div>
+
+	<!-- /Participants -->
+
+	<!-- Blog -->
+	<div id="blog">
+		<hr>
+		<div class="container blog-post">
+			<div class="header">
+				<h5>
+					Miracle Live Blog
+				</h5>
+
+				<a ui-sref="blog-post({postId: blog.slug })">
+					<h1>
+						<div ng-bind-html="post.title | to_trusted"></div>
+					</h1>
+				</a>
+
+				<h3>
+					by {{ blog.author.first_name }} {{ blog.author.last_name }} - {{ blog.date }}
+				</h3>
+			</div>
+
+			<div class="body">
+				<div ng-bind-html="blog.excerpt | to_trusted"></div>
+			</div>
+
+		      <a ui-sref="blog">
+		          <div class="circle-image-background show-more"> 
+		            <h5>
+		              show more
+		            </h5>
+		          </div>
+		      </a>
+
+		</div>
+		<hr>
+	</div>
+	<!-- /Blog -->
+	
+	<!-- Supporters -->
+	<div id="supporters" class="container">
+
+		<div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
+			<h3 class="title">{{ supporters.title }}</h3>
+			<div ng-bind-html="supporters.content"></div>
+		</div>
+
+		<div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+			<a class="title" href="http://www.serpentinegalleries.org/">
+				<img src="http://radio.serpentinegalleries.org/wp-content/uploads/2016/10/Serpentine_galleries_logo_w.png">
+			</a>
+		</div>
+
+	</div>
+
+
+
+</div>

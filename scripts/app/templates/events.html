@@ -31,14 +31,14 @@
 
 	<div id="series">
 		<div ng-repeat="post in posts">
-		  <a ui-sref="series-single({seriesId: post.slug })">
+		  <a ui-sref="event-single({eventId: post.slug })">
 		    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
 				<div class="item-box">
 					<div class="circle-image-background" style="background-image: url('{{ (post.thumbnail_images.large.url) ? post.thumbnail_images.large.url : post.thumbnail_images.full.url }}')">
 						<i ng-click="play(post.custom_fields.audio[0], post.slug)" class="fa fa-play round-border player-icon" aria-hidden="true"></i>
 					</div>
 					<h3>
-						{{ post.title }}
+						{{ post.title }} <br>
 					</h3>
 				</div>
 		    </div>
