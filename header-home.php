@@ -52,7 +52,7 @@
 <body ng-app="radioApp">
 
 	<!-- Navigation -->
-	<nav id="navigation" class="nav-primary" ng-controller="NavCtrl" role="navigation" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+	<nav id="navigation" class="nav-primary" role="navigation" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
 		<div class="container">
 			<a ui-sref="index">radio.Serpentine</a>
 			<a ui-sref="about">About</a>
