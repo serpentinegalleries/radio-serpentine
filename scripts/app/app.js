@@ -937,13 +937,13 @@ radioApp.controller('SingleEventCtrl', function($scope, $sce, $http, $log, $stat
     then(function(response) {
       $scope.info = response.data.posts[0];
     });
+  $http.get('/?json=get_category_posts&category_slug=' + slug + '-tracks&date_format=m/d/Y').
+    then(function(response) {
+      $scope.tracks = response.data.posts;
+    });
   $http.get('/?json=get_category_posts&category_slug=' + slug + '&category_slug=event-participant&date_format=m/d/Y&count=12').
     then(function(response) {
       $scope.participants = response.data.posts;
-    });
-  $http.get('/?json=get_category_posts&category_slug=' + slug + '&category_slug=programme&date_format=m/d/Y').
-    then(function(response) {
-      $scope.programme = response.data.posts;
     });
   $http.get('/?json=get_category_posts&category_slug=' + slug + '&category_slug=blog&date_format=m/d/Y').
     then(function(response) {
@@ -997,6 +997,9 @@ radioApp.controller('MarathonCtrl', function($scope, $sce, $http, $log, $statePa
 $http.get('/?json=get_post&post_slug=miracle-marathon').
   then(function(response) {
     $scope.post = response.data.post;
+  });
+  $http.get('/?json=get_category_posts&category_slug=miracle-marathon-tracks&date_format=m/d/Y').then(function(response) {
+      $scope.tracks = response.data.posts;
   });
   $scope.play = function(song_url, slug) {
     player.open();

@@ -31,6 +31,51 @@
 		</div>
 	</div>
 
+	<!-- Tracks -->
+	<div class="container" id="tracks-miracle">
+	<hr>
+		<div ng-repeat="track in tracks | orderBy: 'date'" id="tracks" ng-if="track.custom_fields.audio[0]">
+			<div class="row hidden-xs">
+				<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+					<p>
+						<i ng-click="play(track.custom_fields.audio[0], track.slug)" class="fa fa-play"></i> {{ track.title }}
+					</p>
+				</div>
+				<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+					<p>
+						<span ng-repeat="participant in track.custom_fields.participant">
+							{{ participant }}{{$last ? '' : ', '}}
+						</span>
+					</p>
+				</div>
+				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+					<p>
+						{{ track.date }}
+					</p>
+				</div>
+			</div>
+
+			<div class="row mobile hidden-lg hidden-md hidden-sm">
+				<div class="col-xs-2">
+					<p>
+						<i ng-click="play(track.custom_fields.audio[0], track.slug)" class="fa fa-play"></i>
+					</p>
+				</div>
+				<div class="col-xs-10">
+					<h6>
+						<span ng-repeat="participant in track.custom_fields.participant">
+							{{ participant }}{{$last ? '' : ', '}}
+						</span>
+					</h6>
+					<p>
+						{{ track.title }}
+					</p>
+				</div>
+			</div>
+			<hr>
+		</div>
+	</div>
+
 	<div ui-view="programme">
 	</div>
 	<div ui-view="participants">
