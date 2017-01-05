@@ -189,41 +189,15 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
 });
 
 /**************************
-Main Navigation
-**************************/
-/*
-radioApp.run(function ($rootScope, $location) {
-
-    var history = [];
-
-    $rootScope.$on('$routeChangeSuccess', function() {
-        history.push($location.$$path);
-    });
-
-    $rootScope.back = function () {
-        var prevUrl = history.length > 1 ? history.splice(-2)[0] : "/";
-        $location.path(prevUrl);
-    };
-
-});
-
-radioApp.controller('NavCtrl', function($uibModal, $scope, $log, aboutModal) {
-
-  $scope.open = function() {
-    aboutModal.open();
-  };
-
-});*/
-
-
-/**************************
 Player modal factory
 **************************/
 
 radioApp.factory('player', function($uibModal, $log, $http, audio, $rootScope, $timeout) {
   var track = {};
   var track_playlist = {};
+  var index = null;
 
+  var isPlaylist = false;
   var isOpen = false;
 
   var open = function() {
@@ -248,7 +222,7 @@ radioApp.factory('player', function($uibModal, $log, $http, audio, $rootScope, $
       angular.element(document.querySelector('#playerPause')).removeClass("hidden");
     };
   };
-  var setTrackData = function(slug, playlist) {
+  var setTrackData = function(slug, index, playlist) {
     track = $http.get('/?json=get_post&post_slug=' + slug).
     then(function(response) {
       track = response.data.post;
@@ -256,8 +230,13 @@ radioApp.factory('player', function($uibModal, $log, $http, audio, $rootScope, $
         $http.get('/?json=get_category_posts&category_slug=' + track.custom_fields[playlist]).
         then(function(response) {
           track_playlist = response.data.posts;
-          $log.info(track_playlist);
+          track_index = index;
+          isPlaylist = true;
         });
+      } else {
+        track_playlist = {};
+        track_index = null;
+        isPlaylist = false;
       };
       return track;
     });
@@ -295,73 +274,6 @@ radioApp.factory('player', function($uibModal, $log, $http, audio, $rootScope, $
   }
 });
 
-
-/* Marathon livestream player 
-
-radioApp.factory('marathon_player', function($uibModal, $log, $http, audio, $rootScope) {
-  var track = {};
-
-  var isOpen = false;
-
-  var open = function() {
-    angular.element(document.querySelector('.wave-container')).addClass("hidden");
-    var modalInstance = $uibModal.open({
-      animation: false,
-      ariaDescribedBy: 'modal-body',
-      templateUrl: TEMPLATES_URI + 'marathon-modal-player.html',
-      controller: 'PlayerMarathonInstanceCtrl',
-      windowClass: 'marathonModal',
-    });
-  };
-
-  var setTrackData = function(slug) {
-    track = $http.get('/?json=get_post&post_slug=' + slug).
-    then(function(response) {
-      track = response.data.post;
-      return track;
-    });
-    return track;
-  };
-  var getTrackData = function() {
-    return track;
-  };
-  var min = function() {
-    angular.element(document.querySelector('.marathonModal')).addClass("blur");
-    angular.element(document.querySelector('body')).removeClass("modal-open");
-    angular.element(document.querySelector('.wave-container')).removeClass("hidden");
-    angular.element(document.querySelector('.modal-backdrop')).addClass("send-to-back");
-    angular.element(document.querySelector('.metadata')).addClass("hidden");
-    angular.element(document.querySelector('.download')).addClass("hidden");
-    angular.element(document.querySelector('.on-air')).addClass("hidden");
-  };
-  return {
-    open: open,
-    setTrackData: setTrackData,
-    get: getTrackData,
-    min: min,
-  }
-}); */
-
-/* Modal for about page 
-radioApp.factory('aboutModal', function($uibModal, $http, $log) {
-
-  var open = function() {
-    var modalInstance = $uibModal.open({
-      animation: false,
-      ariaDescribedBy: 'modal-body',
-      templateUrl: TEMPLATES_URI + 'about.html',
-      controller: 'AboutInstanceCtrl',
-      windowClass: 'aboutModal',
-    });
-    // Hide wave icon
-    angular.element(document.querySelector('.wave-container')).addClass("hidden");
-  };
-
-  return {
-    open: open,
-  };
-
-}); */
 
 /**************************
 Audio audioElement factory and time conversions
@@ -490,6 +402,23 @@ radioApp.factory('audio', function($document, $log, $http, $q, $rootScope, $time
       deferred.resolve(audioElement);
       return deferred.promise;
     }
+  }
+});
+
+radioApp.factory('queueTracks', function($document, $log, $http, $rootScope, audio, player) {
+  return {
+    playNext: function(index, tracksObjs) {
+      /* 
+      index++;
+      Play function using playlist[index] */
+      $rootScope.$broadcast('isTrackPlaying');
+    },
+    playPrevious: function(index, tracksObjs) {
+      /* 
+      index--;
+      Play function using playlist[index] */
+      $rootScope.$broadcast('isTrackPlaying');
+    },
   }
 });
 
@@ -674,11 +603,11 @@ radioApp.controller('PlayerInstanceCtrl', function($uibModalInstance, $log, $htt
   $scope.minim = function() {
     player.min();
   }
-  $scope.previous = function(path) {
+  $scope.previous = function() {
     /* To do: changetrack rootscope broadcast to update player data */
     audio.setSrc(path);
   }
-  $scope.next = function(path) {
+  $scope.next = function() {
     /* To do: changetrack rootscope broadcast to update player data */
     audio.setSrc(path);
   }
@@ -693,68 +622,6 @@ radioApp.controller('PlayerInstanceCtrl', function($uibModalInstance, $log, $htt
   };
 
 });
-
-/* Marathon Modal
-radioApp.controller('PlayerMarathonInstanceCtrl', function($uibModalInstance, marathon_player, $log, $scope, player, audio) {
-  // get related tracks and cue them for the next / previous buttons
-
-  $scope.track = player.get();
-
-  $scope.isPlaying = true;
-
-  $scope.isVideo = true;
-
-  $scope.$on('isTrackPlaying', function(event) {
-    $scope.isPlaying = !(audio.isAudioPaused());
-  });
-
-  $scope.$on('changeTrack', function(event, args) {
-    $scope.track = player.get();
-    $scope.isPlaying = true;
-  });
-
-  $scope.minim = function() {
-    marathon_player.min();
-  }
-  $scope.previous = function(path) {
-    /* To do: changetrack rootscope broadcast to update player data 
-    audio.setSrc(path);
-  }
-  $scope.next = function(path) {
-    /* To do: changetrack rootscope broadcast to update player data 
-    audio.setSrc(path);
-  }
-  $scope.pause = function() {
-    audio.pause();
-    $scope.isPlaying = false;
-  };
-  $scope.play = function() {
-    audio.play();
-    $rootScope.$broadcast('isTrackPlaying');
-    $scope.isPlaying = true;
-  };
-
-  $scope.ok = function() {
-    $uibModalInstance.dismiss();
-    angular.element(document.querySelector('.wave-container')).removeClass("hidden");
-    angular.element(document.querySelector('body')).removeClass("modal-open");
-  };
-
-}); */
-
-/* About Modal
-radioApp.controller('AboutInstanceCtrl', function($uibModalInstance, $rootScope, $http, $log, $scope, aboutModal) {
-
-  $http.get('/?json=get_post&post_slug=about').
-    then(function(response) {
-        $scope.post = response.data.post;
-    });
-
-  $scope.close = function() {
-    $uibModalInstance.dismiss();
-  };
-
-});*/
 
 /* Wave Icon Controller, Triggers player open and closed */
 radioApp.controller('WaveIconCtrl', function($uibModal, $rootScope, $scope, $log, audio, player, $rootScope, $http) {
@@ -914,13 +781,12 @@ radioApp.controller('SingleSeriesCtrl', function($scope, $sce, $http, $log, $sta
   $http.get('/?json=get_category_posts&category_slug=' + slug + '&date_format=m/d/Y').
     then(function(response) {
       $scope.tracks = response.data.posts;
-      console.log($scope.tracks);
     });
   $scope.renderHtml = function(code) {
     return $sce.trustAsHtml(code);
   };
-  $scope.play = function(song_url, slug) {
-    player.setTrackData(slug, "series").then(function() {
+  $scope.play = function(song_url, slug, index) {
+    player.setTrackData(slug, index, "series").then(function() {
       audio.setSrc(song_url).then(function() {
         player.open();
       });
@@ -1080,3 +946,161 @@ radioApp.filter('to_trusted', ['$sce', function($sce) {
     return $sce.trustAsHtml(text);
   };
 }]);
+
+
+/* Marathon Modal
+radioApp.controller('PlayerMarathonInstanceCtrl', function($uibModalInstance, marathon_player, $log, $scope, player, audio) {
+  // get related tracks and cue them for the next / previous buttons
+
+  $scope.track = player.get();
+
+  $scope.isPlaying = true;
+
+  $scope.isVideo = true;
+
+  $scope.$on('isTrackPlaying', function(event) {
+    $scope.isPlaying = !(audio.isAudioPaused());
+  });
+
+  $scope.$on('changeTrack', function(event, args) {
+    $scope.track = player.get();
+    $scope.isPlaying = true;
+  });
+
+  $scope.minim = function() {
+    marathon_player.min();
+  }
+  $scope.previous = function(path) {
+    /* To do: changetrack rootscope broadcast to update player data 
+    audio.setSrc(path);
+  }
+  $scope.next = function(path) {
+    /* To do: changetrack rootscope broadcast to update player data 
+    audio.setSrc(path);
+  }
+  $scope.pause = function() {
+    audio.pause();
+    $scope.isPlaying = false;
+  };
+  $scope.play = function() {
+    audio.play();
+    $rootScope.$broadcast('isTrackPlaying');
+    $scope.isPlaying = true;
+  };
+
+  $scope.ok = function() {
+    $uibModalInstance.dismiss();
+    angular.element(document.querySelector('.wave-container')).removeClass("hidden");
+    angular.element(document.querySelector('body')).removeClass("modal-open");
+  };
+
+}); */
+
+/* About Modal
+radioApp.controller('AboutInstanceCtrl', function($uibModalInstance, $rootScope, $http, $log, $scope, aboutModal) {
+
+  $http.get('/?json=get_post&post_slug=about').
+    then(function(response) {
+        $scope.post = response.data.post;
+    });
+
+  $scope.close = function() {
+    $uibModalInstance.dismiss();
+  };
+
+});*/
+
+
+/* Marathon livestream player 
+
+radioApp.factory('marathon_player', function($uibModal, $log, $http, audio, $rootScope) {
+  var track = {};
+
+  var isOpen = false;
+
+  var open = function() {
+    angular.element(document.querySelector('.wave-container')).addClass("hidden");
+    var modalInstance = $uibModal.open({
+      animation: false,
+      ariaDescribedBy: 'modal-body',
+      templateUrl: TEMPLATES_URI + 'marathon-modal-player.html',
+      controller: 'PlayerMarathonInstanceCtrl',
+      windowClass: 'marathonModal',
+    });
+  };
+
+  var setTrackData = function(slug) {
+    track = $http.get('/?json=get_post&post_slug=' + slug).
+    then(function(response) {
+      track = response.data.post;
+      return track;
+    });
+    return track;
+  };
+  var getTrackData = function() {
+    return track;
+  };
+  var min = function() {
+    angular.element(document.querySelector('.marathonModal')).addClass("blur");
+    angular.element(document.querySelector('body')).removeClass("modal-open");
+    angular.element(document.querySelector('.wave-container')).removeClass("hidden");
+    angular.element(document.querySelector('.modal-backdrop')).addClass("send-to-back");
+    angular.element(document.querySelector('.metadata')).addClass("hidden");
+    angular.element(document.querySelector('.download')).addClass("hidden");
+    angular.element(document.querySelector('.on-air')).addClass("hidden");
+  };
+  return {
+    open: open,
+    setTrackData: setTrackData,
+    get: getTrackData,
+    min: min,
+  }
+}); */
+
+/* Modal for about page 
+radioApp.factory('aboutModal', function($uibModal, $http, $log) {
+
+  var open = function() {
+    var modalInstance = $uibModal.open({
+      animation: false,
+      ariaDescribedBy: 'modal-body',
+      templateUrl: TEMPLATES_URI + 'about.html',
+      controller: 'AboutInstanceCtrl',
+      windowClass: 'aboutModal',
+    });
+    // Hide wave icon
+    angular.element(document.querySelector('.wave-container')).addClass("hidden");
+  };
+
+  return {
+    open: open,
+  };
+
+}); */
+
+/**************************
+Main Navigation
+**************************/
+/*
+radioApp.run(function ($rootScope, $location) {
+
+    var history = [];
+
+    $rootScope.$on('$routeChangeSuccess', function() {
+        history.push($location.$$path);
+    });
+
+    $rootScope.back = function () {
+        var prevUrl = history.length > 1 ? history.splice(-2)[0] : "/";
+        $location.path(prevUrl);
+    };
+
+});
+
+radioApp.controller('NavCtrl', function($uibModal, $scope, $log, aboutModal) {
+
+  $scope.open = function() {
+    aboutModal.open();
+  };
+
+});*/
