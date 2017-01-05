@@ -116,45 +116,46 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
     url: '/miracle',
     views: {
       '': {
-        templateUrl: TEMPLATES_URI + 'event-marathon.html',
+        templateUrl: TEMPLATES_URI + 'marathon/event-marathon.html',
         controller: "MarathonCtrl",
       },
 
       'programme@marathon': {
-        templateUrl: TEMPLATES_URI + 'event-marathon-programme.html',
+        templateUrl: TEMPLATES_URI + 'marathon/event-marathon-programme.html',
         controller: "ProgrammeCtrl",
       },
 
       'participants@marathon': {
-        templateUrl: TEMPLATES_URI + 'event-marathon-participants.html',
+        templateUrl: TEMPLATES_URI + 'marathon/event-marathon-participants.html',
         controller: "MarathonParticipantsCtrl",
       },
       'supporters@marathon': {
-        templateUrl: TEMPLATES_URI + 'event-marathon-supporters.html',
+        templateUrl: TEMPLATES_URI + 'marathon/event-marathon-supporters.html',
         controller: "MarathonSupportersCtrl",
       },
       'event-blog@marathon': {
-        templateUrl: TEMPLATES_URI + 'event-marathon-blog.html',
+        templateUrl: TEMPLATES_URI + 'marathon/event-marathon-blog.html',
         controller: "EventBlogCtrl",
       },
+
     },
   })
 
   // nested list with just some random string data
   .state('marathon.saturday', {
     url: '',
-    templateUrl: TEMPLATES_URI + 'event-marathon-programme-saturday.html',
+    templateUrl: TEMPLATES_URI + 'marathon/event-marathon-programme-saturday.html',
   })
 
   // nested list with just some random string data
   .state('marathon.sunday', {
     url: '',
-    templateUrl: TEMPLATES_URI + 'event-marathon-programme-sunday.html',
+    templateUrl: TEMPLATES_URI + 'marathon/event-marathon-programme-sunday.html',
   })
 
   .state('marathon-participants', {
     url: "/miracle/participants",
-    templateUrl: TEMPLATES_URI + 'event-marathon-participants-all.html',
+    templateUrl: TEMPLATES_URI + 'marathon/event-marathon-participants-all.html',
     controller: "MarathonParticipantsCtrl",
   })
 
@@ -307,7 +308,7 @@ radioApp.factory('marathon_player', function($uibModal, $log, $http, audio, $roo
     var modalInstance = $uibModal.open({
       animation: false,
       ariaDescribedBy: 'modal-body',
-      templateUrl: TEMPLATES_URI + 'modal-player-marathon.html',
+      templateUrl: TEMPLATES_URI + 'marathon-modal-player.html',
       controller: 'PlayerMarathonInstanceCtrl',
       windowClass: 'marathonModal',
     });
@@ -932,7 +933,11 @@ radioApp.controller('SingleEventCtrl', function($scope, $sce, $http, $log, $stat
     then(function(response) {
       $scope.post = response.data.post;
     });
-  $http.get('/?json=get_category_posts&category_slug=' + slug + '&category_slug=event-participants&date_format=m/d/Y&count=12').
+  $http.get('/?json=get_category_posts&category_slug=' + slug + '&category_slug=event-info&date_format=m/d/Y&count=12').
+    then(function(response) {
+      $scope.info = response.data.posts[0];
+    });
+  $http.get('/?json=get_category_posts&category_slug=' + slug + '&category_slug=event-participant&date_format=m/d/Y&count=12').
     then(function(response) {
       $scope.participants = response.data.posts;
     });
@@ -944,7 +949,7 @@ radioApp.controller('SingleEventCtrl', function($scope, $sce, $http, $log, $stat
     then(function(response) {
       $scope.blog = response.data.posts[0];
     });
-  $http.get('/?json=get_category_posts&category_slug=' + slug + '&category_slug=supporters&date_format=m/d/Y').
+  $http.get('/?json=get_category_posts&category_slug=' + slug + '&category_slug=event-supporters&date_format=m/d/Y').
     then(function(response) {
       $scope.supporters = response.data.posts[0];
     });
@@ -1000,20 +1005,19 @@ $http.get('/?json=get_post&post_slug=miracle-marathon').
   };
 });
 
-
 radioApp.controller('MarathonParticipantsCtrl', function($scope, $http, $log) {
-  $http.get('/?json=get_category_posts&category_slug=miracle-marathon&category_slug=event-participants&count=12').
+  $http.get('/?json=get_category_posts&category_slug=miracle-marathon&category_slug=miracle-marathon-participant&count=12').
   then(function(response) {
     $scope.posts = response.data.posts;
   });
-  $http.get('/?json=get_category_posts&category_slug=miracle-marathon&category_slug=event-participants&count=150').
+  $http.get('/?json=get_category_posts&category_slug=miracle-marathon&category_slug=miracle-marathon-participant&count=150').
   then(function(response) {
     $scope.participants = response.data.posts;
   });
 });
 
 radioApp.controller('MarathonSupportersCtrl', function($scope, $http, $log) {
-  $http.get('/?json=get_post&post_slug=supporters').
+  $http.get('/?json=get_category_posts&category_slug=miracle-marathon&category_slug=event-supporters&date_format=m/d/Y').
   then(function(response) {
     $scope.post = response.data.post;
   });

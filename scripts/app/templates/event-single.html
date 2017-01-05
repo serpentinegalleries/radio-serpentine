@@ -5,25 +5,14 @@
 	</h1>
 
 	<div class="header">
-		<img ng-src="http://radio.serpentinegalleries.org/wp-content/uploads/2016/10/marathon_miracle-2.jpg" alt="{{ post.title }}">
+		<img ng-src="{{ info.thumbnail_images.full.url }}" alt="{{ post.title }}">
 	</div>
 	<div id="watch-livestream"></div>
 
 	<div class="container main">
 		<div class="row">
 			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 information">
-				<a ui-sref="blog">
-					<h5>Live Blog</h5>
-					<img ng-src="http://radio.serpentinegalleries.org/wp-content/uploads/2016/10/wave_icon.png">
-				</a>
-				<h5>Saturday 8 October</h5>
-				<p>10:00-22:00<br>
-					Serpentine Sackler Gallery, London W2 2AR
-				</p>
-				<h5>Sunday 9 October</h5>
-				<p>12:00-24:00<br>
-					Second Home, London E1 5JL
-				</p>
+				<div ng-bind-html="info.content"></div>
 			</div>
 			<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
 				<div ng-bind-html="post.content"></div>
@@ -31,11 +20,7 @@
 		</div>
 	</div>
 
-
-	<div>
-		{{ programme.content }}
-	</div>
-
+	<hr>
 
 	<!-- Participants -->
 	<div class="container">
@@ -87,7 +72,7 @@
 		<div class="container blog-post">
 			<div class="header">
 				<h5>
-					Miracle Live Blog
+					Live Blog
 				</h5>
 
 				<a ui-sref="blog-post({postId: blog.slug })">
