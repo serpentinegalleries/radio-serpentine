@@ -914,6 +914,7 @@ radioApp.controller('SingleSeriesCtrl', function($scope, $sce, $http, $log, $sta
   $http.get('/?json=get_category_posts&category_slug=' + slug + '&date_format=m/d/Y').
     then(function(response) {
       $scope.tracks = response.data.posts;
+      console.log($scope.tracks);
     });
   $scope.renderHtml = function(code) {
     return $sce.trustAsHtml(code);
@@ -1002,10 +1003,17 @@ $http.get('/?json=get_post&post_slug=miracle-marathon').
       $scope.tracks = response.data.posts;
   });
   $scope.play = function(song_url, slug) {
+    player.setTrackData(slug).then(function() {
+      audio.setSrc(song_url).then(function() {
+        player.open();
+      });
+    });
+  }
+  /* For marathon $scope.play = function(song_url, slug) {
     player.open();
     audio.play();
     $rootScope.$broadcast('isTrackPlaying');
-  };
+  }; */
 });
 
 radioApp.controller('MarathonParticipantsCtrl', function($scope, $http, $log) {
