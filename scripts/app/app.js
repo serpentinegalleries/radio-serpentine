@@ -195,7 +195,7 @@ Player modal factory
 radioApp.factory('player', function($uibModal, $log, $http, audio, $rootScope, $timeout) {
   var track = {};
   var track_playlist = {};
-  var index = null;
+  var track_index = 0;
 
   var isPlaylist = false;
   var isOpen = false;
@@ -226,20 +226,30 @@ radioApp.factory('player', function($uibModal, $log, $http, audio, $rootScope, $
     track = $http.get('/?json=get_post&post_slug=' + slug).
     then(function(response) {
       track = response.data.post;
-      if (track.custom_fields[playlist]) {
-        $http.get('/?json=get_category_posts&category_slug=' + track.custom_fields[playlist]).
+      if (playlist) {
+        $http.get('/?json=get_category_posts&category_slug=' + playlist).
         then(function(response) {
           track_playlist = response.data.posts;
+          $log.info(track_playlist);
           track_index = index;
           isPlaylist = true;
         });
       } else {
         track_playlist = {};
-        track_index = null;
+        track_index = 0;
         isPlaylist = false;
       };
       return track;
     });
+    return track;
+  };
+  var nextTrackData = function() {
+    if (track_index == track_playlist.length - 1) {
+      index = 0;
+    } else {
+      track_index++;
+    };
+    track = track_playlist[track_index];
     return track;
   };
   var getTrackData = function() {
@@ -269,8 +279,32 @@ radioApp.factory('player', function($uibModal, $log, $http, audio, $rootScope, $
     open: open,
     setTrackData: setTrackData,
     get: getTrackData,
+    nextTrackData: nextTrackData,
     min: min,
     bringToFront: bringToFront,
+  }
+});
+
+
+radioApp.controller('SingleSeriesCtrl', function($scope, $sce, $http, $log, $stateParams, player, audio) {
+  var slug = $stateParams.seriesId;
+  $http.get('/?json=get_post&post_slug=' + slug + '&date_format=m/d/Y').
+    then(function(response) {
+      $scope.series = response.data.post;
+    });
+  $http.get('/?json=get_category_posts&category_slug=' + slug + '&date_format=m/d/Y').
+    then(function(response) {
+      $scope.tracks = response.data.posts;
+    });
+  $scope.renderHtml = function(code) {
+    return $sce.trustAsHtml(code);
+  };
+  $scope.play = function(track, song_url, index, playlist) {
+    player.setTrackData(track, index, playlist).then(function() {
+      audio.setSrc(song_url).then(function() {
+        player.open();
+      });
+    });
   }
 });
 
@@ -584,6 +618,8 @@ radioApp.controller('PlayerInstanceCtrl', function($uibModalInstance, $log, $htt
 
   $scope.isPlaying = true;
 
+  $scope.isPlaylist = true;
+
   $scope.isVideo = false;
 
   $scope.callAtInterval = function() {
@@ -609,7 +645,12 @@ radioApp.controller('PlayerInstanceCtrl', function($uibModalInstance, $log, $htt
   }
   $scope.next = function() {
     /* To do: changetrack rootscope broadcast to update player data */
-    audio.setSrc(path);
+      var trackShit = player.nextTrackData(); /*.then(function() {*/
+        $log.info(trackShit); /*
+        audio.setSrc(song_url).then(function() {
+          player.open();
+        });
+      });*/
   }
   $scope.pause = function() {
     audio.pause();
@@ -771,28 +812,6 @@ radioApp.controller('SingleParticipantCtrl', function($scope, $sce, $http, $log,
   }
 });
 
-
-radioApp.controller('SingleSeriesCtrl', function($scope, $sce, $http, $log, $stateParams, player, audio) {
-  var slug = $stateParams.seriesId;
-  $http.get('/?json=get_post&post_slug=' + slug + '&date_format=m/d/Y').
-    then(function(response) {
-      $scope.series = response.data.post;
-    });
-  $http.get('/?json=get_category_posts&category_slug=' + slug + '&date_format=m/d/Y').
-    then(function(response) {
-      $scope.tracks = response.data.posts;
-    });
-  $scope.renderHtml = function(code) {
-    return $sce.trustAsHtml(code);
-  };
-  $scope.play = function(song_url, slug, index) {
-    player.setTrackData(slug, index, "series").then(function() {
-      audio.setSrc(song_url).then(function() {
-        player.open();
-      });
-    });
-  }
-});
 
 radioApp.controller('SingleEventCtrl', function($scope, $sce, $http, $log, $stateParams, player, audio) {
   var slug = $stateParams.eventId;

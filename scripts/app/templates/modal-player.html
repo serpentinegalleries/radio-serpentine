@@ -14,8 +14,17 @@
   </div>
 
   <div ng-hide="isVideo">
-    <!--<i id="playerBack" class="fa fa-long-arrow-left round-border" aria-hidden="true"></i>
-    <i id="playerNext" class="fa fa-long-arrow-right round-border" aria-hidden="true"></i>-->
+    <div ng-show="isPlaylist">
+      <i id="playerBack" class="fa fa-long-arrow-left round-border" aria-hidden="true"></i>
+      <i id="playerNext" ng-click="next()" class="fa fa-long-arrow-right round-border" aria-hidden="true"></i>
+    </div>
+
+    <div class="playlist">
+      <h3>
+        {{ track.custom_fields.series[0] }}
+      </h3>
+    </div>
+
     <div id="feature">
       <div class="centered">
         <div id="audio-time">
@@ -51,7 +60,7 @@
         </a>
       </h5>
       <h5>
-        <a href="https://soundcloud.com/serpentine-uk" target="_blank">
+        <a href="{{ track.custom_fields.audio[0] }}" target="_blank">
           SOUNDCLOUD
         </a>
       </h5>

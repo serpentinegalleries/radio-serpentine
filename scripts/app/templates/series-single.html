@@ -1,10 +1,10 @@
 <div id="feature">
 	<div class="container">
 		<div class="circle-image-background" style="background-image: url('{{ series.thumbnail_images.large.url ? series.thumbnail_images.large.url : series.thumbnail_images.full.url }}')">
-			<i ng-click="play(tracks[0].custom_fields.audio[0], tracks[0].slug)" id="playerIcon" class="fa fa-play round-border hidden-lg hidden-md hidden-sm" aria-hidden="true"></i>
+			<i ng-click="play(tracks[0].slug, tracks[0].custom_fields.audio[0], null, tracks[0].custom_fields.series[0])" id="playerIcon" class="fa fa-play round-border hidden-lg hidden-md hidden-sm" aria-hidden="true"></i>
 		</div>
 		<div class="description-container">
-			<i ng-click="play(tracks[0].custom_fields.audio[0], tracks[0].slug)" id="playerIcon-track" class="fa fa-play round-border hidden-xs" aria-hidden="true"></i>
+			<i ng-click="play(tracks[0].slug, tracks[0].custom_fields.audio[0], null, tracks[0].custom_fields.series[0])" id="playerIcon-track" class="fa fa-play round-border hidden-xs" aria-hidden="true"></i>
 			<h3>
 				<span ng-repeat="participant in series.custom_fields.participant track by $index" ng-if="$index < 5">
 					{{ participant }}<span ng-if="$index < 4">, </span>
@@ -33,7 +33,7 @@
 			<div class="row hidden-xs">
 				<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
 					<p>
-						<i ng-click="play(track.custom_fields.audio[0], track.slug, $index)" class="fa fa-play"></i> {{ track.title }}
+						<i ng-click="play(track.slug, track.custom_fields.audio[0], $index, track.custom_fields.series)" class="fa fa-play"></i> {{ track.title }}
 					</p>
 				</div>
 				<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
@@ -53,7 +53,7 @@
 			<div class="row mobile hidden-lg hidden-md hidden-sm">
 				<div class="col-xs-2">
 					<p>
-						<i ng-click="play(track.custom_fields.audio[0], track.slug)" class="fa fa-play"></i>
+						<i ng-click="play(track.slug, track.custom_fields.audio[0], $index, track.custom_fields.series)" class="fa fa-play"></i>
 					</p>
 				</div>
 				<div class="col-xs-10">
