@@ -309,6 +309,18 @@ Player modal
 	border: none;
 }
 
+.playlist-metadata {
+	position: fixed;
+	max-width: 40%;
+	left: 20px;
+	top: 20px;
+	.small-viewport({
+		h3 {
+			font-size: 18px;
+		}
+	});
+}
+
 /* Player Modal */
 .playerModal {
 	h1,h2,h3,h4,h5,h6 {
@@ -329,17 +341,6 @@ Player modal
 			}
 			h4 {
 				font-size: 16px;
-			}
-		});
-	}
-	.playlist {
-		position: fixed;
-		max-width: 40%;
-		left: 20px;
-		top: 20px;
-		.small-viewport({
-			h3 {
-				font-size: 18px;
 			}
 		});
 	}
