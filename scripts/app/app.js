@@ -192,7 +192,7 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
 Player modal factory
 **************************/
 
-radioApp.factory('player', function($uibModal, $log, $http, audio, $rootScope, $timeout) {
+radioApp.factory('player', function($uibModal, $log, $http, $rootScope, $timeout) {
   var track = {};
   var track_playlist = {};
   var track_index = 0;
@@ -354,13 +354,48 @@ function audioElToTime(duration) {
   }
 };
 
-radioApp.factory('audio', function($document, $log, $http, $q, $rootScope, $timeout, $interval) {
+radioApp.factory('audio', function($document, $log, $http, $q, $rootScope, $timeout, $interval, player) {
   var audioDuration = angular.element(document.querySelector('#audio-duration'));
   var audioElement = $document[0].createElement('audio'); // $document[0].getElementById('audio');
-  audioElement.src = "http://tx.sharp-stream.com/http_live.php?i=rsl7.mp3&device=website";
 
   /* When a track ends */
-  audioElement.addEventListener("ended", function() {});
+  audioElement.addEventListener("ended", function() {
+    angular.element(document.querySelector('#audio-current-time')).html("00:00");  
+    audioElement.currentTime = 0;
+    var track = player.nextTrackData();
+    var path = track.custom_fields.audio[0];    
+    angular.element(document.querySelector('#audio-current-time')).html("00:00");  
+    $rootScope.$broadcast('changeTrack');  
+    var deferred = $q.defer();
+    if (path.includes("soundcloud")) {
+      $http.get('https://api.soundcloud.com/resolve.json?url=' + path + '&client_id=43c06cb0c044139be1d46e4f91eb411d').then(function(sound) {
+        if (audioElement.src != sound.data.uri + '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d') {
+          audioElement.pause();
+          audioElement.src = sound.data.uri + '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d';
+          audioElement.load();
+          angular.element(document.querySelector('#audio-duration')).html(msToTime(sound.data.duration));
+          audioElement.play();
+          $rootScope.$broadcast('isTrackPlaying');
+        } else {
+          audioElement.play();
+          $rootScope.$broadcast('isTrackPlaying');
+        }
+      });
+    } else {
+      if (audioElement.src !== path) {
+        audioElement.pause();
+        audioElement.src = path;
+        audioElement.load();
+        audioElement.play();
+        $rootScope.$broadcast('isTrackPlaying');
+      } else {
+        audioElement.play();
+        $rootScope.$broadcast('isTrackPlaying');
+      }
+    };
+    deferred.resolve(audioElement);
+    return deferred.promise;
+  });
 
   return {
     audioElement: audioElement,
