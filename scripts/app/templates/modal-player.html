@@ -15,7 +15,7 @@
 
   <div ng-hide="isVideo">
     <div ng-show="isPlaylist">
-      <i id="playerBack" class="fa fa-long-arrow-left round-border" aria-hidden="true"></i>
+      <i id="playerBack" ng-click="prev()" class="fa fa-long-arrow-left round-border" aria-hidden="true"></i>
       <i id="playerNext" ng-click="next()" class="fa fa-long-arrow-right round-border" aria-hidden="true"></i>
     </div>
 
@@ -45,7 +45,7 @@
     <div class="metadata">
       <h4>
         <span ng-repeat="participant in track.custom_fields.participant track by $index" ng-if="$index < 5">
-          {{ participant }}<span ng-if="$index < 4">, </span>
+          {{ participant }}{{$last ? '' : ', '}}
         </span>
       </h4>
       <h1>

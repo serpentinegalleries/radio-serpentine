@@ -197,7 +197,6 @@ radioApp.factory('player', function($uibModal, $log, $http, audio, $rootScope, $
   var track_playlist = {};
   var track_index = 0;
 
-  var isPlaylist = false;
   var isOpen = false;
 
   var open = function() {
@@ -230,14 +229,13 @@ radioApp.factory('player', function($uibModal, $log, $http, audio, $rootScope, $
         $http.get('/?json=get_category_posts&category_slug=' + playlist).
         then(function(response) {
           track_playlist = response.data.posts;
-          $log.info(track_playlist);
           track_index = index;
-          isPlaylist = true;
         });
       } else {
-        track_playlist = {};
-        track_index = 0;
-        isPlaylist = false;
+        $http.get('/?json=get_category_posts&category_slug=tracks&count=50').then(function(response) {
+          track_playlist = response.data.posts;
+          track_index = Math.floor(Math.random() * (track_playlist.length - 1 + 1));
+        });
       };
       return track;
     });
@@ -245,9 +243,18 @@ radioApp.factory('player', function($uibModal, $log, $http, audio, $rootScope, $
   };
   var nextTrackData = function() {
     if (track_index == track_playlist.length - 1) {
-      index = 0;
+      track_index = 0;
     } else {
       track_index++;
+    };
+    track = track_playlist[track_index];
+    return track;
+  };
+  var prevTrackData = function() {
+    if (track_index == 0) {
+      track_index = track_playlist.length - 1;
+    } else {
+      track_index--;
     };
     track = track_playlist[track_index];
     return track;
@@ -280,6 +287,7 @@ radioApp.factory('player', function($uibModal, $log, $http, audio, $rootScope, $
     setTrackData: setTrackData,
     get: getTrackData,
     nextTrackData: nextTrackData,
+    prevTrackData: prevTrackData,
     min: min,
     bringToFront: bringToFront,
   }
@@ -639,18 +647,15 @@ radioApp.controller('PlayerInstanceCtrl', function($uibModalInstance, $log, $htt
   $scope.minim = function() {
     player.min();
   }
-  $scope.previous = function() {
-    /* To do: changetrack rootscope broadcast to update player data */
-    audio.setSrc(path);
+  $scope.prev = function() {
+      var track = player.prevTrackData();
+      $rootScope.$broadcast('changeTrack');
+      audio.setSrc(track.custom_fields.audio[0]);
   }
   $scope.next = function() {
-    /* To do: changetrack rootscope broadcast to update player data */
-      var trackShit = player.nextTrackData(); /*.then(function() {*/
-        $log.info(trackShit); /*
-        audio.setSrc(song_url).then(function() {
-          player.open();
-        });
-      });*/
+      var track = player.nextTrackData();
+      $rootScope.$broadcast('changeTrack');
+      audio.setSrc(track.custom_fields.audio[0]);
   }
   $scope.pause = function() {
     audio.pause();
