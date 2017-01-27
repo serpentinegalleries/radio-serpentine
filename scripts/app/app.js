@@ -324,16 +324,15 @@ radioApp.factory('audio', function($document, $log, $http, $q, $rootScope, $time
     audioElement.currentTime = 0;
     var track = player.nextTrackData();
     var path = track.custom_fields.audio[0];    
-    angular.element(document.querySelector('#audio-current-time')).html("00:00");  
     $rootScope.$broadcast('changeTrack');  
     var deferred = $q.defer();
     if (path.includes("soundcloud")) {
       $http.get('https://api.soundcloud.com/resolve.json?url=' + path + '&client_id=43c06cb0c044139be1d46e4f91eb411d').then(function(sound) {
         if (audioElement.src != sound.data.uri + '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d') {
+          angular.element(document.querySelector('#audio-duration')).html(msToTime(sound.data.duration));
           audioElement.pause();
           audioElement.src = sound.data.uri + '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d';
           audioElement.load();
-          angular.element(document.querySelector('#audio-duration')).html(msToTime(sound.data.duration));
           audioElement.play();
           $rootScope.$broadcast('isTrackPlaying');
         } else {
@@ -380,14 +379,14 @@ radioApp.factory('audio', function($document, $log, $http, $q, $rootScope, $time
       return audioElement.duration;
     },
     setSrc: function(path) {
-      angular.element(document.querySelector('#audio-current-time')).html("00:00");  
       $rootScope.$broadcast('changeTrack', audioDuration);  
       var deferred = $q.defer();
-      var audioDuration;
       if (path.includes("soundcloud")) {
         $http.get('https://api.soundcloud.com/resolve.json?url=' + path + '&client_id=43c06cb0c044139be1d46e4f91eb411d').then(function(sound) {
           if (audioElement.src != sound.data.uri + '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d') {
             audioElement.pause();
+            angular.element(document.querySelector('#audio-current-time')).html("00:00");  
+            audioElement.currentTime = 0;
             audioElement.src = sound.data.uri + '/stream?client_id=43c06cb0c044139be1d46e4f91eb411d';
             audioElement.load();
             angular.element(document.querySelector('#audio-duration')).html(msToTime(sound.data.duration));
@@ -401,6 +400,8 @@ radioApp.factory('audio', function($document, $log, $http, $q, $rootScope, $time
       } else {
         if (audioElement.src !== path) {
           audioElement.pause();
+          angular.element(document.querySelector('#audio-current-time')).html("00:00");  
+          audioElement.currentTime = 0;
           audioElement.src = path;
           audioElement.load();
           audioElement.play();
@@ -414,7 +415,7 @@ radioApp.factory('audio', function($document, $log, $http, $q, $rootScope, $time
       return deferred.promise;
     },
     loadSrc: function(path) {
-     $rootScope.$broadcast('changeTrack', audioDuration);
+     $rootScope.$broadcast('changeTrack');
       var deferred = $q.defer();
       var audioDuration;
       if (audioElement.src === '') {
@@ -448,12 +449,12 @@ D3
 
 radioApp.controller('D3Controller', ['$scope', '$interval', '$log', 'audio', function($scope, $interval, $log, audio) {
   $scope.positionData = [{
-    position: 0
+    position: 0.00001
   }, ];
 
   $scope.$on('changeTrack', function(event, args) {
     $scope.positionData = [{
-      position: 0
+      position: 0.00001
     }, ];
   });
 
@@ -627,11 +628,12 @@ radioApp.controller('PlayerInstanceCtrl', function($uibModalInstance, $log, $htt
   }
   $scope.prev = function() {
       var track = player.prevTrackData();
-      $rootScope.$broadcast('changeTrack');
+      audio.currentTime = 0;
       audio.setSrc(track.custom_fields.audio[0]);
   }
   $scope.next = function() {
       var track = player.nextTrackData();
+      audio.currentTime = 0;
       $rootScope.$broadcast('changeTrack');
       audio.setSrc(track.custom_fields.audio[0]);
   }
