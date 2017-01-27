@@ -27,7 +27,7 @@
 			<div class="row hidden-xs">
 				<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
 					<p>
-						<i ng-click="play(track.custom_fields.audio[0], track.slug)" class="fa fa-play"></i> {{ track.title }}
+						<i ng-click="play(track.slug, track.custom_fields.audio[0], $index, track.custom_fields.event)" class="fa fa-play"></i> {{ track.title }}
 					</p>
 				</div>
 				<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
@@ -47,7 +47,7 @@
 			<div class="row mobile hidden-lg hidden-md hidden-sm">
 				<div class="col-xs-2">
 					<p>
-						<i ng-click="play(track.custom_fields.audio[0], track.slug)" class="fa fa-play"></i>
+						<i ng-click="play(track.slug, track.custom_fields.audio[0], $index, track.custom_fields.event)" class="fa fa-play"></i>
 					</p>
 				</div>
 				<div class="col-xs-10">

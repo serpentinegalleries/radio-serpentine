@@ -225,6 +225,7 @@ radioApp.factory('player', function($uibModal, $log, $http, $rootScope, $timeout
     track = $http.get('/?json=get_post&post_slug=' + slug).
     then(function(response) {
       track = response.data.post;
+      $log.info(playlist);
       if (playlist) {
         $http.get('/?json=get_category_posts&category_slug=' + playlist).
         then(function(response) {
@@ -307,8 +308,8 @@ radioApp.controller('SingleSeriesCtrl', function($scope, $sce, $http, $log, $sta
   $scope.renderHtml = function(code) {
     return $sce.trustAsHtml(code);
   };
-  $scope.play = function(track, song_url, index, playlist) {
-    player.setTrackData(track, index, playlist).then(function() {
+  $scope.play = function(slug, song_url, index, playlist) {
+    player.setTrackData(slug, index, playlist).then(function() {
       audio.setSrc(song_url).then(function() {
         player.open();
       });
@@ -882,8 +883,8 @@ radioApp.controller('SingleEventCtrl', function($scope, $sce, $http, $log, $stat
   $scope.renderHtml = function(code) {
     return $sce.trustAsHtml(code);
   };
-  $scope.play = function(song_url, slug) {
-    player.setTrackData(slug).then(function() {
+  $scope.play = function(slug, song_url, index, playlist) {
+    player.setTrackData(slug, index, playlist).then(function() {
       audio.setSrc(song_url).then(function() {
         player.open();
       });
