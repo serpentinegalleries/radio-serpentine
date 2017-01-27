@@ -14,7 +14,7 @@
   </div>
 
   <div ng-hide="isVideo">
-    <div ng-show="isPlaylist">
+    <div ng-show="isPlaylist" class="hidden-xs">
       <i id="playerBack" ng-click="prev()" class="fa fa-long-arrow-left round-border" aria-hidden="true"></i>
       <i id="playerNext" ng-click="next()" class="fa fa-long-arrow-right round-border" aria-hidden="true"></i>
     </div>
@@ -30,8 +30,8 @@
           <div ng-controller="D3Controller">
             <div duration-chart class="viz" chart-data="positionData"></div>
           </div>
-          <i ng-click="pause()" id="playerIcon" class="fa fa-pause round-border playerIcon-pause" ng-show="isPlaying" aria-hidden="true"></i>
-          <i ng-click="play()" id="playerIcon" class="fa fa-play round-border playerIcon-play" ng-hide="isPlaying" aria-hidden="true"></i>
+          <i ng-click="pause()" id="playerIcon" class="fa fa-pause round-border playerIcon-pause hidden-xs" ng-show="isPlaying" aria-hidden="true"></i>
+          <i ng-click="play()" id="playerIcon" class="fa fa-play round-border playerIcon-play hidden-xs" ng-hide="isPlaying" aria-hidden="true"></i>
         </div>
       </div>
     </div>
@@ -48,9 +48,15 @@
       <h3>
         {{ track.custom_fields.series[0] }}
       </h3>
+      <div class="controls hidden-lg hidden-md hidden-sm">
+        <i ng-click="prev()" class="fa fa-long-arrow-left round-border" aria-hidden="true"></i>
+        <i ng-click="pause()" class="fa fa-pause round-border playerIcon-pause" ng-show="isPlaying" aria-hidden="true"></i>
+        <i ng-click="play()" class="fa fa-play round-border playerIcon-play" ng-hide="isPlaying" aria-hidden="true"></i>
+        <i ng-click="next()" class="fa fa-long-arrow-right round-border" aria-hidden="true"></i>
+      </div>
     </div>
 
-    <div class="download">
+    <div class="download hidden-xs">
       <h5>
         <a href="http://feeds.soundcloud.com/users/soundcloud:users:62572974/sounds.rss" target="_blank">
           RSS
