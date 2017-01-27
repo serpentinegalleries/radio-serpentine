@@ -29,23 +29,6 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
     url: '/about',
     templateUrl: TEMPLATES_URI + 'about.html',
     controller: "AboutCtrl",
-    /*onEnter: [
-      "$uibModal",
-      function($uibModal) {
-        angular.element(document.querySelector('.wave-container')).addClass("hidden");
-        $uibModal.open({
-          controller: "AboutInstanceCtrl",
-          templateUrl: TEMPLATES_URI + 'about.html',
-          animation: false,
-          ariaDescribedBy: 'modal-body',
-          windowClass: 'aboutModal',
-        }).result.then(function(result) {
-            if (result) {
-                return $state.transitionTo("index");
-            }
-        });
-      }
-    ]*/
   })
 
   .state('participants', {
@@ -141,13 +124,11 @@ radioApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, 
     },
   })
 
-  // nested list with just some random string data
   .state('marathon.saturday', {
     url: '',
     templateUrl: TEMPLATES_URI + 'marathon/event-marathon-programme-saturday.html',
   })
 
-  // nested list with just some random string data
   .state('marathon.sunday', {
     url: '',
     templateUrl: TEMPLATES_URI + 'marathon/event-marathon-programme-sunday.html',
@@ -225,7 +206,6 @@ radioApp.factory('player', function($uibModal, $log, $http, $rootScope, $timeout
     track = $http.get('/?json=get_post&post_slug=' + slug).
     then(function(response) {
       track = response.data.post;
-      $log.info(playlist);
       if (playlist) {
         $http.get('/?json=get_category_posts&category_slug=' + playlist).
         then(function(response) {
@@ -235,7 +215,7 @@ radioApp.factory('player', function($uibModal, $log, $http, $rootScope, $timeout
       } else {
         $http.get('/?json=get_category_posts&category_slug=tracks&count=50').then(function(response) {
           track_playlist = response.data.posts;
-          track_index = Math.floor(Math.random() * (track_playlist.length - 1 + 1));
+          track_index = Math.floor(Math.random() * (track_playlist.length));
         });
       };
       return track;
@@ -293,30 +273,6 @@ radioApp.factory('player', function($uibModal, $log, $http, $rootScope, $timeout
     bringToFront: bringToFront,
   }
 });
-
-
-radioApp.controller('SingleSeriesCtrl', function($scope, $sce, $http, $log, $stateParams, player, audio) {
-  var slug = $stateParams.seriesId;
-  $http.get('/?json=get_post&post_slug=' + slug + '&date_format=m/d/Y').
-    then(function(response) {
-      $scope.series = response.data.post;
-    });
-  $http.get('/?json=get_category_posts&category_slug=' + slug + '&date_format=m/d/Y').
-    then(function(response) {
-      $scope.tracks = response.data.posts;
-    });
-  $scope.renderHtml = function(code) {
-    return $sce.trustAsHtml(code);
-  };
-  $scope.play = function(slug, song_url, index, playlist) {
-    player.setTrackData(slug, index, playlist).then(function() {
-      audio.setSrc(song_url).then(function() {
-        player.open();
-      });
-    });
-  }
-});
-
 
 /**************************
 Audio audioElement factory and time conversions
@@ -480,23 +436,6 @@ radioApp.factory('audio', function($document, $log, $http, $q, $rootScope, $time
       deferred.resolve(audioElement);
       return deferred.promise;
     }
-  }
-});
-
-radioApp.factory('queueTracks', function($document, $log, $http, $rootScope, audio, player) {
-  return {
-    playNext: function(index, tracksObjs) {
-      /* 
-      index++;
-      Play function using playlist[index] */
-      $rootScope.$broadcast('isTrackPlaying');
-    },
-    playPrevious: function(index, tracksObjs) {
-      /* 
-      index--;
-      Play function using playlist[index] */
-      $rootScope.$broadcast('isTrackPlaying');
-    },
   }
 });
 
@@ -707,14 +646,6 @@ radioApp.controller('PlayerInstanceCtrl', function($uibModalInstance, $log, $htt
 
 /* Wave Icon Controller, Triggers player open and closed */
 radioApp.controller('WaveIconCtrl', function($uibModal, $rootScope, $scope, $log, audio, player, $rootScope, $http) {
-  /*$http.get('/?json=get_tag_posts&tag_slug=featured').
-        then(function(response) {
-            $scope.item = response.data.posts[0];
-            player.setTrackData($scope.item.slug).then(function(){
-                  audio.loadSrc($scope.item.custom_fields.audio[0]);
-            });
-        });
-  */
 
   $scope.isPlaying = false;
 
@@ -772,7 +703,6 @@ radioApp.controller('MenuCtrl', function($scope, $http, $log, audio, player) {
     $scope.posts = response.data.posts;
   });
 });
-
 
 
 /**********************
@@ -846,6 +776,29 @@ radioApp.controller('SingleParticipantCtrl', function($scope, $sce, $http, $log,
   };
   $scope.play = function(song_url, slug) {
     player.setTrackData(slug).then(function() {
+      audio.setSrc(song_url).then(function() {
+        player.open();
+      });
+    });
+  }
+});
+
+
+radioApp.controller('SingleSeriesCtrl', function($scope, $sce, $http, $log, $stateParams, player, audio) {
+  var slug = $stateParams.seriesId;
+  $http.get('/?json=get_post&post_slug=' + slug + '&date_format=m/d/Y').
+    then(function(response) {
+      $scope.series = response.data.post;
+    });
+  $http.get('/?json=get_category_posts&category_slug=' + slug + '&date_format=m/d/Y').
+    then(function(response) {
+      $scope.tracks = response.data.posts;
+    });
+  $scope.renderHtml = function(code) {
+    return $sce.trustAsHtml(code);
+  };
+  $scope.play = function(slug, song_url, index, playlist) {
+    player.setTrackData(slug, index, playlist).then(function() {
       audio.setSrc(song_url).then(function() {
         player.open();
       });
@@ -1056,21 +1009,6 @@ radioApp.controller('PlayerMarathonInstanceCtrl', function($uibModalInstance, ma
 
 }); */
 
-/* About Modal
-radioApp.controller('AboutInstanceCtrl', function($uibModalInstance, $rootScope, $http, $log, $scope, aboutModal) {
-
-  $http.get('/?json=get_post&post_slug=about').
-    then(function(response) {
-        $scope.post = response.data.post;
-    });
-
-  $scope.close = function() {
-    $uibModalInstance.dismiss();
-  };
-
-});*/
-
-
 /* Marathon livestream player 
 
 radioApp.factory('marathon_player', function($uibModal, $log, $http, audio, $rootScope) {
@@ -1116,51 +1054,3 @@ radioApp.factory('marathon_player', function($uibModal, $log, $http, audio, $roo
     min: min,
   }
 }); */
-
-/* Modal for about page 
-radioApp.factory('aboutModal', function($uibModal, $http, $log) {
-
-  var open = function() {
-    var modalInstance = $uibModal.open({
-      animation: false,
-      ariaDescribedBy: 'modal-body',
-      templateUrl: TEMPLATES_URI + 'about.html',
-      controller: 'AboutInstanceCtrl',
-      windowClass: 'aboutModal',
-    });
-    // Hide wave icon
-    angular.element(document.querySelector('.wave-container')).addClass("hidden");
-  };
-
-  return {
-    open: open,
-  };
-
-}); */
-
-/**************************
-Main Navigation
-**************************/
-/*
-radioApp.run(function ($rootScope, $location) {
-
-    var history = [];
-
-    $rootScope.$on('$routeChangeSuccess', function() {
-        history.push($location.$$path);
-    });
-
-    $rootScope.back = function () {
-        var prevUrl = history.length > 1 ? history.splice(-2)[0] : "/";
-        $location.path(prevUrl);
-    };
-
-});
-
-radioApp.controller('NavCtrl', function($uibModal, $scope, $log, aboutModal) {
-
-  $scope.open = function() {
-    aboutModal.open();
-  };
-
-});*/
