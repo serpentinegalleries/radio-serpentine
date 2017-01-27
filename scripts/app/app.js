@@ -186,11 +186,13 @@ radioApp.factory('player', function($uibModal, $log, $http, $rootScope, $timeout
       angular.element(document.querySelector('.modal-backdrop')).removeClass("send-to-back");
       angular.element(document.querySelector('body')).addClass("modal-open");
       angular.element(document.querySelector('.wave-container')).addClass("hidden");
+      angular.element(document.querySelector('#playerPause')).addClass("hidden");
       angular.element(document.querySelector('.metadata')).removeClass("hidden");
       angular.element(document.querySelector('.download')).removeClass("hidden");
       angular.element(document.querySelector('.on-air')).removeClass("hidden");
     } else {
       angular.element(document.querySelector('.wave-container')).addClass("hidden");
+      angular.element(document.querySelector('#playerPause')).addClass("hidden");
       var modalInstance = $uibModal.open({
         animation: false,
         ariaDescribedBy: 'modal-body',
@@ -199,7 +201,6 @@ radioApp.factory('player', function($uibModal, $log, $http, $rootScope, $timeout
         windowClass: 'playerModal',
       });
       isOpen = true;
-      angular.element(document.querySelector('#playerPause')).removeClass("hidden");
     };
   };
   var setTrackData = function(slug, index, playlist) {
@@ -247,6 +248,7 @@ radioApp.factory('player', function($uibModal, $log, $http, $rootScope, $timeout
     angular.element(document.querySelector('.playerModal')).addClass("blur");
     angular.element(document.querySelector('body')).removeClass("modal-open");
     angular.element(document.querySelector('.wave-container')).removeClass("hidden");
+    angular.element(document.querySelector('#playerPause')).removeClass("hidden");
     angular.element(document.querySelector('.modal-backdrop')).addClass("send-to-back");
     angular.element(document.querySelector('.metadata')).addClass("hidden");
     angular.element(document.querySelector('.download')).addClass("hidden");
@@ -257,6 +259,7 @@ radioApp.factory('player', function($uibModal, $log, $http, $rootScope, $timeout
       angular.element(document.querySelector('.playerModal')).removeClass("blur");
       angular.element(document.querySelector('.modal-backdrop')).removeClass("send-to-back");
       angular.element(document.querySelector('body')).addClass("modal-open");
+      angular.element(document.querySelector('#playerPause')).addClass("hidden");
       angular.element(document.querySelector('.wave-container')).addClass("hidden");
       angular.element(document.querySelector('.metadata')).removeClass("hidden");
       angular.element(document.querySelector('.download')).removeClass("hidden");

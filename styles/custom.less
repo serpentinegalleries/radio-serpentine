@@ -72,6 +72,9 @@ body,html {
 body {
 	padding-bottom: 100px;
 	padding-right: 0 !important;
+	.small-viewport({
+		padding-bottom: 25px;
+	});
 }
 
 html, body, p, a, h1, h2, h3, h4, h5, h6 {
@@ -427,11 +430,6 @@ Player modal
 	.playerIcon-play {
 		padding-left: 11px !important;
 	}
-	#feature {
-		.container {
-
-		}
-	}
 	iframe {
 		position: fixed;
 		bottom: 0;
@@ -575,6 +573,10 @@ Wave Icon
 	cursor: pointer;
 	border-radius: 50%;
 	border: 2px solid #fff;
+  	z-index: 9000;
+	.small-viewport({
+		right: 70px;
+	});
 	i {
 		font-size: 12px;
 		margin-top: 11px;
@@ -737,6 +739,7 @@ img {
 	z-index: 3;
 	.small-viewport({
 		bottom: -50px;
+		margin-bottom: 50px;
 	});
 }
 
@@ -773,16 +776,6 @@ img {
 			width: 90%;
 			height: auto;
 		});
-	}
-	.container-scaled {
-		/*height: calc(~"100vh - 280px");
-		.medium-viewport({
-			max-height: 450px;
-		})
-		.small-viewport({
-			width: 90%;
-			height: auto;
-		});*/
 	}
 	.feature-image {
 		display: block;
@@ -1003,7 +996,7 @@ Styling for single pages
 		width: 50%;
 		padding-top	: 50px;
 		.small-viewport({
-			width: 80%;
+			width: 90%;
 		});
 	}
 	h3 {
@@ -1086,6 +1079,7 @@ Styling for single pages
 	});
 	.small-viewport({
 		font-size: 18px;
+		margin: 25px auto;
 	});
 }
 
@@ -1101,6 +1095,9 @@ Styling for single pages
 		display: block;
 		margin: 0 auto;
 		width: 70%;
+		.small-viewport({
+			width: 90%;
+		});
 	}
 	p {
 		font-size: 20px;
@@ -1194,6 +1191,9 @@ Styling for single pages
 			display: block;
 			width: 60%;
 			margin: 0 auto;
+			.small-viewport({
+				width: 100%;
+			});
 		}
 		.circle-image-background {
 			width: 205px;
@@ -1236,6 +1236,9 @@ Styling for single pages
 		}
 		.container {
 			width: 70%;
+			.small-viewport({
+				width: 90%;
+			});
 		}
 		.item-box {
 			width: 205px;
